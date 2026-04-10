@@ -744,31 +744,69 @@
     </div>
   </footer>
 
-  <script>
-    async function loadGithubRepos() {
+  async function loadGithubRepos() {
       const grid = document.getElementById('github-repos-grid');
+      const username = 'okumakung2018';
+      
       try {
-        const res = await fetch('https://api.github.com/users/okumakung2018/repos?sort=updated&per_page=6');
+        // เพิ่ม Cache Control เล็กน้อยเผื่อเบราว์เซอร์ค้าง
+        const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+
+        if (!res.ok) throw new Error('API limit reached');
+
         const repos = await res.json();
+        
+        if (repos.length === 0) {
+          grid.innerHTML = '<p style="color:var(--muted); grid-column: 1/-1;">No public repositories found.</p>';
+          return;
+        }
+
         grid.innerHTML = '';
-        repos.filter(r => !r.fork).forEach(repo => {
+        // กรองเฉพาะ repo ที่ไม่ใช่ fork และแสดงผล
+        repos.filter(r => !r.fork).slice(0, 6).forEach(repo => {
           const card = document.createElement('a');
           card.href = repo.html_url;
           card.target = '_blank';
           card.className = 'repo-card';
           card.innerHTML = `
             <div class="repo-card-name">📁 ${repo.name}</div>
-            <div class="repo-card-desc">${repo.description || 'No description'}</div>
+            <div class="repo-card-desc">${repo.description || 'Project developed with automation and efficiency in mind.'}</div>
             <div class="repo-card-meta">
-              <span class="repo-lang"><span class="lang-dot" style="background:#f7df1e"></span>${repo.language || 'JS'}</span>
+              <span class="repo-lang">
+                <span class="lang-dot" style="background:${getLangColor(repo.language)}"></span>
+                ${repo.language || 'Plain Text'}
+              </span>
               <span style="font-size:0.7rem; color:var(--muted);">⭐ ${repo.stargazers_count}</span>
             </div>
           `;
           grid.appendChild(card);
         });
-      } catch (e) { grid.innerHTML = '<p>Failed to load repos</p>'; }
+      } catch (e) {
+        console.error(e);
+        // กรณีโหลดไม่ได้ ให้แสดงปุ่มกดไปดูหน้าโปรไฟล์ตรงๆ แทน เพื่อไม่ให้หน้าเว็บดูว่างเปล่า
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; border: 1px dashed var(--border); border-radius: 12px;">
+            <p style="color:var(--muted); margin-bottom: 16px;">ไม่สามารถดึงข้อมูลจาก GitHub ได้ในขณะนี้ (API Limit)</p>
+            <a href="https://github.com/${username}" target="_blank" class="btn-secondary">เข้าไปดูที่ GitHub โดยตรง</a>
+          </div>
+        `;
+      }
     }
+
+    // ฟังก์ชันช่วยเลือกสีจุดตามภาษา (Optional)
+    function getLangColor(lang) {
+      const colors = {
+        'JavaScript': '#f1e05a',
+        'HTML': '#e34c26',
+        'CSS': '#563d7c',
+        'Python': '#3572A5',
+        'PHP': '#4F5D95'
+      };
+      return colors[lang] || '#8b949e';
+    }
+
     loadGithubRepos();
-  </script>
 </body>
 </html>
