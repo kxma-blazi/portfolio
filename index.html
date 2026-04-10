@@ -457,27 +457,6 @@
       background: var(--cyan);
     }
 
-    /* FOOTER */
-    footer {
-      border-top: 1px solid rgba(56,189,248,0.07);
-      padding: 48px 0;
-      text-align: center;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin-top: 10px;
-    }
-
-    .footer-links a {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-decoration: none;
-    }
-
     /* GITHUB STYLE */
     .repo-card {
       background: var(--card);
@@ -497,6 +476,79 @@
     .repo-card-meta { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
     .repo-lang { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
     .lang-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* FOOTER STYLE */
+    footer {
+      border-top: 1px solid rgba(56,189,248,0.1);
+      padding: 60px 0 40px;
+      text-align: center;
+      background: linear-gradient(to bottom, transparent, rgba(13, 21, 38, 0.6));
+    }
+
+    .footer-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 12px;
+    }
+
+    .footer-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--cyan);
+      background: rgba(56,189,248,0.05);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .footer-link-btn:hover {
+      background: rgba(56,189,248,0.15);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 24px;
+    }
+
+    .footer-name {
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+    }
+
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: #334155;
+    }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -577,13 +629,13 @@
           <div class="timeline-dot"></div>
           <div class="timeline-card">
             <div class="timeline-header">
-              <div class="timeline-role">Operation & Maintenant Intern</div>
+              <div class="timeline-role">IT Intern · System Support & Infrastructure</div>
               <span class="timeline-badge">4 เดือน</span>
             </div>
             <div class="timeline-company">บริษัท System Innovation and Supply Co., Ltd.</div>
             <p class="timeline-desc">
               ฝึกงานในตำแหน่งด้านระบบสารสนเทศและโครงสร้างพื้นฐาน ทำงานร่วมกับทีม IT ในการ
-              ตรวจสอบ และบำรุงรักษาระบบคอมพิวเตอร์ ได้รับประสบการณ์ตรงในการ
+              ติดตั้ง ตรวจสอบ และบำรุงรักษาระบบคอมพิวเตอร์ ได้รับประสบการณ์ตรงในการ
               troubleshoot ปัญหาฮาร์ดแวร์และซอฟต์แวร์
             </p>
             <div class="timeline-tags">
@@ -625,7 +677,8 @@
             </div>
           </div>
         </div>
-        </div>
+
+      </div>
     </section>
 
     <section id="projects">
@@ -653,7 +706,7 @@
         <div class="skill-item"><span class="skill-dot"></span>Google Apps Script</div>
         <div class="skill-item"><span class="skill-dot"></span>JavaScript (ES6+)</div>
         <div class="skill-item"><span class="skill-dot"></span>n8n Automation</div>
-        <div class="skill-item"><span class="skill-dot"></span>Docker & Self-Hosting For n8n</div>
+        <div class="skill-item"><span class="skill-dot"></span>Docker & Self-Hosting</div>
         <div class="skill-item"><span class="skill-dot"></span>Linux Server (Ubuntu)</div>
         <div class="skill-item"><span class="skill-dot"></span>Groq AI / LLM</div>
         <div class="skill-item"><span class="skill-dot"></span>Telegram Bot API</div>
@@ -668,18 +721,28 @@
       </div>
     </section>
 
-    <footer>
-      <div class="footer-name" style="font-family:var(--mono); color:var(--muted); font-size:0.75rem; letter-spacing:0.15em;">SAHARAT INTAVIRA · AI AUTOMATION</div>
+  </div> <footer>
+    <div class="container">
+      <div class="footer-title">Let's Work Together</div>
+      <p class="footer-desc">มีโปรเจกต์ที่น่าสนใจ หรือต้องการปรึกษาเรื่องไอทีและระบบ Automation? ทักมาพูดคุยกันได้เลยครับ</p>
+      
       <div class="footer-links">
-        <a href="https://github.com/okumakung2018" target="_blank" style="color:var(--muted); text-decoration:none;">GitHub</a>
-        <a href="mailto:okumakung2018@gmail.com" style="color:var(--muted); text-decoration:none;">Email</a>
+        <a href="mailto:okumakung2018@gmail.com" class="footer-link-btn">
+          <span class="skill-dot"></span> Email Me
+        </a>
+        <a href="https://github.com/okumakung2018" target="_blank" class="footer-link-btn">
+          <span class="skill-dot" style="background:#f7df1e"></span> GitHub
+        </a>
       </div>
-      <p style="margin-top:20px; font-family:var(--mono); font-size:0.65rem; color:#334155;">
-        © 2026 · Built with HTML/CSS · Hosted on GitHub Pages
-      </p>
-    </footer>
 
-  </div>
+      <div class="footer-bottom">
+        <div class="footer-name">SAHARAT INTAVIRA · AI AUTOMATION</div>
+        <p class="footer-copyright">
+          © 2026 · Built with HTML/CSS · Hosted on GitHub Pages
+        </p>
+      </div>
+    </div>
+  </footer>
 
   <script>
     async function loadGithubRepos() {
