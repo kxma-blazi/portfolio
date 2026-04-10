@@ -705,6 +705,27 @@
       </div>
     </section>
 
+    <!-- GITHUB REPOS -->
+    <section id="github">
+      <div class="section-label">05 — Open Source</div>
+      <h2 class="section-title">🐙 GitHub Repositories</h2>
+      <div id="github-repos-grid" class="projects-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px,1fr));">
+        <!-- Loading skeleton -->
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+      </div>
+      <div id="github-error" style="display:none;" class="timeline-desc" style="text-align:center;padding:24px;">
+        ไม่สามารถโหลดข้อมูลจาก GitHub ได้ในขณะนี้
+      </div>
+      <div style="text-align:center;margin-top:24px;">
+        <a href="https://github.com/okumakung2018" target="_blank" class="btn-secondary" style="font-family:var(--mono);font-size:0.8rem;">
+          ดู Repo ทั้งหมด →
+        </a>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
       <div class="footer-name">SAHARAT INTAVIRA · FULL-STACK DEVELOPER</div>
@@ -718,5 +739,168 @@
     </footer>
 
   </div>
+
+<style>
+  /* Skeleton loader */
+  .repo-skeleton {
+    background: linear-gradient(90deg, rgba(56,189,248,0.04) 25%, rgba(56,189,248,0.09) 50%, rgba(56,189,248,0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+    border-radius: 14px;
+    height: 160px;
+    border: 1px solid var(--border);
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .repo-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .repo-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .repo-card-name {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--cyan);
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  .repo-card-desc {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .repo-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .repo-lang {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .lang-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .repo-stars {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .repo-card-fork {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+</style>
+
+<script>
+  const LANG_COLORS = {
+    JavaScript: '#f7df1e',
+    TypeScript: '#3178c6',
+    Python:     '#3572A5',
+    HTML:       '#e34c26',
+    CSS:        '#563d7c',
+    Shell:      '#89e051',
+    Dockerfile: '#384d54',
+    Vue:        '#42b883',
+    PHP:        '#4F5D95',
+    default:    '#64748b'
+  };
+
+  async function loadGithubRepos() {
+    const grid = document.getElementById('github-repos-grid');
+    const errEl = document.getElementById('github-error');
+
+    try {
+      const res = await fetch(
+        'https://api.github.com/users/okumakung2018/repos?sort=updated&per_page=12&type=public',
+        { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+      );
+
+      if (!res.ok) throw new Error('GitHub API error');
+
+      const repos = await res.json();
+
+      // Filter out forked repos, show own repos first
+      const ownRepos = repos.filter(r => !r.fork);
+      const display = ownRepos.length > 0 ? ownRepos : repos;
+
+      grid.innerHTML = '';
+
+      if (display.length === 0) {
+        grid.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:0.8rem;">ยังไม่มี public repository</p>';
+        return;
+      }
+
+      display.forEach(repo => {
+        const langColor = LANG_COLORS[repo.language] || LANG_COLORS.default;
+        const card = document.createElement('a');
+        card.href = repo.html_url;
+        card.target = '_blank';
+        card.rel = 'noopener';
+        card.className = 'repo-card';
+        card.innerHTML = `
+          <div class="repo-card-name">📁 ${repo.name}</div>
+          <div class="repo-card-desc">${repo.description || '<span style="opacity:0.4;font-style:italic;">ไม่มีคำอธิบาย</span>'}</div>
+          <div class="repo-card-meta">
+            ${repo.language ? `
+              <span class="repo-lang">
+                <span class="lang-dot" style="background:${langColor}"></span>
+                ${repo.language}
+              </span>` : ''}
+            ${repo.stargazers_count > 0 ? `
+              <span class="repo-stars">⭐ ${repo.stargazers_count}</span>` : ''}
+            ${repo.fork ? `<span class="repo-card-fork">forked</span>` : ''}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+    } catch (e) {
+      grid.innerHTML = '';
+      errEl.style.display = 'block';
+    }
+  }
+
+  loadGithubRepos();
+</script>
+
 </body>
 </html>
