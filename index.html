@@ -1,91 +1,722 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SAHARAT INTAVIRA | Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'IBM Plex Sans Thai', sans-serif;
-        background-color: #0f172a;
-        color: #f8fafc;
-      }
-      .gradient-text {
-        background: linear-gradient(90deg, #38bdf8, #818cf8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    </style>
-  </head>
-  <body class="p-8">
-    <div class="max-w-4xl mx-auto">
-      <header class="py-10">
-        <h1 class="text-5xl font-bold gradient-text mb-4">
-          สวัสดีครับ, ผมสหรัถ อินต๊ะวิรา
-        </h1>
-        <p class="text-xl text-slate-400">
-          Full-stack Developer & Automation Specialist
-        </p>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAHARAT INTAVIRA | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070d1a;
+      --bg2: #0d1526;
+      --card: rgba(13, 21, 38, 0.85);
+      --border: rgba(56, 189, 248, 0.15);
+      --border-hover: rgba(56, 189, 248, 0.45);
+      --cyan: #38bdf8;
+      --violet: #818cf8;
+      --green: #34d399;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans Thai', sans-serif;
+    }
 
-      <section class="mt-12">
-        <h2 class="text-2xl font-semibold mb-6 border-b border-slate-700 pb-2">
-          โปรเจกต์ที่ภาคภูมิใจ
-        </h2>
-        <div
-          class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl"
-        >
-          <div class="flex justify-between items-start">
-            <h3 class="text-xl font-bold text-sky-400">
-              SYS Stock Dashboard (AI-Driven)
-            </h3>
-            <span class="bg-sky-500/10 text-sky-400 text-xs px-2 py-1 rounded"
-              >Apps Script</span
-            >
-          </div>
-          <p class="mt-4 text-slate-300">
-            ระบบจัดการสต็อกอัจฉริยะที่ใช้ Groq AI
-            ในการวิเคราะห์พฤติกรรมการเบิกจ่าย และแจ้งเตือนผ่าน Telegram แบบ
-            Real-time
-          </p>
-          <div class="mt-6 flex gap-4">
-            <a href="#" class="text-sm font-medium hover:underline"
-              >🔍 ดูรายละเอียด</a
-            >
-            <a
-              href="#"
-              class="text-sm font-medium hover:underline text-slate-400"
-              >🔗 GitHub</a
-            >
-          </div>
-        </div>
-      </section>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      <section class="mt-16">
-        <h2 class="text-2xl font-semibold mb-6 border-b border-slate-700 pb-2">
-          Skills
-        </h2>
-        <div class="flex flex-wrap gap-3 text-sm">
-          <span class="bg-slate-700 px-4 py-2 rounded-full"
-            >Google Apps Script</span
-          >
-          <span class="bg-slate-700 px-4 py-2 rounded-full"
-            >Automation (n8n)</span
-          >
-          <span class="bg-slate-700 px-4 py-2 rounded-full">JavaScript</span>
-          <span class="bg-slate-700 px-4 py-2 rounded-full">Docker</span>
-          <span class="bg-slate-700 px-4 py-2 rounded-full">Groq AI / LLM</span>
-        </div>
-      </section>
+    html { scroll-behavior: smooth; }
 
-      <footer class="mt-20 py-10 text-center text-slate-500 text-sm">
-        © 2026 [Your Name]. Built with Tailwind CSS on GitHub Pages.
-      </footer>
+    body {
+      font-family: var(--sans);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glow orbs */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(129,140,248,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(7,13,26,0.8);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--cyan);
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* HERO */
+    .hero {
+      padding: 160px 0 100px;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(110deg, #38bdf8 0%, #818cf8 50%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 40px;
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--cyan);
+      color: #070d1a;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(56,189,248,0.3);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border-hover);
+      color: var(--cyan);
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(56,189,248,0.08);
+      transform: translateY(-1px);
+    }
+
+    /* SECTION */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid rgba(56,189,248,0.07);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--cyan);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: #f1f5f9;
+    }
+
+    /* EDUCATION CARD */
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      transition: border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--cyan), var(--violet));
+      border-radius: 4px 0 0 4px;
+    }
+
+    .edu-card:hover { border-color: var(--border-hover); }
+
+    .edu-degree {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 6px;
+    }
+
+    .edu-uni {
+      color: var(--cyan);
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .edu-faculty {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--cyan), var(--violet), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-dot {
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    .timeline-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+
+    .timeline-card:hover {
+      border-color: var(--border-hover);
+      transform: translateX(4px);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .timeline-role {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .timeline-badge {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      background: rgba(56,189,248,0.1);
+      color: var(--cyan);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(56,189,248,0.2);
+      white-space: nowrap;
+    }
+
+    .timeline-company {
+      color: var(--cyan);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .timeline-desc {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      background: rgba(129,140,248,0.08);
+      color: #a5b4fc;
+      padding: 3px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(129,140,248,0.15);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(56,189,248,0.1);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .project-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .project-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      background: rgba(52,211,153,0.1);
+      color: var(--green);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(52,211,153,0.2);
+    }
+
+    .project-desc {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .project-tech {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .project-tech span {
+      color: #7dd3fc;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 0.875rem;
+      color: #cbd5e1;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: default;
+    }
+
+    .skill-item:hover {
+      border-color: var(--border-hover);
+      color: #f1f5f9;
+      background: rgba(56,189,248,0.05);
+    }
+
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(56,189,248,0.07);
+      padding: 48px 0;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up { animation: fadeUp 0.6s ease both; }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      h1 { font-size: 2.2rem; }
+      .timeline { padding-left: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">SAHARAT.DEV</span>
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#skills">skills</a></li>
+        <li><a href="mailto:okumakung2018@gmail.com">contact</a></li>
+      </ul>
     </div>
-  </body>
+  </nav>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <header class="hero" id="about">
+      <div class="hero-tag fade-up">Available for work · Based in Thailand</div>
+      <h1 class="fade-up delay-1">
+        สวัสดีครับ,<br/>
+        <span class="gradient-text">Saharat Intavira</span>
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        Full-stack Developer & Automation Specialist<br/>
+        ชอบสร้างระบบที่ช่วยให้ชีวิตง่ายขึ้น — ตั้งแต่ automation workflow 
+        ไปจนถึงการผสาน AI เข้ากับงานจริง
+      </p>
+      <div class="hero-btns fade-up delay-3">
+        <a href="mailto:okumakung2018@gmail.com" class="btn-primary">ติดต่อผม</a>
+        <a href="#projects" class="btn-secondary">ดูผลงาน ↓</a>
+        <a href="https://github.com/okumakung2018" target="_blank" class="btn-secondary">GitHub</a>
+      </div>
+    </header>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-label">01 — Education</div>
+      <h2 class="section-title">🎓 ประวัติการศึกษา</h2>
+      <div class="edu-card">
+        <div class="edu-degree">ปริญญาตรี วิทยาศาสตรบัณฑิต</div>
+        <div class="edu-uni">มหาวิทยาลัยราชภัฏสวนสุนันทา (Suan Sunandha Rajabhat University)</div>
+        <div class="edu-faculty">คณะวิทยาศาสตร์และเทคโนโลยี · สาขาวิทยาการคอมพิวเตอร์ (Computer Science)</div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-label">02 — Experience</div>
+      <h2 class="section-title">💼 ประสบการณ์</h2>
+
+      <div class="timeline">
+
+        <!-- Internship -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">IT Intern · System Support & Infrastructure</div>
+              <span class="timeline-badge">4 เดือน</span>
+            </div>
+            <div class="timeline-company">บริษัท System Innovation and Supply Co., Ltd.</div>
+            <p class="timeline-desc">
+              ฝึกงานในตำแหน่งด้านระบบสารสนเทศและโครงสร้างพื้นฐาน ทำงานร่วมกับทีม IT ในการ
+              ติดตั้ง ตรวจสอบ และบำรุงรักษาระบบคอมพิวเตอร์ ได้รับประสบการณ์ตรงในการ
+              troubleshoot ปัญหาฮาร์ดแวร์และซอฟต์แวร์ รวมถึงการจัดการ network และ server
+              ในสภาพแวดล้อมองค์กรจริง
+            </p>
+            <div class="timeline-tags">
+              <span class="tag">Hardware Installation</span>
+              <span class="tag">Network Setup</span>
+              <span class="tag">System Troubleshooting</span>
+              <span class="tag">IT Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Parliament -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--violet); box-shadow: 0 0 10px var(--violet);"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">IT Technician · Computer Installation Project</div>
+              <span class="timeline-badge" style="background:rgba(129,140,248,0.1);color:var(--violet);border-color:rgba(129,140,248,0.2);">Project-based</span>
+            </div>
+            <div class="timeline-company" style="color: var(--violet);">รัฐสภาแห่งใหม่ (New Parliament Building) · กรุงเทพมหานคร</div>
+            <p class="timeline-desc">
+              ร่วมทีมติดตั้งระบบคอมพิวเตอร์ในโครงการรัฐสภาแห่งใหม่ ซึ่งเป็นโครงสร้างพื้นฐาน
+              ระดับประเทศที่ต้องการมาตรฐานสูงสุด รับผิดชอบการติดตั้งและตรวจสอบ workstation
+              ครบชุด รวมถึงการ config ระบบตามมาตรฐานของหน่วยงานราชการ ฝึกทักษะการทำงาน
+              ในโครงการขนาดใหญ่ที่มีข้อกำหนดด้านความปลอดภัยและความเชื่อถือได้สูง
+            </p>
+            <div class="timeline-tags">
+              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">Large-scale Deployment</span>
+              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">Workstation Setup</span>
+              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">Government Standard</span>
+              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">System Configuration</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-label">03 — Projects</div>
+      <h2 class="section-title">🚀 โปรเจกต์ที่ภาคภูมิใจ</h2>
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-name">SYS Stock Dashboard (AI-Driven)</div>
+            <span class="project-label">Production</span>
+          </div>
+          <p class="project-desc">
+            ระบบจัดการสต็อกอัจฉริยะที่พัฒนาด้วย Google Apps Script เชื่อมต่อข้อมูลแบบ Real-time
+            กับ Google Sheets ทำงานเป็น backend แบบ serverless สมบูรณ์แบบ<br/><br/>
+            นำ <strong style="color:#f1f5f9;">Groq AI</strong> มาวิเคราะห์พฤติกรรมการเบิกจ่ายสินค้า วิเคราะห์ pattern การใช้งาน
+            และสรุป Log รายวันแบบอัตโนมัติด้วย Natural Language<br/><br/>
+            ระบบแจ้งเตือนอัจฉริยะผ่าน <strong style="color:#f1f5f9;">Telegram Bot</strong> — แจ้งเตือนเมื่อสต็อกต่ำกว่า threshold,
+            สรุปรายงานประจำวันอัตโนมัติ และ log กิจกรรมทุกรายการแบบ real-time
+          </p>
+          <div class="project-tech">
+            <span>Tech Stack:</span> JavaScript (ES6+) · Tailwind CSS · Groq API · Telegram Bot API · Google Apps Script · Google Sheets API
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-name">Self-Hosted Automation Platform</div>
+            <span class="project-label">Personal Infra</span>
+          </div>
+          <p class="project-desc">
+            สร้าง home server ส่วนตัวบน Ubuntu Linux โดย deploy ด้วย Docker ทำให้สามารถ
+            self-host เครื่องมือต่าง ๆ ได้โดยไม่พึ่งพา third-party cloud<br/><br/>
+            ติดตั้ง <strong style="color:#f1f5f9;">n8n</strong> สำหรับสร้าง automation workflow แบบ visual และ
+            <strong style="color:#f1f5f9;">Node-RED</strong> สำหรับ IoT event pipeline — เชื่อมต่อบริการต่าง ๆ เช่น
+            LINE Notify, Telegram, Google Workspace และ webhook จากแหล่งภายนอก<br/><br/>
+            ใช้งานจริงในชีวิตประจำวัน เช่น auto-backup ข้อมูล, notification pipeline,
+            และ scheduled task runner
+          </p>
+          <div class="project-tech">
+            <span>Tech Stack:</span> Docker · Ubuntu Server · n8n · Node-RED · Nginx Reverse Proxy · Cloudflare Tunnel
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-label">04 — Skills</div>
+      <h2 class="section-title">🛠️ Skills & Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-item"><span class="skill-dot"></span>Google Apps Script</div>
+        <div class="skill-item"><span class="skill-dot"></span>JavaScript (ES6+)</div>
+        <div class="skill-item"><span class="skill-dot"></span>n8n Automation</div>
+        <div class="skill-item"><span class="skill-dot"></span>Node-RED</div>
+        <div class="skill-item"><span class="skill-dot"></span>Docker & Self-Hosting</div>
+        <div class="skill-item"><span class="skill-dot"></span>Linux Server (Ubuntu)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Groq AI / LLM Integration</div>
+        <div class="skill-item"><span class="skill-dot"></span>REST API Development</div>
+        <div class="skill-item"><span class="skill-dot"></span>Telegram Bot API</div>
+        <div class="skill-item"><span class="skill-dot"></span>Git & GitHub</div>
+        <div class="skill-item"><span class="skill-dot"></span>HTML / CSS / Tailwind</div>
+        <div class="skill-item"><span class="skill-dot"></span>IT Infrastructure</div>
+        <div class="skill-item"><span class="skill-dot"></span>Hardware Setup & Config</div>
+        <div class="skill-item"><span class="skill-dot"></span>Network Fundamentals</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-name">SAHARAT INTAVIRA · FULL-STACK DEVELOPER</div>
+      <div class="footer-links">
+        <a href="https://github.com/okumakung2018" target="_blank">GitHub</a>
+        <a href="mailto:okumakung2018@gmail.com">Email</a>
+      </div>
+      <p style="margin-top:20px;font-family:var(--mono);font-size:0.65rem;color:#334155;">
+        © 2026 · Built with pure HTML/CSS · Hosted on GitHub Pages
+      </p>
+    </footer>
+
+  </div>
+</body>
 </html>
