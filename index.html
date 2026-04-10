@@ -233,6 +233,7 @@
       transition: border-color 0.3s;
       position: relative;
       overflow: hidden;
+      margin-bottom: 20px;
     }
 
     .edu-card::before {
@@ -385,20 +386,10 @@
       overflow: hidden;
     }
 
-    .project-card::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle at top right, rgba(56,189,248,0.06), transparent 70%);
-      pointer-events: none;
-    }
-
     .project-card:hover {
       border-color: var(--border-hover);
       transform: translateY(-3px);
-      box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(56,189,248,0.1);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.4);
     }
 
     .project-header {
@@ -407,7 +398,6 @@
       align-items: flex-start;
       gap: 12px;
       margin-bottom: 14px;
-      flex-wrap: wrap;
     }
 
     .project-name {
@@ -441,10 +431,6 @@
       padding-top: 14px;
     }
 
-    .project-tech span {
-      color: #7dd3fc;
-    }
-
     /* SKILLS */
     .skills-grid {
       display: grid;
@@ -459,17 +445,9 @@
       padding: 14px 18px;
       font-size: 0.875rem;
       color: #cbd5e1;
-      transition: all 0.2s;
       display: flex;
       align-items: center;
       gap: 10px;
-      cursor: default;
-    }
-
-    .skill-item:hover {
-      border-color: var(--border-hover);
-      color: #f1f5f9;
-      background: rgba(56,189,248,0.05);
     }
 
     .skill-dot {
@@ -477,7 +455,6 @@
       height: 6px;
       border-radius: 50%;
       background: var(--cyan);
-      flex-shrink: 0;
     }
 
     /* FOOTER */
@@ -487,18 +464,11 @@
       text-align: center;
     }
 
-    .footer-name {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 0.15em;
-      margin-bottom: 16px;
-    }
-
     .footer-links {
       display: flex;
       justify-content: center;
       gap: 24px;
+      margin-top: 10px;
     }
 
     .footer-links a {
@@ -506,17 +476,32 @@
       font-size: 0.8rem;
       color: var(--muted);
       text-decoration: none;
-      transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: var(--cyan); }
+    /* GITHUB STYLE (ADDED) */
+    .repo-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.25s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .repo-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+    .repo-card-name { font-family: var(--mono); font-size: 0.85rem; color: var(--cyan); font-weight: 600; }
+    .repo-card-desc { font-size: 0.82rem; color: #94a3b8; line-height: 1.6; flex: 1; }
+    .repo-card-meta { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
+    .repo-lang { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+    .lang-dot { width: 10px; height: 10px; border-radius: 50%; }
 
-    /* Fade-in animation */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .fade-up { animation: fadeUp 0.6s ease both; }
     .delay-1 { animation-delay: 0.15s; }
     .delay-2 { animation-delay: 0.3s; }
@@ -525,29 +510,26 @@
     @media (max-width: 640px) {
       .nav-links { display: none; }
       h1 { font-size: 2.2rem; }
-      .timeline { padding-left: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-inner">
       <span class="nav-logo">SAHARAT.DEV</span>
       <ul class="nav-links">
         <li><a href="#about">about</a></li>
+        <li><a href="#education">education</a></li>
         <li><a href="#experience">experience</a></li>
         <li><a href="#projects">projects</a></li>
         <li><a href="#skills">skills</a></li>
-        <li><a href="mailto:okumakung2018@gmail.com">contact</a></li>
       </ul>
     </div>
   </nav>
 
   <div class="container">
 
-    <!-- HERO -->
     <header class="hero" id="about">
       <div class="hero-tag fade-up">Available for work · Based in Thailand</div>
       <h1 class="fade-up delay-1">
@@ -566,37 +548,31 @@
       </div>
     </header>
 
-    <!-- EDUCATION -->
-    <section id="education" class="mt-16">
-  <div class="section-label text-sky-500 font-mono text-sm mb-2">01 — Education</div>
-  <h2 class="text-2xl font-semibold mb-6 border-b border-slate-700 pb-2 flex items-center gap-2">
-    🎓 ประวัติการศึกษา
-  </h2>
+    <section id="education">
+      <div class="section-label">01 — Education</div>
+      <h2 class="section-title">🎓 ประวัติการศึกษา</h2>
 
-  <div class="space-y-6">
-    <div class="edu-card bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-sky-500/30 transition">
-      <div class="text-xs text-sky-400 font-mono mb-1">UNIVERSITY</div>
-      <div class="text-lg font-bold text-slate-100">ปริญญาตรี วิทยาศาสตรบัณฑิต</div>
-      <div class="text-slate-300">มหาวิทยาลัยราชภัฏสวนสุนันทา (Suan Sunandha Rajabhat University)</div>
-      <div class="text-sm text-slate-400 mt-1">คณะวิทยาศาสตร์และเทคโนโลยี · สาขาวิทยาการคอมพิวเตอร์ (Computer Science)</div>
-    </div>
+      <div class="space-y-6">
+        <div class="edu-card">
+          <div class="text-xs text-sky-400 font-mono mb-1">UNIVERSITY</div>
+          <div class="edu-degree">ปริญญาตรี วิทยาศาสตรบัณฑิต</div>
+          <div class="edu-uni">มหาวิทยาลัยราชภัฏสวนสุนันทา (Suan Sunandha Rajabhat University)</div>
+          <div class="edu-faculty">คณะวิทยาศาสตร์และเทคโนโลยี · สาขาวิทยาการคอมพิวเตอร์ (Computer Science)</div>
+        </div>
 
-    <div class="edu-card bg-slate-800/30 p-6 rounded-xl border border-slate-700/50 hover:border-slate-500/30 transition">
-      <div class="text-xs text-slate-500 font-mono mb-1">HIGH SCHOOL</div>
-      <div class="text-lg font-bold text-slate-200">มัธยมศึกษา สายศิลป์-ธุรกิจ</div>
-      <div class="text-slate-300">โรงเรียนฉือจี้เชียงใหม่ (Tzuchi Chiang Mai School)</div>
-    </div>
-  </div>
-</section>
+        <div class="edu-card">
+          <div class="text-xs text-slate-500 font-mono mb-1">HIGH SCHOOL</div>
+          <div class="edu-degree">มัธยมศึกษา สายศิลป์-ธุรกิจ</div>
+          <div class="edu-uni">โรงเรียนฉือจี้เชียงใหม่ (Tzuchi Chiang Mai School)</div>
+        </div>
+      </div>
+    </section>
 
-    <!-- EXPERIENCE -->
     <section id="experience">
       <div class="section-label">02 — Experience</div>
       <h2 class="section-title">💼 ประสบการณ์</h2>
 
       <div class="timeline">
-
-        <!-- Internship -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-card">
@@ -608,94 +584,49 @@
             <p class="timeline-desc">
               ฝึกงานในตำแหน่งด้านระบบสารสนเทศและโครงสร้างพื้นฐาน ทำงานร่วมกับทีม IT ในการ
               ติดตั้ง ตรวจสอบ และบำรุงรักษาระบบคอมพิวเตอร์ ได้รับประสบการณ์ตรงในการ
-              troubleshoot ปัญหาฮาร์ดแวร์และซอฟต์แวร์ รวมถึงการจัดการ network และ server
-              ในสภาพแวดล้อมองค์กรจริง
+              troubleshoot ปัญหาฮาร์ดแวร์และซอฟต์แวร์
             </p>
             <div class="timeline-tags">
-              <span class="tag">Hardware Installation</span>
-              <span class="tag">Network Setup</span>
-              <span class="tag">System Troubleshooting</span>
-              <span class="tag">IT Support</span>
+              <span class="tag">Hardware</span> <span class="tag">Network</span> <span class="tag">IT Support</span>
             </div>
           </div>
         </div>
 
-        <!-- Parliament -->
         <div class="timeline-item">
-          <div class="timeline-dot" style="background: var(--violet); box-shadow: 0 0 10px var(--violet);"></div>
+          <div class="timeline-dot" style="background:var(--violet);box-shadow:0 0 10px var(--violet);"></div>
           <div class="timeline-card">
             <div class="timeline-header">
               <div class="timeline-role">IT Technician · Computer Installation Project</div>
-              <span class="timeline-badge" style="background:rgba(129,140,248,0.1);color:var(--violet);border-color:rgba(129,140,248,0.2);">Project-based</span>
+              <span class="timeline-badge">Project-based</span>
             </div>
-            <div class="timeline-company" style="color: var(--violet);">รัฐสภาแห่งใหม่ (New Parliament Building) · กรุงเทพมหานคร</div>
+            <div class="timeline-company">รัฐสภาแห่งใหม่ (New Parliament Building)</div>
             <p class="timeline-desc">
-              ร่วมทีมติดตั้งระบบคอมพิวเตอร์ในโครงการรัฐสภาแห่งใหม่ ซึ่งเป็นโครงสร้างพื้นฐาน
-              ระดับประเทศที่ต้องการมาตรฐานสูงสุด รับผิดชอบการติดตั้งและตรวจสอบ workstation
-              ครบชุด รวมถึงการ config ระบบตามมาตรฐานของหน่วยงานราชการ ฝึกทักษะการทำงาน
-              ในโครงการขนาดใหญ่ที่มีข้อกำหนดด้านความปลอดภัยและความเชื่อถือได้สูง
+              ร่วมทีมติดตั้งระบบคอมพิวเตอร์ในโครงการรัฐสภาแห่งใหม่ รับผิดชอบการติดตั้งและตรวจสอบ workstation 
+              ตามมาตรฐานของหน่วยงานราชการ
             </p>
-            <div class="timeline-tags">
-              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">Large-scale Deployment</span>
-              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">Workstation Setup</span>
-              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">Government Standard</span>
-              <span class="tag" style="background:rgba(129,140,248,0.08);color:#a5b4fc;border-color:rgba(129,140,248,0.15);">System Configuration</span>
-            </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- PROJECTS -->
     <section id="projects">
       <div class="section-label">03 — Projects</div>
       <h2 class="section-title">🚀 โปรเจกต์ที่ภาคภูมิใจ</h2>
       <div class="projects-grid">
-
-        <!-- Project 1 -->
         <div class="project-card">
           <div class="project-header">
             <div class="project-name">SYS Stock Dashboard (AI-Driven)</div>
             <span class="project-label">Production</span>
           </div>
           <p class="project-desc">
-            ระบบจัดการสต็อกอัจฉริยะที่พัฒนาด้วย Google Apps Script เชื่อมต่อข้อมูลแบบ Real-time
-            กับ Google Sheets ทำงานเป็น backend แบบ serverless สมบูรณ์แบบ<br/><br/>
-            นำ <strong style="color:#f1f5f9;">Groq AI</strong> มาวิเคราะห์พฤติกรรมการเบิกจ่ายสินค้า วิเคราะห์ pattern การใช้งาน
-            และสรุป Log รายวันแบบอัตโนมัติด้วย Natural Language<br/><br/>
-            ระบบแจ้งเตือนอัจฉริยะผ่าน <strong style="color:#f1f5f9;">Telegram Bot</strong> — แจ้งเตือนเมื่อสต็อกต่ำกว่า threshold,
-            สรุปรายงานประจำวันอัตโนมัติ และ log กิจกรรมทุกรายการแบบ real-time
+            ระบบจัดการสต็อกอัจฉริยะที่พัฒนาด้วย Google Apps Script เชื่อมต่อข้อมูลแบบ Real-time 
+            นำ Groq AI มาวิเคราะห์พฤติกรรมการเบิกจ่ายและสรุปรายงานผ่าน Telegram Bot
           </p>
-          <div class="project-tech">
-            <span>Tech Stack:</span> JavaScript (ES6+) · Tailwind CSS · Groq API · Telegram Bot API · Google Apps Script · Google Sheets API
-          </div>
+          <div class="project-tech">Tech: JavaScript · Groq API · Telegram Bot · Apps Script</div>
         </div>
-
-        <!-- Project 2 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-name">Self-Hosted Automation Platform</div>
-            <span class="project-label">Personal Infra</span>
-          </div>
-          <p class="project-desc">
-            สร้าง home server ส่วนตัวบน Ubuntu Linux โดย deploy ด้วย Docker ทำให้สามารถ
-            self-host เครื่องมือต่าง ๆ ได้โดยไม่พึ่งพา third-party cloud<br/><br/>
-            ติดตั้ง <strong style="color:#f1f5f9;">n8n</strong> สำหรับสร้าง automation workflow แบบ visual และ
-            <strong style="color:#f1f5f9;">Node-RED</strong> สำหรับ IoT event pipeline — เชื่อมต่อบริการต่าง ๆ เช่น
-            LINE Notify, Telegram, Google Workspace และ webhook จากแหล่งภายนอก<br/><br/>
-            ใช้งานจริงในชีวิตประจำวัน เช่น auto-backup ข้อมูล, notification pipeline,
-            และ scheduled task runner
-          </p>
-          <div class="project-tech">
-            <span>Tech Stack:</span> Docker · Ubuntu Server · n8n · Node-RED · Nginx Reverse Proxy · Cloudflare Tunnel
-          </div>
-        </div>
-
       </div>
     </section>
 
-    <!-- SKILLS -->
     <section id="skills">
       <div class="section-label">04 — Skills</div>
       <h2 class="section-title">🛠️ Skills & Expertise</h2>
@@ -703,216 +634,59 @@
         <div class="skill-item"><span class="skill-dot"></span>Google Apps Script</div>
         <div class="skill-item"><span class="skill-dot"></span>JavaScript (ES6+)</div>
         <div class="skill-item"><span class="skill-dot"></span>n8n Automation</div>
-        <div class="skill-item"><span class="skill-dot"></span>Node-RED</div>
         <div class="skill-item"><span class="skill-dot"></span>Docker & Self-Hosting</div>
         <div class="skill-item"><span class="skill-dot"></span>Linux Server (Ubuntu)</div>
-        <div class="skill-item"><span class="skill-dot"></span>Groq AI / LLM Integration</div>
-        <div class="skill-item"><span class="skill-dot"></span>REST API Development</div>
+        <div class="skill-item"><span class="skill-dot"></span>Groq AI / LLM</div>
         <div class="skill-item"><span class="skill-dot"></span>Telegram Bot API</div>
-        <div class="skill-item"><span class="skill-dot"></span>Git & GitHub</div>
-        <div class="skill-item"><span class="skill-dot"></span>HTML / CSS / Tailwind</div>
-        <div class="skill-item"><span class="skill-dot"></span>IT Infrastructure</div>
-        <div class="skill-item"><span class="skill-dot"></span>Hardware Setup & Config</div>
-        <div class="skill-item"><span class="skill-dot"></span>Network Fundamentals</div>
       </div>
     </section>
 
-    <!-- GITHUB REPOS -->
     <section id="github">
       <div class="section-label">05 — Open Source</div>
       <h2 class="section-title">🐙 GitHub Repositories</h2>
       <div id="github-repos-grid" class="projects-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px,1fr));">
-        <!-- Loading skeleton -->
-        <div class="repo-skeleton"></div>
-        <div class="repo-skeleton"></div>
-        <div class="repo-skeleton"></div>
-        <div class="repo-skeleton"></div>
-      </div>
-      <div id="github-error" style="display:none;" class="timeline-desc" style="text-align:center;padding:24px;">
-        ไม่สามารถโหลดข้อมูลจาก GitHub ได้ในขณะนี้
-      </div>
-      <div style="text-align:center;margin-top:24px;">
-        <a href="https://github.com/okumakung2018" target="_blank" class="btn-secondary" style="font-family:var(--mono);font-size:0.8rem;">
-          ดู Repo ทั้งหมด →
-        </a>
+        <p style="color:var(--muted);">Loading repositories...</p>
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-      <div class="footer-name">SAHARAT INTAVIRA · AI AUTOMATION</div>
+      <div class="footer-name" style="font-family:var(--mono); color:var(--muted); font-size:0.75rem; letter-spacing:0.15em;">SAHARAT INTAVIRA · AI AUTOMATION</div>
       <div class="footer-links">
-        <a href="https://github.com/okumakung2018" target="_blank">GitHub</a>
-        <a href="mailto:okumakung2018@gmail.com">Email</a>
+        <a href="https://github.com/okumakung2018" target="_blank" style="color:var(--muted); text-decoration:none;">GitHub</a>
+        <a href="mailto:okumakung2018@gmail.com" style="color:var(--muted); text-decoration:none;">Email</a>
       </div>
-      <p style="margin-top:20px;font-family:var(--mono);font-size:0.65rem;color:#334155;">
-        © 2026 · Built with pure HTML/CSS · Hosted on GitHub Pages
+      <p style="margin-top:20px; font-family:var(--mono); font-size:0.65rem; color:#334155;">
+        © 2026 · Built with HTML/CSS · Hosted on GitHub Pages
       </p>
     </footer>
 
   </div>
 
-<style>
-  /* Skeleton loader */
-  .repo-skeleton {
-    background: linear-gradient(90deg, rgba(56,189,248,0.04) 25%, rgba(56,189,248,0.09) 50%, rgba(56,189,248,0.04) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.6s infinite;
-    border-radius: 14px;
-    height: 160px;
-    border: 1px solid var(--border);
-  }
-
-  @keyframes shimmer {
-    0%   { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  .repo-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: all 0.25s;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .repo-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-  }
-
-  .repo-card-name {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    color: var(--cyan);
-    font-weight: 600;
-    word-break: break-all;
-  }
-
-  .repo-card-desc {
-    font-size: 0.82rem;
-    color: #94a3b8;
-    line-height: 1.6;
-    flex: 1;
-  }
-
-  .repo-card-meta {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-top: 6px;
-  }
-
-  .repo-lang {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
-
-  .lang-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .repo-stars {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .repo-card-fork {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--muted);
-    opacity: 0.6;
-  }
-</style>
-
-<script>
-  const LANG_COLORS = {
-    JavaScript: '#f7df1e',
-    TypeScript: '#3178c6',
-    Python:     '#3572A5',
-    HTML:       '#e34c26',
-    CSS:        '#563d7c',
-    Shell:      '#89e051',
-    Dockerfile: '#384d54',
-    Vue:        '#42b883',
-    PHP:        '#4F5D95',
-    default:    '#64748b'
-  };
-
-  async function loadGithubRepos() {
-    const grid = document.getElementById('github-repos-grid');
-    const errEl = document.getElementById('github-error');
-
-    try {
-      const res = await fetch(
-        'https://api.github.com/users/okumakung2018/repos?sort=updated&per_page=12&type=public',
-        { headers: { 'Accept': 'application/vnd.github.v3+json' } }
-      );
-
-      if (!res.ok) throw new Error('GitHub API error');
-
-      const repos = await res.json();
-
-      // Filter out forked repos, show own repos first
-      const ownRepos = repos.filter(r => !r.fork);
-      const display = ownRepos.length > 0 ? ownRepos : repos;
-
-      grid.innerHTML = '';
-
-      if (display.length === 0) {
-        grid.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:0.8rem;">ยังไม่มี public repository</p>';
-        return;
-      }
-
-      display.forEach(repo => {
-        const langColor = LANG_COLORS[repo.language] || LANG_COLORS.default;
-        const card = document.createElement('a');
-        card.href = repo.html_url;
-        card.target = '_blank';
-        card.rel = 'noopener';
-        card.className = 'repo-card';
-        card.innerHTML = `
-          <div class="repo-card-name">📁 ${repo.name}</div>
-          <div class="repo-card-desc">${repo.description || '<span style="opacity:0.4;font-style:italic;">ไม่มีคำอธิบาย</span>'}</div>
-          <div class="repo-card-meta">
-            ${repo.language ? `
-              <span class="repo-lang">
-                <span class="lang-dot" style="background:${langColor}"></span>
-                ${repo.language}
-              </span>` : ''}
-            ${repo.stargazers_count > 0 ? `
-              <span class="repo-stars">⭐ ${repo.stargazers_count}</span>` : ''}
-            ${repo.fork ? `<span class="repo-card-fork">forked</span>` : ''}
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-    } catch (e) {
-      grid.innerHTML = '';
-      errEl.style.display = 'block';
+  <script>
+    async function loadGithubRepos() {
+      const grid = document.getElementById('github-repos-grid');
+      try {
+        const res = await fetch('https://api.github.com/users/okumakung2018/repos?sort=updated&per_page=6');
+        const repos = await res.json();
+        grid.innerHTML = '';
+        repos.filter(r => !r.fork).forEach(repo => {
+          const card = document.createElement('a');
+          card.href = repo.html_url;
+          card.target = '_blank';
+          card.className = 'repo-card';
+          card.innerHTML = `
+            <div class="repo-card-name">📁 ${repo.name}</div>
+            <div class="repo-card-desc">${repo.description || 'No description'}</div>
+            <div class="repo-card-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#f7df1e"></span>${repo.language || 'JS'}</span>
+              <span style="font-size:0.7rem; color:var(--muted);">⭐ ${repo.stargazers_count}</span>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (e) { grid.innerHTML = '<p>Failed to load repos</p>'; }
     }
-  }
-
-  loadGithubRepos();
-</script>
-
+    loadGithubRepos();
+  </script>
 </body>
 </html>
