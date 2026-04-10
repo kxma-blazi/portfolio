@@ -1,1141 +1,839 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SAHARAT INTAVIRA | Portfolio</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Thai:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --bg: #070d1a;
-        --card: rgba(13, 21, 38, 0.85);
-        --border: rgba(56, 189, 248, 0.15);
-        --border-hover: rgba(56, 189, 248, 0.45);
-        --cyan: #38bdf8;
-        --violet: #818cf8;
-        --green: #34d399;
-        --text: #e2e8f0;
-        --muted: #64748b;
-        --mono: 'IBM Plex Mono', monospace;
-        --sans: 'IBM Plex Sans Thai', sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAHARAT INTAVIRA | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:           #070d1a;
+      --card:         rgba(13, 21, 38, 0.85);
+      --border:       rgba(56, 189, 248, 0.15);
+      --border-hover: rgba(56, 189, 248, 0.45);
+      --cyan:   #38bdf8;
+      --violet: #818cf8;
+      --green:  #34d399;
+      --text:   #e2e8f0;
+      --muted:  #64748b;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans Thai', sans-serif;
+    }
 
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-      body {
-        font-family: var(--sans);
-        background-color: var(--bg);
-        color: var(--text);
-        min-height: 100vh;
-        overflow-x: hidden;
-        position: relative;
-      }
+    body {
+      font-family: var(--sans);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background-image: linear-gradient(
-            rgba(56, 189, 248, 0.04) 1px,
-            transparent 1px
-          ),
-          linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
-        background-size: 48px 48px;
-        pointer-events: none;
-        z-index: 0;
-      }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-      body::after {
-        content: '';
-        position: fixed;
-        top: -20%;
-        right: -10%;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(
-          circle,
-          rgba(129, 140, 248, 0.08) 0%,
-          transparent 70%
-        );
-        pointer-events: none;
-        z-index: 0;
-      }
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%; right: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(129,140,248,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 24px;
-        position: relative;
-        z-index: 1;
-      }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
-      /* NAV */
-      nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        backdrop-filter: blur(20px);
-        background: rgba(7, 13, 26, 0.85);
-        border-bottom: 1px solid var(--border);
-        padding: 14px 0;
-      }
-      .nav-inner {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .nav-logo {
-        font-family: var(--mono);
-        font-size: 0.8rem;
-        color: var(--cyan);
-        letter-spacing: 0.1em;
-      }
-      .nav-links {
-        display: flex;
-        gap: 28px;
-        list-style: none;
-      }
-      .nav-links a {
-        font-family: var(--mono);
-        font-size: 0.75rem;
-        color: var(--muted);
-        text-decoration: none;
-        letter-spacing: 0.05em;
-        transition: color 0.2s;
-      }
-      .nav-links a:hover {
-        color: var(--cyan);
-      }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(7,13,26,0.85);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--cyan); letter-spacing: 0.1em;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
 
-      /* HERO */
-      .hero {
-        padding: 160px 0 100px;
-      }
-      .hero-tag {
-        font-family: var(--mono);
-        font-size: 0.75rem;
-        color: var(--cyan);
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .hero-tag::before {
-        content: '';
-        display: inline-block;
-        width: 32px;
-        height: 1px;
-        background: var(--cyan);
-      }
-      h1 {
-        font-size: clamp(2.4rem, 6vw, 4.5rem);
-        font-weight: 700;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-        margin-bottom: 16px;
-      }
-      .gradient-text {
-        background: linear-gradient(
-          110deg,
-          #38bdf8 0%,
-          #818cf8 50%,
-          #34d399 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .hero-sub {
-        font-size: 1.1rem;
-        color: var(--muted);
-        font-weight: 300;
-        margin-bottom: 40px;
-        max-width: 540px;
-        line-height: 1.8;
-      }
-      .hero-btns {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
+    /* HERO */
+    .hero { padding: 160px 0 100px; }
+    .hero-tag {
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--cyan); letter-spacing: 0.2em;
+      text-transform: uppercase; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-tag::before {
+      content: ''; display: inline-block;
+      width: 32px; height: 1px; background: var(--cyan);
+    }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .gradient-text {
+      background: linear-gradient(110deg, #38bdf8 0%, #818cf8 50%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted); font-weight: 300;
+      margin-bottom: 40px; max-width: 540px; line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 
-      .btn-primary {
-        background: var(--cyan);
-        color: #070d1a;
-        padding: 10px 24px;
-        border-radius: 6px;
-        font-weight: 600;
-        font-size: 0.875rem;
-        text-decoration: none;
-        transition: all 0.2s;
-        display: inline-block;
-      }
-      .btn-primary:hover {
-        background: #7dd3fc;
-        transform: translateY(-1px);
-        box-shadow: 0 8px 24px rgba(56, 189, 248, 0.3);
-      }
-      .btn-secondary {
-        border: 1px solid var(--border-hover);
-        color: var(--cyan);
-        padding: 10px 24px;
-        border-radius: 6px;
-        font-weight: 500;
-        font-size: 0.875rem;
-        text-decoration: none;
-        transition: all 0.2s;
-        display: inline-block;
-      }
-      .btn-secondary:hover {
-        background: rgba(56, 189, 248, 0.08);
-        transform: translateY(-1px);
-      }
+    .btn-primary {
+      background: var(--cyan); color: #070d1a;
+      padding: 10px 24px; border-radius: 6px;
+      font-weight: 600; font-size: 0.875rem;
+      text-decoration: none; transition: all 0.2s; display: inline-block;
+    }
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(56,189,248,0.3);
+    }
+    .btn-secondary {
+      border: 1px solid var(--border-hover);
+      color: var(--cyan);
+      padding: 10px 24px; border-radius: 6px;
+      font-weight: 500; font-size: 0.875rem;
+      text-decoration: none; transition: all 0.2s; display: inline-block;
+    }
+    .btn-secondary:hover {
+      background: rgba(56,189,248,0.08);
+      transform: translateY(-1px);
+    }
 
-      /* SECTION */
-      section {
-        padding: 80px 0;
-        border-top: 1px solid rgba(56, 189, 248, 0.07);
-      }
-      .section-label {
-        font-family: var(--mono);
-        font-size: 0.7rem;
-        color: var(--cyan);
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-      .section-title {
-        font-size: 1.7rem;
-        font-weight: 700;
-        margin-bottom: 40px;
-        color: #f1f5f9;
-      }
+    /* SECTION */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid rgba(56,189,248,0.07);
+    }
+    .section-label {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--cyan); letter-spacing: 0.25em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 1.7rem; font-weight: 700;
+      margin-bottom: 40px; color: #f1f5f9;
+    }
 
-      /* EDUCATION */
-      .edu-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 28px 32px;
-        margin-bottom: 16px;
-        position: relative;
-        overflow: hidden;
-        transition: border-color 0.3s;
-      }
-      .edu-card:last-child {
-        margin-bottom: 0;
-      }
-      .edu-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(180deg, var(--cyan), var(--violet));
-        border-radius: 4px 0 0 4px;
-      }
-      .edu-card:hover {
-        border-color: var(--border-hover);
-      }
-      .edu-badge {
-        font-family: var(--mono);
-        font-size: 0.65rem;
-        color: var(--muted);
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        margin-bottom: 8px;
-      }
-      .edu-degree {
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: #f1f5f9;
-        margin-bottom: 6px;
-      }
-      .edu-uni {
-        color: var(--cyan);
-        font-size: 0.9rem;
-        margin-bottom: 4px;
-      }
-      .edu-faculty {
-        color: var(--muted);
-        font-size: 0.85rem;
-      }
+    /* EDUCATION */
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .edu-card:last-child { margin-bottom: 0; }
+    .edu-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--cyan), var(--violet));
+      border-radius: 4px 0 0 4px;
+    }
+    .edu-card:hover { border-color: var(--border-hover); }
+    .edu-badge {
+      font-family: var(--mono); font-size: 0.65rem;
+      color: var(--muted); letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .edu-degree { font-size: 1.05rem; font-weight: 600; color: #f1f5f9; margin-bottom: 6px; }
+    .edu-uni    { color: var(--cyan); font-size: 0.9rem; margin-bottom: 4px; }
+    .edu-faculty{ color: var(--muted); font-size: 0.85rem; }
 
-      /* TIMELINE */
-      .timeline {
-        position: relative;
-        padding-left: 32px;
-      }
-      .timeline::before {
-        content: '';
-        position: absolute;
-        left: 8px;
-        top: 8px;
-        bottom: 8px;
-        width: 1px;
-        background: linear-gradient(
-          180deg,
-          var(--cyan),
-          var(--violet),
-          var(--green),
-          transparent
-        );
-      }
-      .timeline-item {
-        position: relative;
-        margin-bottom: 32px;
-      }
-      .timeline-item:last-child {
-        margin-bottom: 0;
-      }
-      .timeline-dot {
-        position: absolute;
-        left: -28px;
-        top: 8px;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--cyan);
-        border: 2px solid var(--bg);
-        box-shadow: 0 0 10px var(--cyan);
-      }
-      .timeline-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 24px 28px;
-        transition: border-color 0.3s, transform 0.2s;
-      }
-      .timeline-card:hover {
-        border-color: var(--border-hover);
-        transform: translateX(4px);
-      }
-      .timeline-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-bottom: 8px;
-      }
-      .timeline-role {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #f1f5f9;
-      }
-      .timeline-badge {
-        font-family: var(--mono);
-        font-size: 0.7rem;
-        background: rgba(56, 189, 248, 0.1);
-        color: var(--cyan);
-        padding: 3px 10px;
-        border-radius: 20px;
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        white-space: nowrap;
-      }
-      .timeline-company {
-        color: var(--cyan);
-        font-size: 0.88rem;
-        margin-bottom: 12px;
-      }
-      .timeline-desc {
-        color: #94a3b8;
-        font-size: 0.88rem;
-        line-height: 1.8;
-      }
-      .timeline-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 14px;
-      }
-      .tag {
-        font-family: var(--mono);
-        font-size: 0.68rem;
-        background: rgba(129, 140, 248, 0.08);
-        color: #a5b4fc;
-        padding: 3px 10px;
-        border-radius: 4px;
-        border: 1px solid rgba(129, 140, 248, 0.15);
-      }
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 8px; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--cyan), var(--violet), var(--green), transparent);
+    }
+    .timeline-item { position: relative; margin-bottom: 32px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute; left: -28px; top: 8px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--cyan);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 10px var(--cyan);
+    }
+    .timeline-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 28px;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .timeline-card:hover { border-color: var(--border-hover); transform: translateX(4px); }
+    .timeline-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .timeline-role { font-size: 1rem; font-weight: 600; color: #f1f5f9; }
+    .timeline-badge {
+      font-family: var(--mono); font-size: 0.7rem;
+      background: rgba(56,189,248,0.1); color: var(--cyan);
+      padding: 3px 10px; border-radius: 20px;
+      border: 1px solid rgba(56,189,248,0.2); white-space: nowrap;
+    }
+    .timeline-company { color: var(--cyan); font-size: 0.88rem; margin-bottom: 12px; }
+    .timeline-desc { color: #94a3b8; font-size: 0.88rem; line-height: 1.8; }
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .tag {
+      font-family: var(--mono); font-size: 0.68rem;
+      background: rgba(129,140,248,0.08); color: #a5b4fc;
+      padding: 3px 10px; border-radius: 4px;
+      border: 1px solid rgba(129,140,248,0.15);
+    }
 
-      /* PROJECTS */
-      .projects-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      .project-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 30px;
-        transition: all 0.3s;
-        position: relative;
-        overflow: hidden;
-      }
-      .project-card::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 200px;
-        height: 200px;
-        background: radial-gradient(
-          circle at top right,
-          rgba(56, 189, 248, 0.05),
-          transparent 70%
-        );
-        pointer-events: none;
-      }
-      .project-card:hover {
-        border-color: var(--border-hover);
-        transform: translateY(-3px);
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
-      }
-      .project-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 12px;
-        margin-bottom: 14px;
-        flex-wrap: wrap;
-      }
-      .project-name {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--cyan);
-      }
-      .project-label {
-        font-family: var(--mono);
-        font-size: 0.7rem;
-        background: rgba(52, 211, 153, 0.1);
-        color: var(--green);
-        padding: 4px 10px;
-        border-radius: 4px;
-        border: 1px solid rgba(52, 211, 153, 0.2);
-      }
-      .project-desc {
-        color: #94a3b8;
-        font-size: 0.88rem;
-        line-height: 1.8;
-        margin-bottom: 20px;
-      }
-      .project-tech {
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        color: var(--muted);
-        border-top: 1px solid var(--border);
-        padding-top: 14px;
-      }
-      .project-tech span {
-        color: #7dd3fc;
-      }
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 30px;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.05), transparent 70%);
+      pointer-events: none;
+    }
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+    }
+    .project-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px;
+      margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .project-name { font-size: 1.1rem; font-weight: 700; color: var(--cyan); }
+    .project-label {
+      font-family: var(--mono); font-size: 0.7rem;
+      background: rgba(52,211,153,0.1); color: var(--green);
+      padding: 4px 10px; border-radius: 4px;
+      border: 1px solid rgba(52,211,153,0.2);
+    }
+    .project-desc { color: #94a3b8; font-size: 0.88rem; line-height: 1.8; margin-bottom: 20px; }
+    .project-tech {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+      border-top: 1px solid var(--border); padding-top: 14px;
+    }
+    .project-tech span { color: #7dd3fc; }
 
-      /* SKILLS */
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-        gap: 12px;
-      }
-      .skill-item {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 13px 18px;
-        font-size: 0.875rem;
-        color: #cbd5e1;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: all 0.2s;
-        cursor: default;
-      }
-      .skill-item:hover {
-        border-color: var(--border-hover);
-        color: #f1f5f9;
-        background: rgba(56, 189, 248, 0.04);
-      }
-      .skill-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--cyan);
-        flex-shrink: 0;
-      }
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+    .skill-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 13px 18px;
+      font-size: 0.875rem; color: #cbd5e1;
+      display: flex; align-items: center; gap: 10px;
+      transition: all 0.2s; cursor: default;
+    }
+    .skill-item:hover { border-color: var(--border-hover); color: #f1f5f9; background: rgba(56,189,248,0.04); }
+    .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; }
 
-      /* GITHUB REPOS */
-      .repos-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-        gap: 16px;
-      }
-      .repo-skeleton {
-        height: 150px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: linear-gradient(
-          90deg,
-          rgba(56, 189, 248, 0.03) 25%,
-          rgba(56, 189, 248, 0.08) 50%,
-          rgba(56, 189, 248, 0.03) 75%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.6s infinite;
-      }
-      @keyframes shimmer {
-        0% {
-          background-position: 200% 0;
-        }
-        100% {
-          background-position: -200% 0;
-        }
-      }
-      .repo-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 22px 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        transition: all 0.25s;
-        text-decoration: none;
-        color: inherit;
-      }
-      .repo-card:hover {
-        border-color: var(--border-hover);
-        transform: translateY(-3px);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-      }
-      .repo-name {
-        font-family: var(--mono);
-        font-size: 0.85rem;
-        color: var(--cyan);
-        font-weight: 600;
-      }
-      .repo-desc {
-        font-size: 0.82rem;
-        color: #94a3b8;
-        line-height: 1.65;
-        flex: 1;
-      }
-      .repo-meta {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-top: 4px;
-      }
-      .repo-lang {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-family: var(--mono);
-        font-size: 0.7rem;
-        color: var(--muted);
-      }
-      .lang-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
-      .repo-stars {
-        font-family: var(--mono);
-        font-size: 0.7rem;
-        color: var(--muted);
-      }
-      .repo-error {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 40px 20px;
-        border: 1px dashed var(--border);
-        border-radius: 14px;
-        color: var(--muted);
-      }
+    /* GITHUB REPOS */
+    .repos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+    }
+    .repo-skeleton {
+      height: 150px; border-radius: 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(90deg,
+        rgba(56,189,248,0.03) 25%,
+        rgba(56,189,248,0.08) 50%,
+        rgba(56,189,248,0.03) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .repo-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: all 0.25s; text-decoration: none; color: inherit;
+    }
+    .repo-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+    .repo-name {
+      font-family: var(--mono); font-size: 0.85rem;
+      color: var(--cyan); font-weight: 600;
+    }
+    .repo-desc { font-size: 0.82rem; color: #94a3b8; line-height: 1.65; flex: 1; }
+    .repo-meta { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+    .repo-lang {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+    }
+    .lang-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .repo-stars { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+    .repo-error {
+      grid-column: 1 / -1; text-align: center;
+      padding: 40px 20px;
+      border: 1px dashed var(--border); border-radius: 14px;
+      color: var(--muted);
+    }
 
-      /* FOOTER */
-      footer {
-        border-top: 1px solid rgba(56, 189, 248, 0.07);
-        padding: 70px 0 40px;
-        background: linear-gradient(
-          to bottom,
-          transparent,
-          rgba(13, 21, 38, 0.5)
-        );
-      }
-      .footer-title {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #f1f5f9;
-        margin-bottom: 12px;
-      }
-      .footer-desc {
-        color: var(--muted);
-        font-size: 0.95rem;
-        line-height: 1.7;
-        max-width: 440px;
-        margin: 0 auto 32px;
-      }
-      .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 14px;
-        flex-wrap: wrap;
-        margin-bottom: 40px;
-      }
-      .footer-link-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-family: var(--mono);
-        font-size: 0.82rem;
-        color: var(--cyan);
-        background: rgba(56, 189, 248, 0.05);
-        border: 1px solid var(--border);
-        padding: 10px 22px;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: all 0.25s;
-      }
-      .footer-link-btn:hover {
-        background: rgba(56, 189, 248, 0.12);
-        border-color: var(--border-hover);
-        transform: translateY(-2px);
-      }
-      .footer-bottom {
-        border-top: 1px solid rgba(255, 255, 255, 0.04);
-        padding-top: 24px;
-        text-align: center;
-      }
-      .footer-name {
-        font-family: var(--mono);
-        color: var(--muted);
-        font-size: 0.72rem;
-        letter-spacing: 0.15em;
-        margin-bottom: 8px;
-      }
-      .footer-copy {
-        font-family: var(--mono);
-        font-size: 0.63rem;
-        color: #1e293b;
-      }
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(56,189,248,0.07);
+      padding: 70px 0 40px;
+      background: linear-gradient(to bottom, transparent, rgba(13,21,38,0.5));
+    }
+    .footer-title { font-size: 1.6rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-desc {
+      color: var(--muted); font-size: 0.95rem; line-height: 1.7;
+      max-width: 440px; margin: 0 auto 32px;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+    .footer-link-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.82rem;
+      color: var(--cyan);
+      background: rgba(56,189,248,0.05);
+      border: 1px solid var(--border);
+      padding: 10px 22px; border-radius: 8px;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .footer-link-btn:hover { background: rgba(56,189,248,0.12); border-color: var(--border-hover); transform: translateY(-2px); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.04); padding-top: 24px; text-align: center; }
+    .footer-name { font-family: var(--mono); color: var(--muted); font-size: 0.72rem; letter-spacing: 0.15em; margin-bottom: 8px; }
+    .footer-copy { font-family: var(--mono); font-size: 0.63rem; color: #1e293b; }
 
-      /* ANIMATIONS */
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(22px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .fade-up {
-        animation: fadeUp 0.65s ease both;
-      }
-      .fade-up.delay-1 {
-        animation-delay: 0.15s;
-      }
-      .fade-up.delay-2 {
-        animation-delay: 0.3s;
-      }
-      .fade-up.delay-3 {
-        animation-delay: 0.45s;
-      }
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up         { animation: fadeUp 0.65s ease both; }
+    .fade-up.delay-1 { animation-delay: 0.15s; }
+    .fade-up.delay-2 { animation-delay: 0.30s; }
+    .fade-up.delay-3 { animation-delay: 0.45s; }
 
-      @media (max-width: 640px) {
-        .nav-links {
-          display: none;
-        }
-        h1 {
-          font-size: 2.1rem;
-        }
-        .timeline {
-          padding-left: 24px;
-        }
-        .edu-card {
-          padding: 22px 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- NAV -->
-    <nav>
-      <div class="nav-inner">
-        <span class="nav-logo">SAHARAT.DEV</span>
-        <ul class="nav-links">
-          <li><a href="#about">about</a></li>
-          <li><a href="#education">education</a></li>
-          <li><a href="#experience">experience</a></li>
-          <li><a href="#projects">projects</a></li>
-          <li><a href="#skills">skills</a></li>
-          <li><a href="#github">github</a></li>
-        </ul>
-      </div>
-    </nav>
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      h1 { font-size: 2.1rem; }
+      .timeline { padding-left: 24px; }
+      .edu-card { padding: 22px 20px; }
+    }
 
-    <div class="container">
-      <!-- HERO -->
-      <header class="hero" id="about">
-        <div class="hero-tag fade-up">
-          Available for work · Based in Thailand &#127481;&#127469;
-        </div>
-        <h1 class="fade-up delay-1">
-          สวัสดีครับ,<br />
-          <span class="gradient-text">Saharat Intavira</span>
-        </h1>
-        <p class="hero-sub fade-up delay-2">
-          Full-stack Developer &amp; Automation Specialist<br />
-          ชอบสร้างระบบที่ช่วยให้ชีวิตง่ายขึ้น — ตั้งแต่ automation workflow
-          ไปจนถึงการผสาน AI เข้ากับงานจริง
-        </p>
-        <div class="hero-btns fade-up delay-3">
-          <a href="mailto:okumakung2018@gmail.com" class="btn-primary"
-            >ติดต่อผม</a
-          >
-          <a href="#projects" class="btn-secondary">ดูผลงาน &#8595;</a>
-          <a
-            href="https://github.com/https://github.com/kxma-blazi"
-            target="_blank"
-            class="btn-secondary"
-            >GitHub</a
-          >
-        </div>
-      </header>
+    /* ── CUSTOM CURSOR ── */
+    .cursor-glow {
+      pointer-events: none;
+      position: fixed;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56,189,248,0.07) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease;
+      z-index: 0;
+      mix-blend-mode: screen;
+    }
 
-      <!-- EDUCATION -->
-      <section id="education">
-        <div class="section-label">01 — Education</div>
-        <h2 class="section-title">&#127891; ประวัติการศึกษา</h2>
+    /* ── PULSE DOT ── */
+    .pulse-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(52,211,153,0.7);
+      animation: pulse-ring 1.8s ease-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(52,211,153,0.6); }
+      70%  { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+      100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+    }
 
-        <div class="edu-card">
-          <div class="edu-badge">University</div>
-          <div class="edu-degree">ปริญญาตรี วิทยาศาสตรบัณฑิต</div>
-          <div class="edu-uni">
-            มหาวิทยาลัยราชภัฏสวนสุนันทา — Suan Sunandha Rajabhat University
-          </div>
-          <div class="edu-faculty">
-            คณะวิทยาศาสตร์และเทคโนโลยี · สาขาวิทยาการคอมพิวเตอร์ (Computer
-            Science)
-          </div>
-        </div>
+    /* ── TYPING CURSOR ── */
+    .typing-cursor {
+      display: inline-block;
+      color: var(--cyan);
+      animation: blink 0.75s step-end infinite;
+      font-weight: 300;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
 
-        <div class="edu-card" style="--cyan: #818cf8">
-          <div class="edu-badge">High School</div>
-          <div class="edu-degree">มัธยมศึกษา — สายศิลป์ธุรกิจ</div>
-          <div class="edu-uni" style="color: var(--violet)">
-            โรงเรียนฉือจี้เชียงใหม่ — Tzuchi Chiang Mai School
-          </div>
-        </div>
-      </section>
+    /* ── GLITCH ── */
+    .glitch {
+      position: relative;
+    }
+    .glitch:hover::before,
+    .glitch:hover::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0;
+      background: linear-gradient(110deg, #38bdf8 0%, #818cf8 50%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glitch:hover::before {
+      animation: glitch-top 0.3s steps(2) infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    }
+    .glitch:hover::after {
+      animation: glitch-bot 0.3s steps(2) infinite;
+      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    }
+    @keyframes glitch-top {
+      0%   { transform: translate(-2px, -2px); }
+      25%  { transform: translate(2px, 0); }
+      50%  { transform: translate(-1px, 1px); }
+      75%  { transform: translate(1px, -1px); }
+      100% { transform: translate(0); }
+    }
+    @keyframes glitch-bot {
+      0%   { transform: translate(2px, 2px); }
+      25%  { transform: translate(-2px, 0); }
+      50%  { transform: translate(1px, -1px); }
+      75%  { transform: translate(-1px, 1px); }
+      100% { transform: translate(0); }
+    }
 
-      <!-- EXPERIENCE -->
-      <section id="experience">
-        <div class="section-label">02 — Experience</div>
-        <h2 class="section-title">&#128188; ประสบการณ์</h2>
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <div class="timeline-header">
-                <div class="timeline-role">
-                  IT Intern · System Support &amp; Infrastructure
-                </div>
-                <span class="timeline-badge">4 เดือน</span>
-              </div>
-              <div class="timeline-company">
-                บริษัท System Innovation and Supply Co., Ltd.
-              </div>
-              <p class="timeline-desc">
-                ฝึกงานในตำแหน่งด้านระบบสารสนเทศและโครงสร้างพื้นฐาน
-                ทำงานร่วมกับทีม IT ในการ ติดตั้ง ตรวจสอบ
-                และบำรุงรักษาระบบคอมพิวเตอร์ ได้รับประสบการณ์ตรงในการ
-                troubleshoot ปัญหาฮาร์ดแวร์และซอฟต์แวร์ รวมถึงการจัดการ network
-                ในสภาพแวดล้อมองค์กรจริง
-              </p>
-              <div class="timeline-tags">
-                <span class="tag">Hardware Installation</span>
-                <span class="tag">Network Setup</span>
-                <span class="tag">System Troubleshooting</span>
-                <span class="tag">IT Support</span>
-              </div>
-            </div>
-          </div>
+    /* ── SECTION TITLE underline sweep ── */
+    .section-title {
+      display: inline-block;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      transition: width 0.6s ease;
+      border-radius: 2px;
+    }
+    .section-title.visible::after { width: 100%; }
+  </style>
+</head>
+<body>
 
-          <div class="timeline-item">
-            <div
-              class="timeline-dot"
-              style="
-                background: var(--violet);
-                box-shadow: 0 0 10px var(--violet);
-              "
-            ></div>
-            <div class="timeline-card">
-              <div class="timeline-header">
-                <div class="timeline-role">
-                  IT Technician · Computer Installation Project
-                </div>
-                <span
-                  class="timeline-badge"
-                  style="
-                    background: rgba(129, 140, 248, 0.1);
-                    color: var(--violet);
-                    border-color: rgba(129, 140, 248, 0.25);
-                  "
-                  >Project-based</span
-                >
-              </div>
-              <div class="timeline-company" style="color: var(--violet)">
-                รัฐสภาแห่งใหม่ (New Parliament Building) · กรุงเทพมหานคร
-              </div>
-              <p class="timeline-desc">
-                ร่วมทีมติดตั้งระบบคอมพิวเตอร์ในโครงการรัฐสภาแห่งใหม่
-                ซึ่งเป็นโครงสร้างพื้นฐาน ระดับประเทศที่ต้องการมาตรฐานสูงสุด
-                รับผิดชอบการติดตั้ง workstation ครบชุด และ config
-                ระบบตามมาตรฐานของหน่วยงานราชการ
-              </p>
-              <div class="timeline-tags">
-                <span
-                  class="tag"
-                  style="
-                    color: #c4b5fd;
-                    background: rgba(129, 140, 248, 0.08);
-                    border-color: rgba(129, 140, 248, 0.15);
-                  "
-                  >Large-scale Deployment</span
-                >
-                <span
-                  class="tag"
-                  style="
-                    color: #c4b5fd;
-                    background: rgba(129, 140, 248, 0.08);
-                    border-color: rgba(129, 140, 248, 0.15);
-                  "
-                  >Workstation Setup</span
-                >
-                <span
-                  class="tag"
-                  style="
-                    color: #c4b5fd;
-                    background: rgba(129, 140, 248, 0.08);
-                    border-color: rgba(129, 140, 248, 0.15);
-                  "
-                  >Government Standard</span
-                >
-              </div>
-            </div>
-          </div>
+  <div class="cursor-glow" id="cursor-glow"></div>
 
-          <div class="timeline-item">
-            <div
-              class="timeline-dot"
-              style="
-                background: var(--green);
-                box-shadow: 0 0 10px var(--green);
-              "
-            ></div>
-            <div class="timeline-card">
-              <div class="timeline-header">
-                <div class="timeline-role">IT Support Intern</div>
-                <span
-                  class="timeline-badge"
-                  style="
-                    background: rgba(52, 211, 153, 0.1);
-                    color: var(--green);
-                    border-color: rgba(52, 211, 153, 0.25);
-                  "
-                  >1 เดือน</span
-                >
-              </div>
-              <div class="timeline-company" style="color: var(--green)">
-                CMJ
-              </div>
-              <p class="timeline-desc">
-                ฝึกงานในตำแหน่ง IT Support
-                ดูแลและบำรุงรักษาอุปกรณ์ไอทีภายในองค์กร
-                ให้ความช่วยเหลือและสนับสนุนการทำงานของแผนกต่างๆ ภายใน CMJ
-              </p>
-              <div class="timeline-tags">
-                <span
-                  class="tag"
-                  style="
-                    color: #6ee7b7;
-                    background: rgba(52, 211, 153, 0.08);
-                    border-color: rgba(52, 211, 153, 0.15);
-                  "
-                  >IT Support</span
-                >
-                <span
-                  class="tag"
-                  style="
-                    color: #6ee7b7;
-                    background: rgba(52, 211, 153, 0.08);
-                    border-color: rgba(52, 211, 153, 0.15);
-                  "
-                  >Device Maintenance</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROJECTS -->
-      <section id="projects">
-        <div class="section-label">03 — Projects</div>
-        <h2 class="section-title">&#128640; โปรเจกต์ที่ภาคภูมิใจ</h2>
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-header">
-              <div class="project-name">SYS Stock Dashboard (AI-Driven)</div>
-              <span class="project-label">Production</span>
-            </div>
-            <p class="project-desc">
-              ระบบจัดการสต็อกอัจฉริยะที่พัฒนาด้วย Google Apps Script
-              เชื่อมต่อข้อมูลแบบ Real-time กับ Google Sheets ทำงานเป็น backend
-              แบบ serverless สมบูรณ์แบบ<br /><br />
-              นำ
-              <strong style="color: #f1f5f9">Groq AI</strong>
-              มาวิเคราะห์พฤติกรรมการเบิกจ่ายสินค้า วิเคราะห์ pattern และสรุป Log
-              รายวันด้วย Natural Language อัตโนมัติ พร้อมระบบแจ้งเตือนผ่าน
-              <strong style="color: #f1f5f9">Telegram Bot</strong>
-              เมื่อสต็อกต่ำกว่า threshold
-            </p>
-            <div class="project-tech">
-              <span>Tech Stack:</span> JavaScript · Google Apps Script ·
-              Tailwind CSS · Groq API · Telegram Bot API
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-header">
-              <div class="project-name">Self-Hosted Automation Platform</div>
-              <span class="project-label">Personal Infra</span>
-            </div>
-            <p class="project-desc">
-              สร้าง home server ส่วนตัวบน Ubuntu Linux โดย deploy ด้วย Docker
-              ทำให้ self-host เครื่องมือต่าง ๆ ได้โดยไม่พึ่งพา third-party
-              cloud<br /><br />
-              ติดตั้ง <strong style="color: #f1f5f9">n8n</strong> สำหรับ
-              automation workflow แบบ visual และ
-              <strong style="color: #f1f5f9">Node-RED</strong> สำหรับ event
-              pipeline — เชื่อมต่อ LINE Notify, Telegram, Google Workspace และ
-              webhook ต่างๆ
-            </p>
-            <div class="project-tech">
-              <span>Tech Stack:</span> Docker · Ubuntu Server · n8n · Node-RED ·
-              Nginx · Cloudflare Tunnel
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SKILLS -->
-      <section id="skills">
-        <div class="section-label">04 — Skills</div>
-        <h2 class="section-title">&#128736; Skills &amp; Expertise</h2>
-        <div class="skills-grid">
-          <div class="skill-item">
-            <span class="skill-dot"></span>Google Apps Script
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>JavaScript (ES6+)
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>n8n Automation
-          </div>
-          <div class="skill-item"><span class="skill-dot"></span>Node-RED</div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>Docker &amp; Self-Hosting
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>Linux Server (Ubuntu)
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>Groq AI / LLM Integration
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>REST API Development
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>Telegram Bot API
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>Git &amp; GitHub
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>HTML / CSS / Tailwind
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>Hardware Setup &amp; Config
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>Network Fundamentals
-          </div>
-          <div class="skill-item">
-            <span class="skill-dot"></span>IT Infrastructure
-          </div>
-        </div>
-      </section>
-
-      <!-- GITHUB REPOS -->
-      <section id="github">
-        <div class="section-label">05 — Open Source</div>
-        <h2 class="section-title">&#128025; GitHub Repositories</h2>
-
-        <div id="repos-grid" class="repos-grid">
-          <div class="repo-skeleton"></div>
-          <div class="repo-skeleton"></div>
-          <div class="repo-skeleton"></div>
-          <div class="repo-skeleton"></div>
-          <div class="repo-skeleton"></div>
-          <div class="repo-skeleton"></div>
-        </div>
-
-        <div style="text-align: center; margin-top: 28px">
-          <a
-            href="https://github.com/kxma-blazi"
-            target="_blank"
-            class="btn-secondary"
-            style="font-family: var(--mono); font-size: 0.8rem"
-          >
-            View All Repositories &#8594;
-          </a>
-        </div>
-      </section>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">SAHARAT.DEV</span>
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#education">education</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#skills">skills</a></li>
+        <li><a href="#github">github</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="container" style="text-align: center">
-        <div class="footer-title">Let's Work Together</div>
-        <p class="footer-desc">
-          มีโปรเจกต์ที่น่าสนใจ หรือต้องการปรึกษาเรื่องไอทีและระบบ Automation?<br />
-          ทักมาพูดคุยกันได้เลยครับ &#128588;
-        </p>
-        <div class="footer-links">
-          <a href="mailto:okumakung2018@gmail.com" class="footer-link-btn">
-            <span class="skill-dot"></span> okumakung2018@gmail.com
-          </a>
-          <a
-            href="https://github.com/kxma-blazi"
-            target="_blank"
-            class="footer-link-btn"
-          >
-            <span class="skill-dot" style="background: #f7df1e"></span>
-            github.com/kxma-blazi
-          </a>
-        </div>
-        <div class="footer-bottom">
-          <div class="footer-name">
-            SAHARAT INTAVIRA · FULL-STACK DEVELOPER &amp; AUTOMATION SPECIALIST
-          </div>
-          <p class="footer-copy">
-            &#169; 2026 · Built with pure HTML/CSS · Hosted on GitHub Pages
-          </p>
-        </div>
+  <div class="container">
+
+    <!-- HERO -->
+    <header class="hero" id="about">
+      <div class="hero-tag fade-up">
+        <span class="pulse-dot"></span>Available for work &middot; Based in Thailand &#127481;&#127469;
       </div>
-    </footer>
+      <h1 class="fade-up delay-1">
+        สวัสดีครับ,<br/>
+        <span class="gradient-text glitch" data-text="Saharat Intavira">Saharat Intavira</span>
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        <span id="typing-role"></span><span class="typing-cursor">|</span><br/>
+        ชอบสร้างระบบที่ช่วยให้ชีวิตง่ายขึ้น — ตั้งแต่ automation workflow
+        ไปจนถึงการผสาน AI เข้ากับงานจริง
+      </p>
+      <div class="hero-btns fade-up delay-3">
+        <a href="/cdn-cgi/l/email-protection#cca3a7b9a1ada7b9a2abfefcfdf48caba1ada5a0e2afa3a1" class="btn-primary">ติดต่อผม</a>
+        <a href="#projects" class="btn-secondary">ดูผลงาน &#8595;</a>
+        <a href="https://github.com/kxma-blazi" target="_blank" class="btn-secondary">GitHub</a>
+      </div>
+    </header>
 
-    <script>
-      const LANG_COLORS = {
-        JavaScript: '#f7df1e',
-        TypeScript: '#3178c6',
-        Python: '#3572A5',
-        HTML: '#e34c26',
-        CSS: '#563d7c',
-        Shell: '#89e051',
-        Dockerfile: '#384d54',
-        Vue: '#42b883',
-        PHP: '#4F5D95',
-        default: '#64748b'
-      }
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-label">01 — Education</div>
+      <h2 class="section-title">&#127891; ประวัติการศึกษา</h2>
 
-      async function loadRepos() {
-        const grid = document.getElementById('repos-grid')
-        try {
-          const res = await fetch(
-            'https://api.github.com/users/okumakung2018/repos?sort=updated&per_page=12&type=public',
-            { headers: { Accept: 'application/vnd.github.v3+json' } }
-          )
-          if (!res.ok) throw new Error('API error ' + res.status)
+      <div class="edu-card">
+        <div class="edu-badge">University</div>
+        <div class="edu-degree">ปริญญาตรี วิทยาศาสตรบัณฑิต</div>
+        <div class="edu-uni">มหาวิทยาลัยราชภัฏสวนสุนันทา — Suan Sunandha Rajabhat University</div>
+        <div class="edu-faculty">คณะวิทยาศาสตร์และเทคโนโลยี · สาขาวิทยาการคอมพิวเตอร์ (Computer Science)</div>
+      </div>
 
-          const repos = await res.json()
-          const own = repos.filter(r => !r.fork)
-          const list = own.length > 0 ? own : repos
+      <div class="edu-card" style="--cyan:#818cf8;">
+        <div class="edu-badge">High School</div>
+        <div class="edu-degree">มัธยมศึกษา — สายศิลป์ธุรกิจ</div>
+        <div class="edu-uni" style="color:var(--violet);">โรงเรียนฉือจี้เชียงใหม่ — Tzuchi Chiang Mai School</div>
+      </div>
+    </section>
 
-          if (list.length === 0) {
-            grid.innerHTML =
-              '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:40px 0;">ยังไม่มี public repository</p>'
-            return
-          }
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-label">02 — Experience</div>
+      <h2 class="section-title">&#128188; ประสบการณ์</h2>
 
-          grid.innerHTML = ''
-          list.slice(0, 9).forEach(repo => {
-            const color = LANG_COLORS[repo.language] || LANG_COLORS.default
-            const a = document.createElement('a')
-            a.href = repo.html_url
-            a.target = '_blank'
-            a.rel = 'noopener noreferrer'
-            a.className = 'repo-card'
-            a.innerHTML =
-              '<div class="repo-name">&#128193; ' +
-              repo.name +
-              '</div>' +
-              '<div class="repo-desc">' +
-              (repo.description ||
-                '<em style="opacity:.4">No description</em>') +
-              '</div>' +
-              '<div class="repo-meta">' +
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">IT Intern · System Support &amp; Infrastructure</div>
+              <span class="timeline-badge">4 เดือน</span>
+            </div>
+            <div class="timeline-company">บริษัท System Innovation and Supply Co., Ltd.</div>
+            <p class="timeline-desc">
+              ฝึกงานในตำแหน่งด้านระบบสารสนเทศและโครงสร้างพื้นฐาน ทำงานร่วมกับทีม IT ในการ
+              ติดตั้ง ตรวจสอบ และบำรุงรักษาระบบคอมพิวเตอร์ ได้รับประสบการณ์ตรงในการ
+              troubleshoot ปัญหาฮาร์ดแวร์และซอฟต์แวร์ รวมถึงการจัดการ network
+              ในสภาพแวดล้อมองค์กรจริง
+            </p>
+            <div class="timeline-tags">
+              <span class="tag">Hardware Installation</span>
+              <span class="tag">Network Setup</span>
+              <span class="tag">System Troubleshooting</span>
+              <span class="tag">IT Support</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--violet);box-shadow:0 0 10px var(--violet);"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">IT Technician · Computer Installation Project</div>
+              <span class="timeline-badge" style="background:rgba(129,140,248,0.1);color:var(--violet);border-color:rgba(129,140,248,0.25);">Project-based</span>
+            </div>
+            <div class="timeline-company" style="color:var(--violet);">รัฐสภาแห่งใหม่ (New Parliament Building) · กรุงเทพมหานคร</div>
+            <p class="timeline-desc">
+              ร่วมทีมติดตั้งระบบคอมพิวเตอร์ในโครงการรัฐสภาแห่งใหม่ ซึ่งเป็นโครงสร้างพื้นฐาน
+              ระดับประเทศที่ต้องการมาตรฐานสูงสุด รับผิดชอบการติดตั้ง workstation ครบชุด
+              และ config ระบบตามมาตรฐานของหน่วยงานราชการ
+            </p>
+            <div class="timeline-tags">
+              <span class="tag" style="color:#c4b5fd;background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.15);">Large-scale Deployment</span>
+              <span class="tag" style="color:#c4b5fd;background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.15);">Workstation Setup</span>
+              <span class="tag" style="color:#c4b5fd;background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.15);">Government Standard</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--green);box-shadow:0 0 10px var(--green);"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">IT Support Intern</div>
+              <span class="timeline-badge" style="background:rgba(52,211,153,0.1);color:var(--green);border-color:rgba(52,211,153,0.25);">1 เดือน</span>
+            </div>
+            <div class="timeline-company" style="color:var(--green);">CMJ</div>
+            <p class="timeline-desc">
+              ฝึกงานในตำแหน่ง IT Support ดูแลและบำรุงรักษาอุปกรณ์ไอทีภายในองค์กร
+              ให้ความช่วยเหลือและสนับสนุนการทำงานของแผนกต่างๆ ภายใน CMJ
+            </p>
+            <div class="timeline-tags">
+              <span class="tag" style="color:#6ee7b7;background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.15);">IT Support</span>
+              <span class="tag" style="color:#6ee7b7;background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.15);">Device Maintenance</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-label">03 — Projects</div>
+      <h2 class="section-title">&#128640; โปรเจกต์ที่ภาคภูมิใจ</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-name">SYS Stock Dashboard (AI-Driven)</div>
+            <span class="project-label">Production</span>
+          </div>
+          <p class="project-desc">
+            ระบบจัดการสต็อกอัจฉริยะที่พัฒนาด้วย Google Apps Script เชื่อมต่อข้อมูลแบบ Real-time
+            กับ Google Sheets ทำงานเป็น backend แบบ serverless สมบูรณ์แบบ<br/><br/>
+            นำ <strong style="color:#f1f5f9;">Groq AI</strong> มาวิเคราะห์พฤติกรรมการเบิกจ่ายสินค้า วิเคราะห์ pattern
+            และสรุป Log รายวันด้วย Natural Language อัตโนมัติ พร้อมระบบแจ้งเตือนผ่าน
+            <strong style="color:#f1f5f9;">Telegram Bot</strong> เมื่อสต็อกต่ำกว่า threshold
+          </p>
+          <div class="project-tech">
+            <span>Tech Stack:</span> JavaScript · Google Apps Script · Tailwind CSS · Groq API · Telegram Bot API
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-name">Self-Hosted Automation Platform</div>
+            <span class="project-label">Personal Infra</span>
+          </div>
+          <p class="project-desc">
+            สร้าง home server ส่วนตัวบน Ubuntu Linux โดย deploy ด้วย Docker ทำให้ self-host
+            เครื่องมือต่าง ๆ ได้โดยไม่พึ่งพา third-party cloud<br/><br/>
+            ติดตั้ง <strong style="color:#f1f5f9;">n8n</strong> สำหรับ automation workflow แบบ visual และ
+            <strong style="color:#f1f5f9;">Node-RED</strong> สำหรับ event pipeline —
+            เชื่อมต่อ LINE Notify, Telegram, Google Workspace และ webhook ต่างๆ
+          </p>
+          <div class="project-tech">
+            <span>Tech Stack:</span> Docker · Ubuntu Server · n8n · Node-RED · Nginx · Cloudflare Tunnel
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-label">04 — Skills</div>
+      <h2 class="section-title">&#128736; Skills &amp; Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-item"><span class="skill-dot"></span>Google Apps Script</div>
+        <div class="skill-item"><span class="skill-dot"></span>JavaScript (ES6+)</div>
+        <div class="skill-item"><span class="skill-dot"></span>n8n Automation</div>
+        <div class="skill-item"><span class="skill-dot"></span>Node-RED</div>
+        <div class="skill-item"><span class="skill-dot"></span>Docker &amp; Self-Hosting</div>
+        <div class="skill-item"><span class="skill-dot"></span>Linux Server (Ubuntu)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Groq AI / LLM Integration</div>
+        <div class="skill-item"><span class="skill-dot"></span>REST API Development</div>
+        <div class="skill-item"><span class="skill-dot"></span>Telegram Bot API</div>
+        <div class="skill-item"><span class="skill-dot"></span>Git &amp; GitHub</div>
+        <div class="skill-item"><span class="skill-dot"></span>HTML / CSS / Tailwind</div>
+        <div class="skill-item"><span class="skill-dot"></span>Hardware Setup &amp; Config</div>
+        <div class="skill-item"><span class="skill-dot"></span>Network Fundamentals</div>
+        <div class="skill-item"><span class="skill-dot"></span>IT Infrastructure</div>
+      </div>
+    </section>
+
+    <!-- GITHUB REPOS -->
+    <section id="github">
+      <div class="section-label">05 — Open Source</div>
+      <h2 class="section-title">&#128025; GitHub Repositories</h2>
+
+      <div id="repos-grid" class="repos-grid">
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+        <div class="repo-skeleton"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:28px;">
+        <a href="https://github.com/kxma-blazi" target="_blank" class="btn-secondary" style="font-family:var(--mono);font-size:0.8rem;">
+          View All Repositories &#8594;
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <!-- FOOTER -->
+  <footer>
+    <div class="container" style="text-align: center">
+      <div class="footer-title">Let's Work Together</div>
+      <p class="footer-desc">
+        มีโปรเจกต์ที่น่าสนใจ หรือต้องการปรึกษาเรื่องไอทีและระบบ Automation?<br />
+        ทักมาพูดคุยกันได้เลยครับ &#128588;
+      </p>
+      <div class="footer-links">
+        <a href="mailto:okumakung2018@gmail.com" class="footer-link-btn">
+          <span class="skill-dot"></span> okumakung2018@gmail.com
+        </a>
+        <a href="https://github.com/kxma-blazi" target="_blank" class="footer-link-btn">
+          <span class="skill-dot" style="background: #f7df1e"></span>
+          github.com/kxma-blazi
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-name">
+          SAHARAT INTAVIRA · FULL-STACK DEVELOPER &amp; AUTOMATION SPECIALIST
+        </div>
+        <p class="footer-copy">
+          &#169; 2026 · Built with pure HTML/CSS · Hosted on GitHub Pages
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const LANG_COLORS = {
+      JavaScript: '#f7df1e', TypeScript: '#3178c6',
+      Python:     '#3572A5', HTML:       '#e34c26',
+      CSS:        '#563d7c', Shell:       '#89e051',
+      Dockerfile: '#384d54', Vue:         '#42b883',
+      PHP:        '#4F5D95', default:     '#64748b'
+    };
+
+    async function loadRepos() {
+      const grid = document.getElementById('repos-grid');
+      try {
+        const res = await fetch(
+          'https://api.github.com/users/kxma-blazi/repos?sort=updated&per_page=12&type=public',
+          { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+        );
+        if (!res.ok) throw new Error('API error ' + res.status);
+
+        const repos = await res.json();
+        const own   = repos.filter(r => !r.fork);
+        const list  = own.length > 0 ? own : repos;
+
+        if (list.length === 0) {
+          grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:40px 0;">ยังไม่มี public repository</p>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        list.slice(0, 9).forEach(repo => {
+          const color = LANG_COLORS[repo.language] || LANG_COLORS.default;
+          const a = document.createElement('a');
+          a.href = repo.html_url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'repo-card';
+          a.innerHTML =
+            '<div class="repo-name">&#128193; ' + repo.name + '</div>' +
+            '<div class="repo-desc">' + (repo.description || '<em style="opacity:.4">No description</em>') + '</div>' +
+            '<div class="repo-meta">' +
               (repo.language
-                ? '<span class="repo-lang"><span class="lang-dot" style="background:' +
-                  color +
-                  '"></span>' +
-                  repo.language +
-                  '</span>'
+                ? '<span class="repo-lang"><span class="lang-dot" style="background:' + color + '"></span>' + repo.language + '</span>'
                 : '') +
               (repo.stargazers_count > 0
-                ? '<span class="repo-stars">&#11088; ' +
-                  repo.stargazers_count +
-                  '</span>'
+                ? '<span class="repo-stars">&#11088; ' + repo.stargazers_count + '</span>'
                 : '') +
-              '</div>'
-            grid.appendChild(a)
-          })
-        } catch (err) {
-          grid.innerHTML =
-            '<div class="repo-error">' +
-            '<p style="margin-bottom:16px;">ไม่สามารถดึงข้อมูลจาก GitHub ได้ในขณะนี้</p>' +
-            '<a href="https://github.com/kxma-blazi" target="_blank" class="btn-secondary">เข้าดูที่ GitHub โดยตรง &#8594;</a>' +
-            '</div>'
-        }
-      }
+            '</div>';
+          grid.appendChild(a);
+        });
 
-      loadRepos()
-    </script>
-  </body>
+      } catch (err) {
+        grid.innerHTML =
+          '<div class="repo-error">' +
+            '<p style="margin-bottom:16px;">ak GitHub โดยตรง &#8594;</a>' +
+          '</div>';
+      }
+    }
+
+    loadRepos();
+  </script>
+
+  <script>
+    /* CURSOR GLOW */
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+
+    /* TYPING ANIMATION */
+    const roles = [
+      'Full-stack Developer',
+      'Automation Specialist',
+      'AI Integration Engineer',
+      'Self-hosted Infra Nerd \ud83d\udc33',
+    ];
+    let ri = 0, ci = 0, deleting = false;
+    const typingEl = document.getElementById('typing-role');
+
+    function type() {
+      const word = roles[ri];
+      if (!deleting) {
+        typingEl.textContent = word.slice(0, ++ci);
+        if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        typingEl.textContent = word.slice(0, --ci);
+        if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+      }
+      setTimeout(type, deleting ? 45 : 85);
+    }
+    setTimeout(type, 900);
+
+    /* SCROLL REVEAL */
+    const targets = document.querySelectorAll(
+      '.edu-card, .timeline-card, .project-card, .skill-item, .section-title'
+    );
+    targets.forEach(el => el.classList.add('reveal'));
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    targets.forEach(el => io.observe(el));
+
+    /* stagger skill items */
+    document.querySelectorAll('.skills-grid .skill-item').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.04) + 's';
+    });
+  </script>
+
+</body>
 </html>
