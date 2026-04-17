@@ -269,28 +269,55 @@
 
       // 4. GitHub API Integration
       async function fetchRepos() {
-        const container = document.getElementById('repos-container');
-        try {
-          const res = await fetch('https://api.github.com/users/kxma-blazi/repos?sort=updated&per_page=6');
-          const repos = await res.json();
-          container.innerHTML = '';
-          
-          repos.forEach(repo => {
-            const card = document.createElement('a');
-            card.className = 'repo-card';
-            card.href = repo.html_url;
-            card.target = '_blank';
-            card.innerHTML = `
-              <div style="font-family:var(--mono); color:var(--cyan); font-size:0.8rem; margin-bottom:10px;">${repo.name}</div>
-              <p style="font-size:0.75rem; color:var(--muted); margin-bottom:15px;">${repo.description || 'No description available'}</p>
-              <div style="font-size:0.65rem; color:var(--violet); font-family:var(--mono);">⭐ ${repo.stargazers_count} | ${repo.language || 'Code'}</div>
-            `;
-            container.appendChild(card);
-          });
-        } catch (err) {
-          container.innerHTML = '<p style="color:var(--muted)">Failed to load repos. Check connection.</p>';
-        }
-      }
+  const container = document.getElementById('repos-container');
+
+  try {
+    const res = await fetch('https://api.github.com/users/kxma-blazi/repos?sort=updated&per_page=10');
+    let repos = await res.json();
+
+    // 🔥 filter: เอาเฉพาะ repo ที่มี description และไม่ใช่ fork
+    repos = repos.filter(repo => !repo.fork && repo.description);
+
+    container.innerHTML = '';
+
+    repos.forEach(repo => {
+      const card = document.createElement('a');
+      card.className = 'repo-card';
+      card.href = repo.html_url;
+      card.target = '_blank';
+
+      card.innerHTML = `
+        <div>
+          <div style="font-family:var(--mono); color:var(--cyan); font-size:0.85rem; margin-bottom:8px;">
+            ${repo.name}
+          </div>
+
+          <p style="font-size:0.75rem; color:var(--muted); margin-bottom:15px; line-height:1.5;">
+            ${repo.description}
+          </p>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.65rem; font-family:var(--mono);">
+
+          <div style="display:flex; gap:10px; color:var(--violet);">
+            <span>⭐ ${repo.stargazers_count}</span>
+            <span>🍴 ${repo.forks_count}</span>
+          </div>
+
+          <div style="color:var(--cyan);">
+            ${repo.language || 'Code'}
+          </div>
+
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+
+  } catch (err) {
+    container.innerHTML = '<p style="color:var(--muted)">Failed to load repos.</p>';
+  }
+}
       fetchRepos();
     </script>
   </body>
