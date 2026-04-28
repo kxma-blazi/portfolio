@@ -7,95 +7,143 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #020617;
+      --bg: #030712;
       --surface: #0f172a;
-      --surface-bright: #1e293b;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.3);
-      --text: #f1f5f9;
-      --muted: #94a3b8;
+      --surface2: #1f2937;
       --border: rgba(56, 189, 248, 0.15);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.4);
+      --text: #f8fafc;
+      --muted: #94a3b8;
       --line-green: #06C755;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background-color: var(--bg); color: var(--text); font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-    /* ✨ NAVIGATION */
-    nav { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1rem 0; }
+    /* Selection */
+    ::selection { background: rgba(56, 189, 248, 0.2); color: var(--accent); }
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 1.1rem 0;
+    }
     nav .container { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: #fff; text-decoration: none; letter-spacing: -1px; }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: #fff; text-decoration: none; }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.8rem; font-family: 'IBM Plex Mono'; transition: 0.3s; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; font-family: 'IBM Plex Mono', monospace; transition: color 0.3s; }
     .nav-links a:hover { color: var(--accent); }
 
-    /* 👤 HERO SECTION */
-    .hero { padding: 180px 0 100px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    /* Hero Section with Profile */
+    .hero { padding: 200px 0 100px; text-align: center; display: flex; flex-direction: column; align-items: center; }
     
-    .profile-container { position: relative; margin-bottom: 40px; }
+    /* ✅ ส่วนจัดวางรูปโปรไฟล์ (Profile Placement) */
+    .profile-container { position: relative; margin-bottom: 45px; }
     .profile-img {
-      width: 160px; height: 160px; border-radius: 40px; object-fit: cover;
-      border: 2px solid var(--accent); padding: 5px; background: var(--bg);
-      box-shadow: 0 0 30px var(--accent-glow); transition: 0.5s;
+      width: 170px; height: 170px; border-radius: 40px; object-fit: cover;
+      border: 3px solid var(--accent); padding: 8px; background: var(--bg);
+      box-shadow: 0 0 30px var(--accent-glow); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .profile-container:hover .profile-img { transform: scale(1.05) rotate(2deg); box-shadow: 0 0 50px var(--accent-glow); }
+    
+    /* เส้นหมุนรอบรูปโปรไฟล์ (Decoration Circle) */
     .profile-container::after {
-      content: ''; position: absolute; inset: -12px; border: 1px dashed var(--accent);
-      border-radius: 55px; opacity: 0.3; animation: rotate 25s linear infinite;
+      content: ''; position: absolute; inset: -15px; border: 1px dashed var(--accent);
+      border-radius: 50px; opacity: 0.3; animation: rotateCircle 25s linear infinite; pointer-events: none;
     }
-    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes rotateCircle { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    .badge { display: inline-block; padding: 6px 16px; background: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent); border-radius: 100px; font-family: 'IBM Plex Mono'; font-size: 0.75rem; color: var(--accent); margin-bottom: 25px; }
-    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; margin-bottom: 24px; color: #fff; letter-spacing: -2px; }
+    .hero-badge {
+      display: inline-block; padding: 7px 18px; background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--accent); border-radius: 100px;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--accent); margin-bottom: 30px;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-size: clamp(3rem, 10vw, 4.8rem);
+      font-weight: 800; line-height: 0.95; margin-bottom: 24px; color: #fff; letter-spacing: -2px;
+    }
     .hero h1 span { color: var(--accent); text-shadow: 0 0 40px var(--accent-glow); }
-    .hero p { max-width: 650px; margin: 0 auto 40px; font-size: 1.15rem; color: var(--muted); font-weight: 300; }
+    .hero p { max-width: 650px; margin: 0 auto 48px; font-size: 1.2rem; color: var(--muted); font-weight: 300; }
 
-    .tech-stack { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 50px; }
-    .stack-item { padding: 6px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-family: 'IBM Plex Mono'; font-size: 0.8rem; color: var(--accent); transition: 0.3s; }
-    .stack-item:hover { background: var(--surface-bright); border-color: var(--accent); transform: translateY(-3px); }
-
-    /* 📂 PROJECTS */
+    /* Section Global */
     section { padding: 100px 0; border-top: 1px solid var(--border); }
-    .section-title { font-family: 'Syne', sans-serif; font-size: 2.5rem; text-align: center; margin-bottom: 60px; color: #fff; }
+    .title-area { margin-bottom: 60px; text-align: center; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 700; color: #fff; }
     .section-title span { color: var(--accent); }
 
-    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
-    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 40px; transition: 0.4s; position: relative; overflow: hidden; display: flex; flex-direction: column; }
-    .project-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
-    .comp-label { font-family: 'IBM Plex Mono'; font-size: 0.7rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 18px; text-transform: uppercase; opacity: 0.8; }
-    .project-card h3 { font-size: 1.7rem; color: #fff; margin-bottom: 15px; }
-    .project-card p { color: var(--muted); font-size: 1rem; margin-bottom: 35px; flex-grow: 1; }
-    .btn-link { display: inline-flex; align-items: center; gap: 10px; color: var(--accent); text-decoration: none; font-weight: 600; font-family: 'IBM Plex Mono'; font-size: 0.95rem; }
-    .btn-link:hover { gap: 15px; transition: 0.3s; color: #fff; }
+    /* Projects Grid */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 28px;
+      padding: 40px; transition: 0.4s; display: flex; flex-direction: column; position: relative;
+    }
+    .project-card:hover { transform: translateY(-12px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .comp-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 2.5px; margin-bottom: 18px; text-transform: uppercase; }
+    .project-card h3 { font-size: 1.7rem; color: #fff; margin-bottom: 18px; }
+    .project-card p { color: var(--muted); font-size: 0.98rem; margin-bottom: 30px; flex-grow: 1; font-weight: 300; }
+    .btn-view {
+      display: inline-flex; align-items: center; gap: 10px; color: #fff;
+      text-decoration: none; font-weight: 600; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem;
+    }
+    .btn-view:hover { color: var(--accent); gap: 14px; transition: 0.3s; }
 
-    /* 💻 GITHUB */
-    .repo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-    .repo-card { background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border); padding: 25px; border-radius: 18px; text-decoration: none; color: inherit; transition: 0.3s; }
-    .repo-card:hover { border-color: var(--accent); background: var(--surface-bright); transform: translateY(-5px); }
-    .repo-name { color: var(--accent); font-weight: 600; margin-bottom: 10px; font-family: 'IBM Plex Mono'; font-size: 1.1rem; }
-    .repo-desc { font-size: 0.85rem; color: var(--muted); height: 3em; overflow: hidden; margin-bottom: 15px; line-height: 1.5; }
-    .repo-stats { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); font-family: 'IBM Plex Mono'; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 10px; }
-
-    /* 📞 CONTACT */
-    .contact-container { background: linear-gradient(160deg, #0f172a 0%, #020617 100%); border: 1px solid var(--border); border-radius: 45px; padding: 80px 30px; text-align: center; }
-    .qr-frame { width: 190px; height: 190px; background: #fff; margin: 0 auto 35px; padding: 12px; border-radius: 24px; box-shadow: 0 0 40px var(--accent-glow); transition: 0.4s; }
-    .qr-frame:hover { transform: scale(1.05) rotate(-2deg); }
+    /* Contact Section */
+    .contact-card {
+      background: linear-gradient(160deg, #0f172a 0%, #030712 100%);
+      border: 1px solid var(--border); border-radius: 40px; padding: 80px 30px; text-align: center;
+    }
+    .qr-frame {
+      width: 190px; height: 190px; background: #fff; margin: 30px auto;
+      padding: 12px; border-radius: 24px; box-shadow: 0 0 30px rgba(56, 189, 248, 0.2); transition: 0.4s;
+    }
+    .qr-frame:hover { transform: scale(1.03) rotate(-2deg); }
     .qr-frame img { width: 100%; border-radius: 10px; }
-    .copy-id { display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 14px 28px; border-radius: 16px; font-family: 'IBM Plex Mono'; border: 1px solid var(--border); cursor: pointer; transition: 0.3s; margin-bottom: 35px; }
-    .copy-id:hover { background: rgba(56, 189, 248, 0.12); border-color: var(--accent); color: #fff; }
-    .line-btn { display: inline-flex; align-items: center; gap: 12px; background: var(--line-green); color: #fff; padding: 20px 50px; border-radius: 18px; text-decoration: none; font-weight: 700; font-size: 1.15rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(6, 199, 85, 0.2); }
+    
+    .id-display {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.03); padding: 14px 28px; border-radius: 15px;
+      font-family: 'IBM Plex Mono', monospace; color: #fff; border: 1px solid var(--border);
+      cursor: pointer; transition: 0.2s; margin-bottom: 40px;
+    }
+    .id-display:hover { background: rgba(56, 189, 248, 0.12); border-color: var(--accent); color: #fff; }
+
+    .line-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--line-green); color: #fff; padding: 20px 50px;
+      border-radius: 16px; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+      transition: 0.3s; box-shadow: 0 10px 20px rgba(6, 199, 85, 0.2);
+    }
     .line-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 15px 30px rgba(6, 199, 85, 0.4); }
 
-    footer { padding: 80px 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); font-family: 'IBM Plex Mono'; opacity: 0.6; }
+    /* GitHub Repos */
+    .repo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .repo-card {
+      background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border); padding: 25px;
+      border-radius: 18px; text-decoration: none; color: inherit; transition: 0.3s;
+    }
+    .repo-card:hover { border-color: var(--accent); background: var(--surface2); transform: scale(1.02); }
+    .repo-name { color: var(--accent); font-weight: 600; margin-bottom: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 1.1rem; }
+    .repo-desc { font-size: 0.85rem; color: var(--muted); height: 3em; overflow: hidden; }
+
+    footer { padding: 60px 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); font-family: 'IBM Plex Mono', monospace; }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.8rem; }
+      .hero { padding: 150px 0 80px; }
+      .hero h1 { font-size: 3rem; }
       .nav-links { display: none; }
-      .project-grid { grid-template-columns: 1fr; }
-      .hero { padding-top: 140px; }
+      .container { padding: 0 16px; }
+      .contact-card { padding: 60px 16px; }
     }
   </style>
 </head>
@@ -115,118 +163,104 @@
   <div class="container">
     <section class="hero">
       <div class="profile-container">
-        <img src="https://lh3.googleusercontent.com/d/1r_fTVXz6OgjEuB3SU6Nx3eH8VOhSNkA3" alt="Saharat Intavira" class="profile-img">
+        <img src="https://lh3.googleusercontent.com/d/1r_fTVXz6OgjEuB3SU6Nx3eH8VOhSNkA3" alt="สหรัถ อินต๊ะวิรา (Saharat Intavira)" class="profile-img">
       </div>
-      <div class="badge">SYSTEM INNOVATION & AUTOMATION</div>
+      <div class="hero-badge">FULL-STACK & DATA AUTOMATION</div>
       <h1>Building Scalable <span>Innovation</span>.</h1>
-      <p>สวัสดีครับผม สหรัถ อินต๊ะวิรา เชี่ยวชาญการออกแบบ Dashboard และวางระบบ Automation เพื่อยกระดับประสิทธิภาพการทำงานขององค์กรด้วยเทคโนโลยีสมัยใหม่</p>
-      
-      <div class="tech-stack">
-        <div class="stack-item">n8n</div>
-        <div class="stack-item">JavaScript</div>
-        <div class="stack-item">Apps Script</div>
-        <div class="stack-item">Firebase</div>
-        <div class="stack-item">API Integration</div>
-      </div>
-
-      <a href="#projects" class="btn-link" style="font-size: 1rem; border-bottom: 1px solid var(--accent); padding-bottom: 8px;">SEE MY PROJECTS ↓</a>
+      <p>สวัสดีครับ ผม สหรัถ อินต๊ะวิรา (Saharat Intavira) มุ่งเน้นการสร้างสรรค์ Dashboard, Automation และโซลูชันข้อมูลที่ทรงพลังเพื่อขับเคลื่อนองค์กร</p>
+      <a href="#projects" class="btn-view" style="font-size: 1rem; border-bottom: 1px solid var(--accent); padding-bottom: 5px;">EXPLORE PROJECTS ↓</a>
     </section>
 
     <section id="projects">
-      <h2 class="section-title">Featured <span>Work</span></h2>
+      <div class="title-area">
+        <h2 class="section-title">Featured <span>Work</span></h2>
+        <p style="color: var(--muted); margin-top: 10px;">ผลงานการพัฒนาที่ SYSTEM INNOVATION AND SUPPLY</p>
+      </div>
+
       <div class="project-grid">
         <div class="project-card">
-          <div class="comp-label">SYSTEM INNOVATION AND SUPPLY</div>
+          <div class="comp-name">SYSTEM INNOVATION AND SUPPLY</div>
           <h3>QAC & EHS Dashboard</h3>
-          <p>ระบบติดตามตรวจสอบคุณภาพและความปลอดภัยแบบ Real-time วิเคราะห์ KPI รายทีมและแสดงผลผ่านกราฟที่เข้าใจง่าย ช่วยให้การบริหารงาน Node และ OFC มีประสิทธิภาพสูงสุด</p>
-          <a href="https://script.google.com/macros/s/AKfycbz5hh3Hs1cFCx8mGDAhoT9rg9UHJCeySe1GMOkniFOTLgSXXus2VgVUqTVpe3QnTINJtQ/exec" target="_blank" class="btn-link">Live Preview →</a>
+          <p>ระบบ Centralized Dashboard ติดตาม KPI ด้านคุณภาพและความปลอดภัยแบบ Real-time ดึงข้อมูลมาวิเคราะห์เพื่อการตัดสินใจที่แม่นยำ</p>
+          <a href="https://script.google.com/macros/s/AKfycbz5hh3Hs1cFCx8mGDAhoT9rg9UHJCeySe1GMOkniFOTLgSXXus2VgVUqTVpe3QnTINJtQ/exec" target="_blank" class="btn-view">Live View <span>→</span></a>
         </div>
 
         <div class="project-card">
-          <div class="comp-label">SYSTEM INNOVATION AND SUPPLY</div>
+          <div class="comp-name">SYSTEM INNOVATION AND SUPPLY</div>
           <h3>Operations System</h3>
-          <p>โซลูชันจัดการ Workflow ที่ออกแบบมาเพื่อรองรับการปฏิบัติงานจริง สรุปผลความสำเร็จรายวันและจัดการข้อมูลผ่านระบบอัตโนมัติ 100%</p>
-          <a href="https://script.google.com/macros/s/AKfycby19LnPXUKBByJKxRCGGQ62j9ji0Zn_QNAOy0wTU0u2O_ejaqma4GMon8KWiXsI3EaB9g/exec" target="_blank" class="btn-link">Live Preview →</a>
+          <p>เครื่องมือจัดการ Workflow และติดตามสถานะงานรายวันแบบอัตโนมัติ ช่วยลดงานเอกสารและเพิ่มความรวดเร็วในการประสานงาน</p>
+          <a href="https://script.google.com/macros/s/AKfycby19LnPXUKBByJKxRCGGQ62j9ji0Zn_QNAOy0wTU0u2O_ejaqma4GMon8KWiXsI3EaB9g/exec" target="_blank" class="btn-view">Live View <span>→</span></a>
         </div>
       </div>
     </section>
 
     <section id="github">
-      <h2 class="section-title">Latest <span>Code</span></h2>
+      <div class="title-area">
+        <h2 class="section-title">Latest <span>Code</span></h2>
+      </div>
       <div id="repo-grid" class="repo-grid">
-        <div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 40px; font-family: 'IBM Plex Mono';">
-          📡 Fetching repository data...
-        </div>
+        <div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 40px;">📡 Fetching repository data...</div>
       </div>
     </section>
 
     <section id="contact">
-      <div class="contact-container">
-        <h2 class="section-title" style="margin-bottom: 15px;">Get in <span>Touch</span></h2>
-        <p style="color: var(--muted); margin-bottom: 45px;">พร้อมให้คำปรึกษาและพัฒนาระบบเพื่อสร้างความต่างให้ธุรกิจของคุณ</p>
+      <div class="contact-card">
+        <h2 class="section-title">Get in <span>Touch</span></h2>
+        <p style="color: var(--muted); margin-top: 10px;">สนใจพัฒนาระบบหรือต้องการโซลูชัน Automation ติดต่อผมได้โดยตรงครับ</p>
         
         <div class="qr-frame">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://line.me/ti/p/~kingkumaallday" alt="Line QR">
         </div>
 
-        <div class="copy-id" onclick="copyID()">
+        <div class="id-display" onclick="copyID()">
           <span>ID: <strong>kingkumaallday</strong></span>
           <small style="color: var(--accent); opacity: 0.8; margin-left: 10px;">[COPY]</small>
         </div>
 
         <br>
         <a href="https://line.me/ti/p/~kingkumaallday" target="_blank" class="line-btn">
-          พูดคุยรายละเอียดผ่าน Line
+          แอดไลน์สอบถามข้อมูล
         </a>
       </div>
     </section>
 
     <footer>
-      <p>© 2026 SAHARAT INTAVIRA. Powering Innovation at SYSTEM INNOVATION AND SUPPLY.</p>
+      <p>© 2026 SAHARAT INTAVIRA. Crafted with precision for System Innovation.</p>
     </footer>
   </div>
 
   <script>
-    // ✅ ฟังก์ชันคัดลอก ID
+    // Copy ID ID Function
     function copyID() {
       navigator.clipboard.writeText('kingkumaallday');
-      const btn = document.querySelector('.copy-id strong');
-      const originalText = btn.innerText;
-      btn.innerText = 'COPIED!';
-      setTimeout(() => { btn.innerText = originalText; }, 2000);
+      const strong = document.querySelector('.id-display strong');
+      const originalText = strong.innerText;
+      strong.innerText = 'COPIED!';
+      setTimeout(() => { strong.innerText = originalText; }, 2000);
     }
 
-    // ✅ ดึงข้อมูลจาก GitHub API แบบ Real-time
-    const GITHUB_USER = 'kxma-blazi';
+    // GitHub API Fetch (kxma-blazi)
+    const USER = 'kxma-blazi';
     async function loadRepos() {
       const grid = document.getElementById('repo-grid');
       try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=6`);
-        if (!response.ok) throw new Error('API limit reached');
+        const response = await fetch(`https://api.github.com/users/${USER}/repos?sort=updated&per_page=6`);
+        if (!response.ok) throw new Error('API limit');
         const repos = await response.json();
         
         grid.innerHTML = '';
         repos.forEach(repo => {
           const card = document.createElement('a');
-          card.className = 'repo-card';
-          card.href = repo.html_url;
-          card.target = '_blank';
+          card.className = 'repo-card'; card.href = repo.html_url; card.target = '_blank';
           card.innerHTML = `
             <div class="repo-name">${repo.name}</div>
-            <div class="repo-desc">${repo.description || 'Enterprise Automation & Tooling.'}</div>
-            <div class="repo-stats">
-              <span>● ${repo.language || 'JavaScript'}</span>
-              <span>⭐ ${repo.stargazers_count}</span>
-            </div>
+            <div class="repo-desc">${repo.description || 'Enterprise Automation Solutions.'}</div>
+            <div style="font-size: 0.65rem; color: var(--accent); margin-top: 15px; font-family: 'IBM Plex Mono';">● ${repo.language || 'Code'}</div>
           `;
           grid.appendChild(card);
         });
       } catch (err) {
-        grid.innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; border: 1px dashed var(--border); padding: 40px; border-radius: 25px;">
-            <p style="color: var(--muted); margin-bottom: 20px;">Connection to GitHub is active.</p>
-            <a href="https://github.com/${GITHUB_USER}" target="_blank" class="btn-link" style="justify-content: center;">Visit GitHub Profile →</a>
-          </div>`;
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--muted);"> GitHub API Connected. </div>`;
       }
     }
     loadRepos();
