@@ -17,711 +17,317 @@
       --border-m: rgba(99,179,237,0.22);
       --accent: #63b3ed;
       --accent2: #b794f4;
-      --accent3: #68d391;
-      --danger: #fc8181;
-      --text: #e8edf5;
-      --muted: #6b7a99;
-      --dim: #2d3a52;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --font: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
       --mono: 'IBM Plex Mono', monospace;
-      --sans: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
-      --display: 'Syne', sans-serif;
-      --glow-blue: 0 0 40px rgba(99,179,237,0.15);
-      --glow-purple: 0 0 40px rgba(183,148,244,0.15);
     }
 
     body {
-      font-family: var(--sans);
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      font-family: var(--font);
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* ─── NOISE OVERLAY ─── */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 999; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      opacity: 0.4;
-    }
+    /* Selection */
+    ::selection { background: rgba(99,179,237,0.2); color: var(--accent); }
 
-    /* ─── GRID BG ─── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
-      background-size: 64px 64px;
-    }
+    /* Layout */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-    .orb {
-      position: fixed; pointer-events: none; z-index: 0; border-radius: 50%;
-      filter: blur(120px); opacity: 0.12;
-    }
-    .orb-1 { width: 500px; height: 500px; background: #4299e1; top: -100px; left: -100px; }
-    .orb-2 { width: 400px; height: 400px; background: #9f7aea; bottom: 10%; right: -80px; }
-    .orb-3 { width: 300px; height: 300px; background: #48bb78; bottom: 30%; left: 20%; }
-
-    /* ─── CURSOR ─── */
-    #cursor { position: fixed; width: 500px; height: 500px; pointer-events: none; z-index: 1;
-      background: radial-gradient(circle, rgba(99,179,237,0.06) 0%, transparent 65%);
-      transform: translate(-50%, -50%); transition: left 0.06s, top 0.06s; }
-
-    /* ─── NAV ─── */
+    /* Navigation */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px; height: 60px;
-      background: rgba(6,9,15,0.8);
-      backdrop-filter: blur(24px) saturate(1.4);
+      position: sticky;
+      top: 0;
+      background: rgba(6, 9, 15, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
       border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
     }
-    .nav-logo {
-      font-family: var(--display); font-size: 0.9rem; font-weight: 700;
-      color: var(--text); letter-spacing: 0.05em;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent3);
-      box-shadow: 0 0 10px var(--accent3); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.85)} }
-
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
-      text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-family: var(--mono); transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
-    .nav-badge { font-family: var(--mono); font-size: 0.65rem; color: var(--accent3);
-      border: 1px solid rgba(104,211,145,0.3); padding: 3px 10px; border-radius: 20px; }
 
-    /* ─── LAYOUT ─── */
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 1; }
-
-    /* ─── HERO ─── */
-    .hero { padding: 140px 0 80px; display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: center; }
-
-    .hero-eyebrow { font-family: var(--mono); font-size: 0.72rem; color: var(--accent);
-      letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 24px;
-      display: flex; align-items: center; gap: 16px; }
-    .hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--accent); display: block; }
-
-    h1 { font-family: var(--display); font-size: clamp(2.8rem, 5vw, 4.8rem);
-      font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 20px; }
-    .txt-gradient {
-      background: linear-gradient(130deg, #63b3ed 0%, #b794f4 45%, #68d391 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    /* Hero Section */
+    .hero {
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border-m);
+      border-radius: 100px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-size: 1.1rem;
+      color: var(--muted);
     }
 
-    .hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.9; margin-bottom: 36px; max-width: 480px; }
-    .hero-desc span { color: var(--text); }
+    /* Section Styles */
+    section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .section-header { margin-bottom: 50px; text-align: center; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 700; color: #fff; }
+    .section-title span { color: var(--accent); }
 
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn { padding: 11px 22px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
-      text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-fill { background: var(--accent); color: #06090f; }
-    .btn-fill:hover { background: #90cdf4; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,179,237,0.3); }
-    .btn-outline { border: 1px solid var(--border-m); color: var(--accent); background: transparent; }
-    .btn-outline:hover { background: rgba(99,179,237,0.07); transform: translateY(-2px); }
-
-    /* ─── HERO CARD (RIGHT) ─── */
-    .hero-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
-      padding: 32px; position: relative; overflow: hidden;
+    /* Projects Grid */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
     }
-    .hero-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
-    .hero-card-title { font-family: var(--mono); font-size: 0.65rem; color: var(--muted);
-      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
-    .stat-row { display: flex; justify-content: space-between; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-    .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .stat-label { font-size: 0.8rem; color: var(--muted); }
-    .stat-val { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); font-weight: 500; }
-    .stat-val.green { color: var(--accent3); }
-    .stat-val.purple { color: var(--accent2); }
-
-    /* ─── SECTION ─── */
-    .section { padding: 80px 0; border-top: 1px solid rgba(99,179,237,0.06); }
-    .sec-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 48px; }
-    .sec-num { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; }
-    .sec-title { font-family: var(--display); font-size: 1.6rem; font-weight: 700; color: var(--text); }
-
-    /* ─── EXPERIENCE ─── */
-    .exp-grid { display: grid; gap: 16px; }
-    .exp-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-      padding: 28px 32px; display: grid; grid-template-columns: auto 1fr auto;
-      gap: 24px; align-items: start; transition: all 0.25s;
-      position: relative; overflow: hidden;
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
-    .exp-card:hover { border-color: var(--border-m); transform: translateY(-3px); box-shadow: var(--glow-blue); }
-    .exp-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-      background: linear-gradient(180deg, var(--accent), var(--accent2)); }
-    .exp-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--surface2);
-      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-      font-size: 20px; flex-shrink: 0; }
-    .exp-role { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .exp-company { font-size: 0.82rem; color: var(--accent); margin-bottom: 10px; }
-    .exp-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
-    .exp-date { font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
-      white-space: nowrap; padding: 4px 10px; background: var(--surface2);
-      border: 1px solid var(--border); border-radius: 20px; }
-
-    /* ─── PROJECTS ─── */
-    .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .proj-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-      padding: 28px; transition: all 0.25s; cursor: default; position: relative; overflow: hidden;
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.3s;
     }
-    .proj-card:hover { border-color: var(--border-m); transform: translateY(-4px); }
-    .proj-card::after {
-      content: ''; position: absolute; inset: 0; border-radius: 16px; opacity: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(99,179,237,0.06), transparent 60%);
-      transition: opacity 0.3s;
+    .project-card:hover::before { opacity: 1; }
+
+    .company-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
     }
-    .proj-card:hover::after { opacity: 1; }
-    .proj-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
-    .proj-icon-wrap { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center;
-      justify-content: center; font-size: 18px; }
-    .proj-icon-wrap.blue { background: rgba(99,179,237,0.12); }
-    .proj-icon-wrap.purple { background: rgba(183,148,244,0.12); }
-    .proj-icon-wrap.green { background: rgba(104,211,145,0.12); }
-    .proj-icon-wrap.red { background: rgba(252,129,129,0.12); }
-    .proj-status { font-family: var(--mono); font-size: 0.62rem; padding: 3px 8px; border-radius: 20px; }
-    .proj-status.live { color: var(--accent3); border: 1px solid rgba(104,211,145,0.3); background: rgba(104,211,145,0.07); }
-    .proj-status.wip { color: #f6ad55; border: 1px solid rgba(246,173,85,0.3); background: rgba(246,173,85,0.07); }
-    .proj-name { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .proj-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
-    .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tag { font-family: var(--mono); font-size: 0.62rem; padding: 3px 8px; border-radius: 5px;
-      background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+    .project-card h3 { font-size: 1.6rem; color: #fff; margin-bottom: 16px; }
+    .project-card p { color: var(--muted); margin-bottom: 24px; font-size: 0.95rem; flex-grow: 1; }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .tech-pill {
+      background: var(--surface2);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+    }
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+    .btn-link:hover { gap: 12px; color: var(--accent); }
 
-    /* ─── SKILLS ─── */
-    .skills-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-    .skills-group-title { font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
-      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
-    .skills-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .skill-pill { display: flex; align-items: center; gap: 8px; padding: 8px 14px;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      font-size: 0.82rem; color: var(--text); transition: all 0.2s; cursor: default; }
-    .skill-pill:hover { border-color: var(--border-m); background: var(--surface2); transform: translateY(-1px); }
-    .skill-pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .dot-blue { background: var(--accent); }
-    .dot-purple { background: var(--accent2); }
-    .dot-green { background: var(--accent3); }
+    /* Line Contact Section */
+    .contact-section {
+      background: var(--surface);
+      border-radius: 30px;
+      padding: 60px;
+      text-align: center;
+      border: 1px solid var(--border-m);
+      margin-bottom: 100px;
+    }
+    .line-qr-box {
+      max-width: 200px;
+      margin: 30px auto;
+      padding: 15px;
+      background: #fff;
+      border-radius: 20px;
+    }
+    .line-qr-box img { width: 100%; display: block; border-radius: 10px; }
+    .line-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #06C755; /* Line Green */
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+    .line-btn:hover { transform: scale(1.05); }
 
-    /* ─── GITHUB ─── */
-    .gh-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
-    .gh-link { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); text-decoration: none;
-      border: 1px solid var(--border-m); padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
-    .gh-link:hover { background: rgba(99,179,237,0.08); }
-    .repos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    /* Footer */
+    footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+
+    /* Repos Grid (GitHub) */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
     .repo-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-      padding: 20px; text-decoration: none; color: inherit; display: flex;
-      flex-direction: column; gap: 12px; transition: all 0.25s;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: 0.2s;
     }
-    .repo-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--glow-blue); }
-    .repo-name { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); font-weight: 500;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .repo-desc { font-size: 0.77rem; color: var(--muted); line-height: 1.6; flex: 1;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .repo-meta { display: flex; justify-content: space-between; align-items: center; }
-    .repo-lang { font-family: var(--mono); font-size: 0.68rem; color: var(--accent2);
-      display: flex; align-items: center; gap: 5px; }
-    .repo-lang-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); }
-    .repo-stars { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
-    .repo-loading { color: var(--muted); font-family: var(--mono); font-size: 0.8rem;
-      padding: 40px; text-align: center; grid-column: 1/-1; animation: fadeIn 0.4s; }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .repo-card:hover { border-color: var(--accent); }
+    .repo-name { font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+    .repo-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; height: 3em; overflow: hidden; }
+    .repo-meta { display: flex; gap: 12px; font-size: 0.75rem; color: var(--muted); align-items: center; }
+    .repo-lang-dot { width: 10px; height: 10px; border-radius: 50%; }
 
-    /* ─── CONTACT ─── */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .contact-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-      padding: 24px 28px; display: flex; align-items: center; gap: 16px;
-      text-decoration: none; color: inherit; transition: all 0.25s;
-    }
-    .contact-card:hover { border-color: var(--border-m); transform: translateY(-3px); }
-    .contact-icon { width: 40px; height: 40px; border-radius: 10px; display: flex;
-      align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .contact-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 3px; }
-    .contact-val { font-size: 0.88rem; font-weight: 500; color: var(--text); }
-
-    /* ─── FOOTER ─── */
-    footer {
-      border-top: 1px solid var(--border); padding: 40px 0;
-      display: flex; align-items: center; justify-content: space-between;
-      position: relative; z-index: 1;
-    }
-    .footer-left { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
-    .footer-right { font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
-      display: flex; align-items: center; gap: 8px; }
-    .footer-online { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3);
-      animation: pulse 2s infinite; }
-
-    /* ─── REVEAL ─── */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.in { opacity: 1; transform: none; }
-
-    /* ─── TYPING ─── */
-    .cursor { display: inline-block; width: 2px; height: 1em; background: var(--accent);
-      margin-left: 2px; vertical-align: text-bottom; animation: blink 0.8s steps(1) infinite; }
-    @keyframes blink { 50%{opacity:0} }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-card { display: none; }
-      .proj-grid { grid-template-columns: 1fr; }
-      .repos-grid { grid-template-columns: 1fr 1fr; }
-      .skills-sections { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; }
-      nav { padding: 0 24px; }
-      .wrap { padding: 0 24px; }
+    @media (max-width: 768px) {
+      .hero { padding: 80px 0 40px; }
       .nav-links { display: none; }
+      .contact-section { padding: 40px 20px; }
     }
-    @media (max-width: 540px) {
-      .repos-grid { grid-template-columns: 1fr; }
-      .exp-card { grid-template-columns: 1fr; }
-      .exp-date { display: none; }
-    }
-
-    /* ─── SCROLLBAR ─── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
-
-    /* ─── SMOOTH HIGHLIGHT ─── */
-    ::selection { background: rgba(99,179,237,0.25); }
-
-    /* =========================================
-   FEATURED PROJECTS SECTION (SYSTEM INNOVATION)
-   ========================================= */
-.projects-section {
-  padding: 80px 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 2.5rem;
-  color: #fff;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.section-title span {
-  color: var(--accent);
-}
-
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-}
-
-.project-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent);
-  box-shadow: 0 10px 30px rgba(99, 179, 237, 0.1);
-}
-
-.company-badge {
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  color: var(--accent);
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.project-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  color: #fff;
-  margin-bottom: 16px;
-}
-
-.project-desc {
-  font-family: 'Noto Sans Thai', sans-serif;
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 24px;
-  flex-grow: 1;
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.tech-tag {
-  background: var(--surface2);
-  color: #a0aec0;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-}
-
-.project-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  text-decoration: none;
-  padding: 10px 20px;
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.project-link:hover {
-  background: rgba(99, 179, 237, 0.1);
-  transform: scale(1.02);
-}
   </style>
 </head>
 <body>
 
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div id="cursor"></div>
-
-  <!-- NAV -->
   <nav>
-    <div class="nav-logo">
-      <span class="nav-logo-dot"></span>
-      SAHARAT.DEV
+    <div class="container">
+      <a href="#" class="logo">S. INTAVIRA</a>
+      <ul class="nav-links">
+        <li><a href="#projects">PROJECTS</a></li>
+        <li><a href="#github">GITHUB</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
     </div>
-    <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#experience">experience</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#skills">skills</a></li>
-      <li><a href="#github">github</a></li>
-      <li><a href="#contact">contact</a></li>
-    </ul>
-    <span class="nav-badge">Available for Work</span>
   </nav>
 
-  <!-- HERO -->
-  <div class="wrap" id="about">
-    <div class="hero">
-      <div>
-        <div class="hero-eyebrow reveal">Full-Stack Developer · Thailand</div>
-        <h1 class="reveal" style="transition-delay:0.1s">
-          สวัสดีครับ,<br>
-          <span class="txt-gradient">Saharat<br>Intavira</span>
-        </h1>
-        <p class="hero-desc reveal" style="transition-delay:0.2s">
-          <span id="typing-out"></span><span class="cursor"></span><br>
-          ชอบสร้างระบบที่ช่วยให้ชีวิตง่ายขึ้น — ตั้งแต่ <span>automation workflow</span> ไปจนถึงการผสาน <span>AI</span> เข้ากับงานจริง
-        </p>
-        <div class="hero-cta reveal" style="transition-delay:0.3s">
-          <a href="mailto:okumakung2018@gmail.com" class="btn btn-fill">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            ติดต่อผม
-          </a>
-          <a href="#projects" class="btn btn-outline">ดูผลงาน →</a>
-          <a href="https://github.com/kxma-blazi" target="_blank" class="btn btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-        </div>
-      </div>
+  <div class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">FULL-STACK DEVELOPER & AUTOMATION</div>
+      <h1>Building Scalable <span>Innovation</span>.</h1>
+      <p>สวัสดีครับ ผม สหรัฐ อินทวิระ (Saharat Intavira) มุ่งเน้นการสร้างสรรค์ระบบ Dashboard, Automation และโซลูชันการจัดการข้อมูลที่มีประสิทธิภาพ</p>
+      <a href="#projects" class="project-link" style="text-decoration: none; border: 1px solid var(--accent); padding: 12px 24px; border-radius: 8px; color: var(--accent);">เลื่อนชมผลงาน</a>
+    </section>
 
-      <!-- Info Card -->
-      <div class="hero-card reveal" style="transition-delay:0.35s">
-        <div class="hero-card-title">// terminal.status</div>
-        <div class="stat-row">
-          <span class="stat-label">Location</span>
-          <span class="stat-val">Thailand 🇹🇭</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Status</span>
-          <span class="stat-val green">● Available</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Focus</span>
-          <span class="stat-val purple">AI + Automation</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Stack</span>
-          <span class="stat-val">JS / GAS / Docker</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Email</span>
-          <span class="stat-val" style="font-size:0.7rem">okumakung2018@gmail.com</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">GitHub</span>
-          <span class="stat-val">@kxma-blazi</span>
-        </div>
+    <!-- FEATURED PROJECTS -->
+    <section id="projects">
+      <div class="section-header">
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <p style="color: var(--muted); margin-top: 10px;">ผลงานการพัฒนาที่ SYSTEM INNOVATION AND SUPPLY</p>
       </div>
-    </div>
-  </div>
+      
+      <div class="project-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="company-tag">SYSTEM INNOVATION AND SUPPLY</div>
+          <h3>QAC & EHS Dashboard</h3>
+          <p>ระบบติดตามตรวจสอบคุณภาพและความปลอดภัยแบบ Real-time ดึงข้อมูลจาก Spreadsheet มาสรุปผลเป็น KPI รายทีม รองรับการทำงานทั้ง PM, Node และ OFC</p>
+          <div class="tech-stack">
+            <span class="tech-pill">Google Apps Script</span>
+            <span class="tech-pill">JavaScript</span>
+            <span class="tech-pill">HTML5</span>
+            <span class="tech-pill">CSS3</span>
+          </div>
+          <a href="https://script.google.com/macros/s/AKfycbz5hh3Hs1cFCx8mGDAhoT9rg9UHJCeySe1GMOkniFOTLgSXXus2VgVUqTVpe3QnTINJtQ/exec" target="_blank" class="btn-link">Live View <span>→</span></a>
+        </div>
 
-  <!-- EXPERIENCE -->
-  <div class="wrap" id="experience">
-    <section class="section reveal">
-      <div class="sec-header">
-        <span class="sec-num">01 —</span>
-        <h2 class="sec-title">Experience</h2>
-      </div>
-      <div class="exp-grid">
-        <div class="exp-card">
-          <div class="exp-icon">💻</div>
-          <div>
-            <div class="exp-role">IT Intern · System Support</div>
-            <div class="exp-company">System Innovation and Supply Co., Ltd.</div>
-            <div class="exp-desc">ติดตั้ง ตรวจสอบ และบำรุงรักษาระบบคอมพิวเตอร์ รวมถึงการจัดการ network ในสภาพแวดล้อมองค์กร และพัฒนาเครื่องมือเอาไว้ใช้ในองค์กร</div>
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="company-tag">SYSTEM INNOVATION AND SUPPLY</div>
+          <h3>Operations System</h3>
+          <p>เครื่องมือจัดการและติดตามสถานะการปฏิบัติงานที่ออกแบบมาเพื่อความคล่องตัว สรุปผลความสำเร็จรายวันและจัดการ Workflow ให้เป็นระบบ</p>
+          <div class="tech-stack">
+            <span class="tech-pill">GAS Web App</span>
+            <span class="tech-pill">Data Visualization</span>
+            <span class="tech-pill">API Integration</span>
           </div>
-          <div class="exp-date">2023 — 2024</div>
-        </div>
-        <div class="exp-card">
-          <div class="exp-icon">🏛️</div>
-          <div>
-            <div class="exp-role">IT Technician (Project-based)</div>
-            <div class="exp-company">New Parliament Building · Bangkok</div>
-            <div class="exp-desc">ร่วมทีมติดตั้ง workstation และ config ระบบตามมาตรฐานหน่วยงานราชการในโครงการรัฐสภาแห่งใหม่</div>
-          </div>
-          <div class="exp-date">2024</div>
+          <a href="https://script.google.com/macros/s/AKfycby19LnPXUKBByJKxRCGGQ62j9ji0Zn_QNAOy0wTU0u2O_ejaqma4GMon8KWiXsI3EaB9g/exec" target="_blank" class="btn-link">Live View <span>→</span></a>
         </div>
       </div>
     </section>
-  </div>
 
-  <!-- PROJECTS -->
-  <div class="wrap" id="projects">
-    <section class="section reveal">
-      <div class="sec-header">
-        <span class="sec-num">02 —</span>
-        <h2 class="sec-title">Projects</h2>
+    <!-- GITHUB REPOS -->
+    <section id="github">
+      <div class="section-header">
+        <h2 class="section-title">Latest <span>Code</span></h2>
       </div>
-      <div class="proj-grid">
-        <div class="proj-card">
-          <div class="proj-header">
-            <div class="proj-icon-wrap blue">📊</div>
-            <span class="proj-status live">● Live</span>
-          </div>
-          <div class="proj-name">SYS Stock Dashboard (AI-Driven)</div>
-          <div class="proj-desc">ระบบจัดการสต็อกอัจฉริยะ (GAS) ใช้ Groq AI วิเคราะห์ pattern และแจ้งเตือนผ่าน Telegram Bot แบบ Real-time</div>
-          <div class="proj-stack">
-            <span class="tag">JavaScript</span>
-            <span class="tag">Google Apps Script</span>
-            <span class="tag">Groq API</span>
-            <span class="tag">Telegram API</span>
-          </div>
-        </div>
-        <div class="proj-card">
-          <div class="proj-header">
-            <div class="proj-icon-wrap purple">⚙️</div>
-            <span class="proj-status live">● Live</span>
-          </div>
-          <div class="proj-name">Self-Hosted Automation Server</div>
-          <div class="proj-desc">Home Server บน Ubuntu Linux รัน n8n และ Docker เพื่อจัดการ workflow อัตโนมัติ พร้อม reverse proxy ด้วย Nginx + Cloudflare Tunnel</div>
-          <div class="proj-stack">
-            <span class="tag">Docker</span>
-            <span class="tag">Ubuntu</span>
-            <span class="tag">n8n</span>
-            <span class="tag">Nginx</span>
-            <span class="tag">Cloudflare</span>
-          </div>
-        </div>
-        <div class="proj-card" style="grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;">
-          <div>
-            <div class="proj-header" style="margin-bottom:14px">
-              <div class="proj-icon-wrap green">🤖</div>
-              <span class="proj-status wip">⚡ In Progress</span>
-            </div>
-            <div class="proj-name">AI Workflow Integrations</div>
-            <div class="proj-desc">พัฒนา AI agent pipelines ผ่าน n8n เชื่อมต่อ LLM หลายตัว (GPT, Groq, Gemini) เพื่อ automate งาน data processing และ reporting</div>
-            <div class="proj-stack">
-              <span class="tag">n8n</span>
-              <span class="tag">LLM APIs</span>
-              <span class="tag">REST</span>
-              <span class="tag">Python</span>
-              <span class="tag">Webhooks</span>
-            </div>
-          </div>
-        </div>
+      <div id="repo-grid" class="repo-grid">
+        <div style="grid-column: 1/-1; text-align: center; color: var(--muted);">Loading repositories...</div>
       </div>
     </section>
-  </div>
 
-  <!-- SKILLS -->
-  <div class="wrap" id="skills">
-    <section class="section reveal">
-      <div class="sec-header">
-        <span class="sec-num">03 —</span>
-        <h2 class="sec-title">Expertise</h2>
-      </div>
-      <div class="skills-sections">
-        <div>
-          <div class="skills-group-title">// Languages & Scripting</div>
-          <div class="skills-list">
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>JavaScript ES6+</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>Google Apps Script</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>Python</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>Bash / Shell</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>HTML / CSS</div>
-          </div>
+    <!-- CONTACT / LINE -->
+    <section id="contact">
+      <div class="contact-section">
+        <h2 class="section-title" style="margin-bottom: 10px;">Get in <span>Touch</span></h2>
+        <p style="color: var(--muted);">หากคุณมีคำถามหรือต้องการร่วมงานกัน สามารถสแกน Line QR Code ได้ที่นี่</p>
+        
+        <div class="line-qr-box">
+          <!-- Placeholder QR Code (Please replace with your actual QR code image URL) -->
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://line.me/ti/p/YourLineIDHere" alt="Line QR Code">
         </div>
-        <div>
-          <div class="skills-group-title">// Automation & DevOps</div>
-          <div class="skills-list">
-            <div class="skill-pill"><span class="skill-pill-dot dot-purple"></span>n8n Automation</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-purple"></span>Docker</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-purple"></span>Linux (Ubuntu)</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-purple"></span>Nginx</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-purple"></span>Cloudflare</div>
-          </div>
-        </div>
-        <div>
-          <div class="skills-group-title">// AI & APIs</div>
-          <div class="skills-list">
-            <div class="skill-pill"><span class="skill-pill-dot dot-green"></span>AI Integration</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-green"></span>REST API Dev</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-green"></span>Groq / OpenAI API</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-green"></span>Telegram Bot API</div>
-          </div>
-        </div>
-        <div>
-          <div class="skills-group-title">// Tools & Platforms</div>
-          <div class="skills-list">
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>Google Workspace</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>GitHub</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>VS Code</div>
-            <div class="skill-pill"><span class="skill-pill-dot dot-blue"></span>Network Admin</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
 
-  <!-- GITHUB -->
-  <div class="wrap" id="github">
-    <section class="section reveal">
-      <div class="gh-header">
-        <div class="sec-header" style="margin-bottom:0">
-          <span class="sec-num">04 —</span>
-          <h2 class="sec-title">Open Source</h2>
-        </div>
-        <a href="https://github.com/kxma-blazi" target="_blank" class="gh-link">View All Repos ↗</a>
-      </div>
-      <div id="repos-grid" class="repos-grid">
-        <div class="repo-loading">⟳ Loading repositories from GitHub...</div>
-      </div>
-    </section>
-  </div>
-
-  <!-- CONTACT -->
-  <div class="wrap" id="contact">
-    <section class="section reveal">
-      <div class="sec-header">
-        <span class="sec-num">05 —</span>
-        <h2 class="sec-title">Contact</h2>
-      </div>
-      <div class="contact-grid">
-        <a href="mailto:okumakung2018@gmail.com" class="contact-card">
-          <div class="contact-icon" style="background:rgba(99,179,237,0.1)">📧</div>
-          <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-val">okumakung2018@gmail.com</div>
-          </div>
-        </a>
-        <a href="https://github.com/kxma-blazi" target="_blank" class="contact-card">
-          <div class="contact-icon" style="background:rgba(183,148,244,0.1)">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent2)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          </div>
-          <div>
-            <div class="contact-label">GitHub</div>
-            <div class="contact-val">@kxma-blazi</div>
-          </div>
+        <a href="https://line.me/ti/p/YourLineIDHere" target="_blank" class="line-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.531-3.611 2.531-5.997zm-15.011 3.996h-1.688c-.255 0-.463-.208-.463-.463v-5.185c0-.255.208-.463.463-.463s.463.208.463.463v4.721h1.225c.255 0 .463.208.463.463s-.208.464-.463.464zm2.684-.463c0 .255-.208.463-.463.463s-.463-.208-.463-.463v-5.185c0-.255.208-.463.463-.463s.463.208.463.463v5.185zm4.358 0c0 .17-.092.325-.241.405-.071.038-.15.057-.229.057-.089 0-.178-.025-.256-.076l-2.016-1.326v.94c0 .255-.208.463-.463.463s-.463-.208-.463-.463v-5.185c0-.255.208-.463.463-.463s.463.208.463.463v1.319l2.016 1.326v-.94c0-.255.208-.463.463-.463s.463.208.463.463v5.185zm4.341-2.906h-1.225v-1.815h1.225c.255 0 .463-.208.463-.463s-.208-.463-.463-.463h-1.688c-.255 0-.463.208-.463.463v5.185c0 .255.208.463.463.463h1.688c.255 0 .463-.208.463-.463s-.208-.463-.463-.463h-1.225v-1.921z"/></svg>
+          แอดไลน์สอบถามข้อมูล
         </a>
       </div>
     </section>
-  </div>
 
-  <!-- FOOTER -->
-  <div class="wrap">
     <footer>
-      <div class="footer-left">© 2026 SAHARAT INTAVIRA · Built with Code & Passion</div>
-      <div class="footer-right">
-        <span class="footer-online"></span>
-        Online · Thailand
-      </div>
+      <p>&copy; 2026 SAHARAT INTAVIRA. Designed for SYSTEM INNOVATION AND SUPPLY.</p>
     </footer>
   </div>
 
   <script>
-    // Cursor glow
-    const cur = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cur.style.left = e.clientX + 'px';
-      cur.style.top = e.clientY + 'px';
-    });
-
-    // Typing
-    const el = document.getElementById('typing-out');
-    const phrases = ['Full-Stack Developer', 'Automation Specialist', 'AI Integration Engineer', 'Tech Enthusiast'];
-    let pi = 0, ci = 0, del = false;
-    function type() {
-      const p = phrases[pi];
-      el.textContent = del ? p.slice(0, ci--) : p.slice(0, ci++);
-      if (!del && ci > p.length) { del = true; setTimeout(type, 2000); return; }
-      if (del && ci < 0) { del = false; pi = (pi + 1) % phrases.length; ci = 0; setTimeout(type, 400); return; }
-      setTimeout(type, del ? 45 : 130);
-    }
-    type();
-
-    // Scroll reveal
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    // Language color map
+    const GITHUB_USERNAME = 'it-me-saharat'; // ปรับตาม Username ของพี่
     const langColors = {
-      JavaScript: '#f7df1e', TypeScript: '#3178c6', Python: '#3572a5',
-      HTML: '#e34c26', CSS: '#563d7c', Shell: '#89e051',
-      'Google Apps Script': '#34a853', PHP: '#4f5d95', default: '#8b949e'
+      JavaScript: '#f1e05a',
+      HTML: '#e34c26',
+      CSS: '#563d7c',
+      Python: '#3572A5',
+      default: '#8b949e'
     };
 
-    // GitHub repos
-    async function loadRepos() {
-      const grid = document.getElementById('repos-grid');
+    async function fetchRepos() {
+      const grid = document.getElementById('repo-grid');
       try {
-        const res = await fetch('https://api.github.com/users/kxma-blazi/repos?per_page=20&sort=pushed');
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed`);
         if (!res.ok) throw new Error();
         let repos = await res.json();
         repos = repos.filter(r => !r.fork).sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 6);
         grid.innerHTML = '';
         if (!repos.length) {
-          grid.innerHTML = '<div class="repo-loading">No public repositories found.</div>';
+          grid.innerHTML = '<div style="grid-column:1/-1; text-align:center;">No public repositories found.</div>';
           return;
         }
         repos.forEach(repo => {
@@ -732,21 +338,21 @@
           a.className = 'repo-card'; a.href = repo.html_url; a.target = '_blank';
           a.innerHTML = `
             <div class="repo-name">${repo.name}</div>
-            <div class="repo-desc">${repo.description || 'No description.'}</div>
+            <div class="repo-desc">${repo.description || 'ไม่มีคำอธิบายโปรเจกต์'}</div>
             <div class="repo-meta">
-              <div class="repo-lang">
+              <div style="display:flex; align-items:center; gap:5px;">
                 <span class="repo-lang-dot" style="background:${dot}"></span>
                 ${lang}
               </div>
-              <div class="repo-stars">⭐ ${repo.stargazers_count} · ${updated}</div>
+              <div>⭐ ${repo.stargazers_count} · ${updated}</div>
             </div>`;
           grid.appendChild(a);
         });
-      } catch {
-        grid.innerHTML = '<div class="repo-loading">⚠️ โหลด GitHub ไม่ได้ (API limit หรือ network error)</div>';
+      } catch (e) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--red);">Error loading repos.</div>';
       }
     }
-    loadRepos();
+    fetchRepos();
   </script>
 </body>
 </html>
