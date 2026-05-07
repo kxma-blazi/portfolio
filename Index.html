@@ -1,213 +1,279 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAHARAT INTAVIRA · Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #030712;
-      --surface: #0f172a;
-      --border: rgba(56, 189, 248, 0.15);
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.4);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --line-green: #06C755;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAHARAT I. | Solutions Architect & Automation</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Outfit', 'Noto Sans Thai', sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    <style>
+        :root {
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --mint: #34d399;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 1000;
-      background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); padding: 1rem 0;
-    }
-    nav .container { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-weight: 800; font-size: 1.4rem; color: #fff; text-decoration: none; letter-spacing: -1px; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; transition: 0.3s; }
-    .nav-links a:hover { color: var(--accent); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            overflow-x: hidden;
+        }
 
-    /* Hero Section */
-    .hero { padding: 180px 0 100px; text-align: center; }
-    .profile-container { position: relative; width: 160px; height: 160px; margin: 0 auto 30px; }
-    .profile-img {
-      width: 100%; height: 100%; border-radius: 40px; object-fit: cover;
-      border: 2px solid var(--accent); padding: 6px; background: var(--bg);
-      box-shadow: 0 0 30px var(--accent-glow);
-    }
-    .hero-badge {
-      display: inline-block; padding: 6px 16px; background: rgba(56, 189, 248, 0.1);
-      border: 1px solid var(--accent); border-radius: 100px;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); margin-bottom: 24px;
-    }
-    .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
-    .hero h1 span { color: var(--accent); }
-    .hero p { max-width: 600px; margin: 0 auto 40px; color: var(--muted); font-size: 1.1rem; }
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
 
-    /* Section Grid */
-    section { padding: 80px 0; border-top: 1px solid var(--border); }
-    .section-header { margin-bottom: 50px; }
-    .section-title { font-size: 2.2rem; font-weight: 700; display: flex; align-items: center; gap: 15px; }
-    .section-title::after { content: ''; height: 1px; flex-grow: 1; background: var(--border); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
 
-    /* Cards */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-    .card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
-      padding: 32px; transition: 0.4s; position: relative; overflow: hidden;
-    }
-    .card:hover { transform: translateY(-8px); border-color: var(--accent); }
-    .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent); margin-bottom: 12px; display: block; }
-    .card h3 { font-size: 1.4rem; margin-bottom: 12px; color: #fff; }
-    .card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
+        /* Navigation */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 1.5rem 0; background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent); letter-spacing: -1px; }
 
-    /* Buttons */
-    .btn-link {
-      display: inline-flex; align-items: center; gap: 8px; color: #fff;
-      text-decoration: none; font-weight: 600; font-size: 0.9rem;
-    }
-    .btn-link:hover { color: var(--accent); }
+        /* Hero */
+        .hero { padding: 120px 0 80px; text-align: left; }
+        .hero h1 { 
+            font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 8vw, 5.5rem); 
+            line-height: 0.9; margin-bottom: 1.5rem; letter-spacing: -4px;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, var(--accent), var(--mint));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; color: var(--muted); max-width: 600px; margin-bottom: 2rem; }
 
-    /* Tools/Skills */
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-    .skill-tag { background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; border: 1px solid var(--border); }
+        /* Section Styling */
+        section { padding: 100px 0; }
+        .section-tag {
+            font-family: 'IBM Plex Mono'; color: var(--accent); font-size: 0.8rem;
+            text-transform: uppercase; margin-bottom: 1rem; display: block;
+        }
+        .section-title { font-family: 'Syne'; font-size: 2.5rem; margin-bottom: 3rem; }
 
-    /* Contact */
-    .contact-box {
-      background: linear-gradient(160deg, #0f172a 0%, #030712 100%);
-      border: 1px solid var(--border); border-radius: 32px; padding: 60px 24px; text-align: center;
-    }
-    .copy-id {
-      display: inline-flex; align-items: center; gap: 12px;
-      background: rgba(56, 189, 248, 0.05); padding: 12px 24px; border-radius: 14px;
-      border: 1px solid var(--border); cursor: pointer; transition: 0.2s; margin: 20px 0;
-    }
-    .copy-id:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.1); }
+        /* Experience Timeline */
+        .timeline { position: relative; border-left: 2px solid var(--border); padding-left: 30px; margin-left: 10px; }
+        .timeline-item { position: relative; margin-bottom: 60px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -41px; top: 5px;
+            width: 20px; height: 20px; background: var(--bg); border: 3px solid var(--accent);
+            border-radius: 50%; box-shadow: 0 0 10px var(--accent-glow);
+        }
+        .exp-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 2.5rem; border-radius: 24px; backdrop-filter: blur(10px);
+        }
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+        .exp-title h3 { font-size: 1.5rem; color: var(--text); }
+        .exp-title span { color: var(--accent); font-family: 'IBM Plex Mono'; font-size: 0.9rem; }
+        .exp-date { color: var(--muted); font-size: 0.85rem; font-family: 'IBM Plex Mono'; }
+        
+        .exp-list { list-style: none; }
+        .exp-list li { 
+            position: relative; padding-left: 20px; margin-bottom: 10px; 
+            color: var(--muted); font-size: 1rem; 
+        }
+        .exp-list li::before { 
+            content: '→'; position: absolute; left: 0; color: var(--accent); 
+        }
 
-    footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
+        /* Skills Grid */
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .skill-box {
+            padding: 2rem; border-radius: 20px; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border); transition: 0.3s;
+        }
+        .skill-box:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); }
+        .skill-box i { color: var(--accent); margin-bottom: 1rem; }
+        .skill-box h4 { margin-bottom: 1rem; font-family: 'Syne'; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { 
+            font-size: 0.75rem; background: rgba(56, 189, 248, 0.1); 
+            color: var(--accent); padding: 4px 12px; border-radius: 6px;
+            font-family: 'IBM Plex Mono';
+        }
 
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hero { padding: 140px 0 60px; }
-    }
-  </style>
+        /* Contact Section */
+        .contact-cta {
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            border: 1px solid var(--accent); border-radius: 32px; padding: 60px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .btn {
+            background: var(--accent); color: var(--bg); padding: 1rem 3rem;
+            border-radius: 12px; text-decoration: none; font-weight: 700;
+            display: inline-block; transition: 0.3s; border: none; cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px var(--accent-glow); }
+
+        footer { padding: 50px 0; text-align: center; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .exp-card { padding: 1.5rem; }
+            .contact-cta { padding: 40px 20px; }
+        }
+    </style>
 </head>
 <body>
 
-  <nav>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="nav-logo">S.INTAVIRA_</div>
+            <div class="nav-links" style="font-family: 'IBM Plex Mono'; font-size: 0.8rem;">
+                <a href="#experience" style="color: var(--text); text-decoration: none; margin-left: 20px;">EXPERIENCE</a>
+                <a href="#contact" style="color: var(--accent); text-decoration: none; margin-left: 20px;">HIRE ME</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-      <a href="#" class="logo">S.INTAVIRA</a>
-      <ul class="nav-links">
-        <li><a href="#experience">EXPERIENCE</a></li>
-        <li><a href="#projects">PROJECTS</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-      </ul>
+        <section class="hero">
+            <span class="section-tag">Based in Thailand</span>
+            <h1>Turning <span class="gradient-text">Data</span><br>Into Action.</h1>
+            <p>ผมออกแบบระบบอัตโนมัติ (Automation) และจัดการโครงสร้างพื้นฐาน IT เพื่อปลดล็อกศักยภาพสูงสุดขององค์กร</p>
+            <div style="display: flex; gap: 15px;">
+                <a href="#contact" class="btn">Get in Touch</a>
+                <a href="https://github.com/kxma-blazi" target="_blank" style="color: var(--text); display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <i data-lucide="github"></i> GitHub
+                </a>
+            </div>
+        </section>
+
+        <section id="experience">
+            <span class="section-tag">Career Path</span>
+            <h2 class="section-title">Work Experience</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-title">
+                                <h3>IT Deployment Specialist</h3>
+                                <span>Infibiz Solution (Parliament Project)</span>
+                            </div>
+                            <div class="exp-date">FEB 2026 — PRESENT</div>
+                        </div>
+                        <ul class="exp-list">
+                            <li><strong>Scale:</strong> บริหารจัดการและติดตั้งคอมพิวเตอร์และระบบเครือข่ายจำนวน 1,060 เครื่อง ณ อาคารรัฐสภาแห่งใหม่</li>
+                            <li><strong>QC Control:</strong> ควบคุมคุณภาพการติดตั้ง (Quality Control) ให้เป็นไปตามมาตรฐานความปลอดภัยสูงระดับองค์กรของรัฐ</li>
+                            <li><strong>Efficiency:</strong> วางแผนลำดับความสำคัญของงานเพื่อให้การ Deployment เสร็จสิ้นตาม Deadline ที่เข้มงวด</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-title">
+                                <h3>IT Operations & Developer (Intern)</h3>
+                                <span>System Innovation and Supply</span>
+                            </div>
+                            <div class="exp-date">MAY 2025 — JAN 2026</div>
+                        </div>
+                        <ul class="exp-list">
+                            <li><strong>QAC Dashboard:</strong> พัฒนาระบบ Dashboard ด้วย Google Apps Script เพื่อติดตามข้อมูลความปลอดภัย (EHS) แบบ Real-time</li>
+                            <li><strong>Process Automation:</strong> ลดภาระงานเอกสารลง 100% โดยเปลี่ยนจากระบบ Manual เป็นระบบบันทึกข้อมูลอัตโนมัติ</li>
+                            <li><strong>L1 Support:</strong> ดูแลแก้ไขปัญหาด้านเทคนิคเบื้องต้นให้พนักงานกว่า 50+ คน ให้สามารถใช้งานระบบได้อย่างต่อเนื่อง</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <span class="section-tag">Expertise</span>
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="skills-container">
+                <div class="skill-box">
+                    <i data-lucide="zap"></i>
+                    <h4>Automation</h4>
+                    <div class="skill-tags">
+                        <span class="tag">n8n</span>
+                        <span class="tag">Apps Script</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Node.js</span>
+                    </div>
+                </div>
+                <div class="skill-box">
+                    <i data-lucide="layout"></i>
+                    <h4>UX/UI & Dev</h4>
+                    <div class="skill-tags">
+                        <span class="tag">Figma</span>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                </div>
+                <div class="skill-box">
+                    <i data-lucide="server"></i>
+                    <h4>IT Operations</h4>
+                    <div class="skill-tags">
+                        <span class="tag">Deployment</span>
+                        <span class="tag">L1/L2 Support</span>
+                        <span class="tag">Networking</span>
+                        <span class="tag">QC</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="contact-cta">
+                <h2 style="font-family: 'Syne'; font-size: 3rem; margin-bottom: 1.5rem;">Start a <span class="gradient-text">Project?</span></h2>
+                <p style="color: var(--muted); margin-bottom: 2.5rem;">ผมพร้อมนำทักษะ IT และ Automation ไปช่วยขับเคลื่อนธุรกิจของคุณครับ</p>
+                <a href="mailto:okumakung2018@gmail.com" class="btn">Say Hello</a>
+                <p style="margin-top: 2rem; font-family: 'IBM Plex Mono'; color: var(--accent);">LINE ID: kingkumaallday</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 SAHARAT INTAVIRA. Crafted with Passion & Code.</p>
+        </footer>
     </div>
-  </nav>
 
-  <div class="container">
-    <section class="hero">
-      <div class="profile-container">
-        <img src="https://lh3.googleusercontent.com/d/1_9v0F5fW0F1G2H3_4J5K6L7M8N9O0P1Q" alt="Saharat" class="profile-img">
-      </div>
-      <div class="hero-badge">IT OPERATIONS & AUTOMATION</div>
-      <h1>Building Digital <span>Solutions</span>.</h1>
-      <p>ผม สหรัถ อินต๊ะวิรา ผู้เชี่ยวชาญด้านการจัดการระบบ IT และการทำ Automation เพื่อเพิ่มประสิทธิภาพให้องค์กร</p>
-      <div class="skills-grid" style="justify-content: center;">
-        <span class="skill-tag">Google Apps Script</span>
-        <span class="skill-tag">n8n Automation</span>
-        <span class="skill-tag">IT Support L1/L2</span>
-        <span class="skill-tag">Docker</span>
-      </div>
-    </section>
+    <script>
+        // Matrix Background Effect
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-    <section id="experience">
-      <div class="section-header">
-        <h2 class="section-title">Work <span>Experience</span></h2>
-      </div>
-      <div class="grid">
-        <div class="card">
-          <span class="card-tag">INFIBIZ SOLUTION · PROJECT</span>
-          <h3>IT Deployment Specialist</h3>
-          <p>ร่วมทีมติดตั้งและวางระบบคอมพิวเตอร์ ณ อาคารรัฐสภาแห่งใหม่ จำนวน 1,060 เครื่อง จัดการงานเทคนิคและ QC ภายใต้เงื่อนไขเวลาที่จำกัด</p>
-        </div>
-        <div class="card">
-          <span class="card-tag">SYSTEM INNOVATION AND SUPPLY · INTERN</span>
-          <h3>IT Operations & Developer</h3>
-          <p>ดูแลระบบ IT ภายในบริษัท พร้อมพัฒนาเว็บแอปพลิเคชันด้วย Google Apps Script เพื่อจัดการข้อมูล QAC และ Dashboard ติดตามงานแบบ Real-time</p>
-        </div>
-      </div>
-    </section>
+        const alphabet = "01";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
 
-    <section id="projects">
-      <div class="section-header">
-        <h2 class="section-title">Featured <span>Work</span></h2>
-      </div>
-      <div class="grid">
-        <div class="card">
-          <h3>QAC & EHS Dashboard</h3>
-          <p>ระบบรวบรวมและวิเคราะห์ข้อมูลความปลอดภัยและคุณภาพแบบอัตโนมัติ ช่วยให้ผู้บริหารตัดสินใจได้แม่นยำขึ้น</p>
-          <a href="https://script.google.com/macros/s/AKfycbz5hh3Hs1cFCx8mGDAhoT9rg9UHJCeySe1GMOkniFOTLgSXXus2VgVUqTVpe3QnTINJtQ/exec" target="_blank" class="btn-link">View Project <span>→</span></a>
-        </div>
-        <div class="card">
-          <h3>Operations System</h3>
-          <p>เครื่องมือจัดการ Workflow และติดตามสถานะงานรายวันผ่าน Google Workspace ลดการใช้กระดาษลง 100%</p>
-          <a href="https://script.google.com/macros/s/AKfycby19LnPXUKBByJKxRCGGQ62j9ji0Zn_QNAOy0wTU0u2O_ejaqma4GMon8KWiXsI3EaB9g/exec" target="_blank" class="btn-link">View Project <span>→</span></a>
-        </div>
-      </div>
-    </section>
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(3, 7, 18, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#38bdf8";
+            ctx.font = fontSize + "px monospace";
 
-    <section id="contact">
-      <div class="contact-box">
-        <h2 class="section-title" style="justify-content: center; border:none;">Get in <span>Touch</span></h2>
-        <p>ยินดีให้คำปรึกษาด้านการวางระบบและ Automation ครับ</p>
-        
-        <div class="copy-id" onclick="copyID()">
-          <span>LINE ID: <strong id="line-id">kingkumaallday</strong></span>
-          <small style="color: var(--accent); margin-left:10px;">[COPY]</small>
-        </div>
-        <br>
-        <a href="mailto:okumakung2018@gmail.com" class="btn-link" style="background: var(--accent); color: var(--bg); padding: 12px 30px; border-radius: 12px;">ส่งอีเมลหาผม</a>
-      </div>
-    </section>
+            for (let i = 0; i < drops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 50);
 
-    <footer>
-      <p>© 2026 SAHARAT INTAVIRA. Built with Outfit & Cyber Theme.</p>
-    </footer>
-  </div>
-
-  <script>
-    // Copy Line ID
-    function copyID() {
-      const id = 'kingkumaallday';
-      navigator.clipboard.writeText(id);
-      const el = document.getElementById('line-id');
-      const original = el.innerText;
-      el.innerText = 'COPIED!';
-      el.style.color = '#fff';
-      setTimeout(() => {
-        el.innerText = original;
-        el.style.color = '';
-      }, 2000);
-    }
-
-    // GitHub Fetch (Optional: ใส่ User ของคุณ)
-    const username = 'kxma-blazi';
-    async function getRepos() {
-      // คุณสามารถเพิ่มโค้ดดึง Repo มาโชว์ที่นี่ได้เหมือนเวอร์ชันก่อนหน้า
-    }
-  </script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
