@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAHARAT I. | Solutions Architect & Automation</title>
+    <title>SAHARAT I. | IT Operations & Automation Expert</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            --bg: #030712;
-            --card-bg: rgba(17, 24, 39, 0.7);
+            --bg: #050810;
+            --card-bg: rgba(15, 23, 42, 0.6);
             --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.3);
             --mint: #34d399;
             --text: #f1f5f9;
             --muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.1);
+            --border: rgba(56, 189, 248, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,103 +25,105 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
 
         .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
 
-        /* Navigation */
-        nav {
-            position: sticky; top: 0; z-index: 100;
-            padding: 1.5rem 0; background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
-        }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo { font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent); letter-spacing: -1px; }
-
-        /* Hero */
-        .hero { padding: 120px 0 80px; text-align: left; }
-        .hero h1 { 
-            font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 8vw, 5.5rem); 
-            line-height: 0.9; margin-bottom: 1.5rem; letter-spacing: -4px;
-        }
+        /* Typography */
+        h1, h2, h3 { font-family: 'Syne', sans-serif; }
+        .mono { font-family: IBM Plex Mono, monospace; }
         .gradient-text {
-            background: linear-gradient(to right, var(--accent), var(--mint));
+            background: linear-gradient(135deg, var(--accent), var(--mint));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .hero p { font-size: 1.25rem; color: var(--muted); max-width: 600px; margin-bottom: 2rem; }
 
-        /* Section Styling */
-        section { padding: 100px 0; }
-        .section-tag {
-            font-family: 'IBM Plex Mono'; color: var(--accent); font-size: 0.8rem;
-            text-transform: uppercase; margin-bottom: 1rem; display: block;
+        /* Nav */
+        nav {
+            position: sticky; top: 0; z-index: 100; padding: 1.5rem 0;
+            background: rgba(5, 8, 16, 0.8); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
         }
-        .section-title { font-family: 'Syne'; font-size: 2.5rem; margin-bottom: 3rem; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
 
-        /* Experience Timeline */
-        .timeline { position: relative; border-left: 2px solid var(--border); padding-left: 30px; margin-left: 10px; }
-        .timeline-item { position: relative; margin-bottom: 60px; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -41px; top: 5px;
-            width: 20px; height: 20px; background: var(--bg); border: 3px solid var(--accent);
-            border-radius: 50%; box-shadow: 0 0 10px var(--accent-glow);
+        /* Hero */
+        .hero { padding: 140px 0 100px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 16px; border-radius: 100px; border: 1px solid var(--accent);
+            color: var(--accent); font-size: 0.8rem; margin-bottom: 2rem;
         }
-        .exp-card {
+        .hero h1 { font-size: clamp(3.5rem, 10vw, 6rem); line-height: 0.85; letter-spacing: -4px; margin-bottom: 2rem; }
+        .hero p { font-size: 1.2rem; color: var(--muted); max-width: 650px; margin-bottom: 3rem; }
+
+        /* Sections */
+        section { padding: 100px 0; border-bottom: 1px solid var(--border); }
+        .section-header { margin-bottom: 4rem; }
+        .section-num { color: var(--accent); font-family: 'IBM Plex Mono'; font-size: 1rem; margin-right: 10px; }
+
+        /* Experience Card */
+        .exp-item { margin-bottom: 4rem; position: relative; }
+        .exp-main { 
             background: var(--card-bg); border: 1px solid var(--border);
-            padding: 2.5rem; border-radius: 24px; backdrop-filter: blur(10px);
+            padding: 3rem; border-radius: 32px; backdrop-filter: blur(10px);
+            transition: 0.3s;
         }
-        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
-        .exp-title h3 { font-size: 1.5rem; color: var(--text); }
-        .exp-title span { color: var(--accent); font-family: 'IBM Plex Mono'; font-size: 0.9rem; }
-        .exp-date { color: var(--muted); font-size: 0.85rem; font-family: 'IBM Plex Mono'; }
-        
-        .exp-list { list-style: none; }
-        .exp-list li { 
-            position: relative; padding-left: 20px; margin-bottom: 10px; 
-            color: var(--muted); font-size: 1rem; 
-        }
-        .exp-list li::before { 
-            content: '→'; position: absolute; left: 0; color: var(--accent); 
-        }
+        .exp-main:hover { border-color: var(--accent); transform: scale(1.01); }
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .job-info h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .job-info .company { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
+        .job-date { color: var(--muted); font-family: 'IBM Plex Mono'; font-size: 0.9rem; }
 
-        /* Skills Grid */
-        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .skill-box {
-            padding: 2rem; border-radius: 20px; background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border); transition: 0.3s;
+        .bullet-list { list-style: none; }
+        .bullet-list li { 
+            position: relative; padding-left: 28px; margin-bottom: 1.2rem; 
+            color: var(--muted); font-size: 1.05rem; 
         }
-        .skill-box:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); }
-        .skill-box i { color: var(--accent); margin-bottom: 1rem; }
-        .skill-box h4 { margin-bottom: 1rem; font-family: 'Syne'; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { 
-            font-size: 0.75rem; background: rgba(56, 189, 248, 0.1); 
-            color: var(--accent); padding: 4px 12px; border-radius: 6px;
-            font-family: 'IBM Plex Mono';
+        .bullet-list li::before {
+            content: ""; position: absolute; left: 0; top: 12px;
+            width: 12px; height: 2px; background: var(--accent);
         }
+        .bullet-list strong { color: var(--text); }
 
-        /* Contact Section */
-        .contact-cta {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            border: 1px solid var(--accent); border-radius: 32px; padding: 60px;
-            text-align: center; position: relative; overflow: hidden;
+        /* Projects Grid */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .p-card {
+            padding: 2.5rem; border-radius: 24px; background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+        }
+        .p-card h4 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--mint); }
+        .p-card p { font-size: 0.95rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+            margin-top: 2rem; text-align: center;
+        }
+        .stat-item { padding: 1rem; border-right: 1px solid var(--border); }
+        .stat-item:last-child { border-right: none; }
+        .stat-val { display: block; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .stat-lbl { font-size: 0.7rem; text-transform: uppercase; color: var(--muted); }
+
+        /* CTA */
+        .cta-box {
+            text-align: center; padding: 80px 40px; border-radius: 40px;
+            background: linear-gradient(135deg, #0f172a 0%, #050810 100%);
+            border: 1px solid var(--accent);
         }
         .btn {
-            background: var(--accent); color: var(--bg); padding: 1rem 3rem;
-            border-radius: 12px; text-decoration: none; font-weight: 700;
-            display: inline-block; transition: 0.3s; border: none; cursor: pointer;
+            background: var(--accent); color: var(--bg); padding: 1.2rem 3.5rem;
+            border-radius: 16px; text-decoration: none; font-weight: 800;
+            display: inline-block; font-size: 1.1rem; transition: 0.3s;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px var(--accent-glow); }
-
-        footer { padding: 50px 0; text-align: center; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.8rem; }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(56, 189, 248, 0.3); }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 3.5rem; }
-            .exp-card { padding: 1.5rem; }
-            .contact-cta { padding: 40px 20px; }
+            .exp-main { padding: 1.5rem; }
+            .stats-bar { grid-template-columns: 1fr; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
         }
     </style>
 </head>
@@ -132,137 +133,133 @@
 
     <nav>
         <div class="container nav-content">
-            <div class="nav-logo">S.INTAVIRA_</div>
-            <div class="nav-links" style="font-family: 'IBM Plex Mono'; font-size: 0.8rem;">
-                <a href="#experience" style="color: var(--text); text-decoration: none; margin-left: 20px;">EXPERIENCE</a>
-                <a href="#contact" style="color: var(--accent); text-decoration: none; margin-left: 20px;">HIRE ME</a>
+            <div class="mono" style="font-weight: 800; font-size: 1.2rem;">S.INTAVIRA<span style="color:var(--accent)">_</span></div>
+            <div class="mono" style="font-size: 0.8rem;">
+                <a href="#work" style="color: var(--text); text-decoration: none; margin-left: 24px;">WORK</a>
+                <a href="#contact" style="color: var(--accent); text-decoration: none; margin-left: 24px;">CONTACT</a>
             </div>
         </div>
     </nav>
 
     <div class="container">
         <section class="hero">
-            <span class="section-tag">Based in Thailand</span>
-            <h1>Turning <span class="gradient-text">Data</span><br>Into Action.</h1>
-            <p>ผมออกแบบระบบอัตโนมัติ (Automation) และจัดการโครงสร้างพื้นฐาน IT เพื่อปลดล็อกศักยภาพสูงสุดขององค์กร</p>
-            <div style="display: flex; gap: 15px;">
-                <a href="#contact" class="btn">Get in Touch</a>
-                <a href="https://github.com/kxma-blazi" target="_blank" style="color: var(--text); display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                    <i data-lucide="github"></i> GitHub
-                </a>
+            <div class="hero-badge mono">
+                <i data-lucide="shield-check" size="14"></i> IT OPERATIONS SPECIALIST
             </div>
+            <h1>The Code Behind <span class="gradient-text">Efficiency.</span></h1>
+            <p>ผมเปลี่ยนงานที่ซับซ้อนให้กลายเป็นระบบอัตโนมัติ และดูแลโครงสร้างพื้นฐานไอทีด้วยมาตรฐานระดับสูง (QC Focused)</p>
         </section>
 
-        <section id="experience">
-            <span class="section-tag">Career Path</span>
-            <h2 class="section-title">Work Experience</h2>
+        <section id="work">
+            <div class="section-header">
+                <span class="mono" style="color: var(--accent);">01.</span>
+                <h2 style="font-size: 3rem;">Professional Experience</h2>
+            </div>
 
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="exp-card">
-                        <div class="exp-header">
-                            <div class="exp-title">
-                                <h3>IT Deployment Specialist</h3>
-                                <span>Infibiz Solution (Parliament Project)</span>
-                            </div>
-                            <div class="exp-date">FEB 2026 — PRESENT</div>
+            <div class="exp-item">
+                <div class="exp-main">
+                    <div class="exp-header">
+                        <div class="job-info">
+                            <h3>IT Deployment Specialist</h3>
+                            <div class="company">INFIBIZ SOLUTION (Parliament Project)</div>
                         </div>
-                        <ul class="exp-list">
-                            <li><strong>Scale:</strong> บริหารจัดการและติดตั้งคอมพิวเตอร์และระบบเครือข่ายจำนวน 1,060 เครื่อง ณ อาคารรัฐสภาแห่งใหม่</li>
-                            <li><strong>QC Control:</strong> ควบคุมคุณภาพการติดตั้ง (Quality Control) ให้เป็นไปตามมาตรฐานความปลอดภัยสูงระดับองค์กรของรัฐ</li>
-                            <li><strong>Efficiency:</strong> วางแผนลำดับความสำคัญของงานเพื่อให้การ Deployment เสร็จสิ้นตาม Deadline ที่เข้มงวด</li>
-                        </ul>
+                        <div class="job-date">FEB 2026 — PRESENT</div>
                     </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="exp-card">
-                        <div class="exp-header">
-                            <div class="exp-title">
-                                <h3>IT Operations & Developer (Intern)</h3>
-                                <span>System Innovation and Supply</span>
-                            </div>
-                            <div class="exp-date">MAY 2025 — JAN 2026</div>
-                        </div>
-                        <ul class="exp-list">
-                            <li><strong>QAC Dashboard:</strong> พัฒนาระบบ Dashboard ด้วย Google Apps Script เพื่อติดตามข้อมูลความปลอดภัย (EHS) แบบ Real-time</li>
-                            <li><strong>Process Automation:</strong> ลดภาระงานเอกสารลง 100% โดยเปลี่ยนจากระบบ Manual เป็นระบบบันทึกข้อมูลอัตโนมัติ</li>
-                            <li><strong>L1 Support:</strong> ดูแลแก้ไขปัญหาด้านเทคนิคเบื้องต้นให้พนักงานกว่า 50+ คน ให้สามารถใช้งานระบบได้อย่างต่อเนื่อง</li>
-                        </ul>
+                    <ul class="bullet-list">
+                        <li><strong>Large-Scale Deployment:</strong> บริหารจัดการและติดตั้งเครื่องคอมพิวเตอร์และระบบเครือข่ายจำนวน <strong>1,060 เครื่อง</strong> ณ อาคารรัฐสภาแห่งใหม่</li>
+                        <li><strong>QC Management:</strong> รับผิดชอบการตรวจสอบคุณภาพ (Quality Control) ทุกขั้นตอนเพื่อให้ระบบพร้อมใช้งาน 100% ตามข้อกำหนดของหน่วยงานรัฐ</li>
+                        <li><strong>Troubleshooting:</strong> แก้ไขปัญหาหน้างานด้าน Hardware และ Software ที่ซับซ้อนภายใต้ความกดดันและเวลาที่จำกัด</li>
+                        <li><strong>Team Leadership:</strong> ประสานงานร่วมกับทีมช่างและวิศวกรเพื่อส่งมอบงานให้ทันตาม Milestone ของโปรเจกต์</li>
+                    </ul>
+                    <div class="stats-bar mono">
+                        <div class="stat-item"><span class="stat-val">1,060+</span><span class="stat-lbl">PCs Managed</span></div>
+                        <div class="stat-item"><span class="stat-val">100%</span><span class="stat-lbl">QC Passed</span></div>
+                        <div class="stat-item"><span class="stat-val">High</span><span class="stat-lbl">Security Stds.</span></div>
                     </div>
                 </div>
             </div>
+
+            <div class="exp-item">
+                <div class="exp-main">
+                    <div class="exp-header">
+                        <div class="job-info">
+                            <h3>IT Operations & Developer (Intern)</h3>
+                            <div class="company">SYSTEM INNOVATION AND SUPPLY</div>
+                        </div>
+                        <div class="job-date">MAY 2025 — JAN 2026</div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li><strong>EHS Automation:</strong> พัฒนา <strong>QAC & EHS Dashboard</strong> โดยใช้ Google Apps Script เพื่อรวบรวมข้อมูลความปลอดภัยจากพนักงานหน้างานอัตโนมัติ</li>
+                        <li><strong>Process Re-engineering:</strong> ลดการใช้กระดาษและขั้นตอน Manual ลง <strong>100%</strong> ผ่านการทำ Digital Transformation ภายในแผนก</li>
+                        <li><strong>L1/L2 Support:</strong> สนับสนุนทางเทคนิคแก่พนักงาน 50+ คน ครอบคลุมระบบ Windows, Network และอุปกรณ์ต่อพ่วง</li>
+                        <li><strong>Asset Tracking:</strong> ออกแบบระบบฐานข้อมูลสำหรับติดตามทรัพย์สินไอที (IT Assets) เพื่อความโปร่งใสในการจัดการทรัพยากร</li>
+                    </ul>
+                    <div class="stats-bar mono">
+                        <div class="stat-item"><span class="stat-val">100%</span><span class="stat-lbl">Manual Reduction</span></div>
+                        <div class="stat-item"><span class="stat-val">50+</span><span class="stat-lbl">Users Supported</span></div>
+                        <div class="stat-item"><span class="stat-val">Real-time</span><span class="stat-lbl">Dashboards</span></div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="skills">
-            <span class="section-tag">Expertise</span>
-            <h2 class="section-title">Core Competencies</h2>
-            <div class="skills-container">
-                <div class="skill-box">
-                    <i data-lucide="zap"></i>
-                    <h4>Automation</h4>
-                    <div class="skill-tags">
-                        <span class="tag">n8n</span>
-                        <span class="tag">Apps Script</span>
-                        <span class="tag">Docker</span>
-                        <span class="tag">Node.js</span>
-                    </div>
+        <section id="projects">
+            <div class="section-header">
+                <span class="mono" style="color: var(--accent);">02.</span>
+                <h2 style="font-size: 3rem;">Featured Automation</h2>
+            </div>
+            <div class="project-grid">
+                <div class="p-card">
+                    <h4>Self-Hosted n8n Engine</h4>
+                    <p>ติดตั้งและจัดการระบบ Automation ผ่าน Docker บน VPS (Hostinger) เพื่อเชื่อมต่อ API ระหว่าง LINE และฐานข้อมูลบริษัท</p>
+                    <div class="mono" style="font-size: 0.7rem; color: var(--accent);">DOCKER · LINUX · API</div>
                 </div>
-                <div class="skill-box">
-                    <i data-lucide="layout"></i>
-                    <h4>UX/UI & Dev</h4>
-                    <div class="skill-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">HTML/CSS</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Firebase</span>
-                    </div>
+                <div class="p-card">
+                    <h4>Ticket Parsing Engine</h4>
+                    <p>เขียน JavaScript (Regex) สำหรับดึงข้อมูลจากข้อความดิบให้กลายเป็น Structured JSON เพื่อใช้ในระบบ CRM</p>
+                    <div class="mono" style="font-size: 0.7rem; color: var(--accent);">JAVASCRIPT · JSON · LOGIC</div>
                 </div>
-                <div class="skill-box">
-                    <i data-lucide="server"></i>
-                    <h4>IT Operations</h4>
-                    <div class="skill-tags">
-                        <span class="tag">Deployment</span>
-                        <span class="tag">L1/L2 Support</span>
-                        <span class="tag">Networking</span>
-                        <span class="tag">QC</span>
-                    </div>
+                <div class="p-card">
+                    <h4>Operations System</h4>
+                    <p>ระบบติดตามสถานะงานรายวัน (Daily Log) ที่เชื่อมโยงกับ Google Workspace เพื่อการรายงานผลที่แม่นยำ</p>
+                    <div class="mono" style="font-size: 0.7rem; color: var(--accent);">APPS SCRIPT · GOOGLE CLOUD</div>
                 </div>
             </div>
         </section>
 
         <section id="contact">
-            <div class="contact-cta">
-                <h2 style="font-family: 'Syne'; font-size: 3rem; margin-bottom: 1.5rem;">Start a <span class="gradient-text">Project?</span></h2>
-                <p style="color: var(--muted); margin-bottom: 2.5rem;">ผมพร้อมนำทักษะ IT และ Automation ไปช่วยขับเคลื่อนธุรกิจของคุณครับ</p>
-                <a href="mailto:okumakung2018@gmail.com" class="btn">Say Hello</a>
-                <p style="margin-top: 2rem; font-family: 'IBM Plex Mono'; color: var(--accent);">LINE ID: kingkumaallday</p>
+            <div class="cta-box">
+                <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem;">Ready for the <span class="gradient-text">Next Challenge.</span></h2>
+                <p style="color: var(--muted); margin-bottom: 3rem;">หากคุณกำลังมองหาคนที่จะเข้ามาจัดการความยุ่งยากของระบบ IT และสร้าง Automation ที่ทำงานแทนคุณได้ 24/7</p>
+                <a href="mailto:okumakung2018@gmail.com" class="btn">HIRE SAHARAT</a>
+                <div class="mono" style="margin-top: 3rem; color: var(--muted);">
+                    LINE: kingkumaallday | okumakung2018@gmail.com
+                </div>
             </div>
         </section>
 
-        <footer>
-            <p>© 2026 SAHARAT INTAVIRA. Crafted with Passion & Code.</p>
+        <footer style="padding: 4rem 0; text-align: center; color: var(--muted); font-size: 0.8rem;" class="mono">
+            BUILD WITH PASSION & MATRIX_ENGINE v2.5 // © 2026 SAHARAT INTAVIRA
         </footer>
     </div>
 
     <script>
-        // Matrix Background Effect
+        // Matrix Background Logic
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const alphabet = "01";
+        const alphabet = "0101010101010101";
         const fontSize = 16;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
 
         function drawMatrix() {
-            ctx.fillStyle = "rgba(3, 7, 18, 0.05)";
+            ctx.fillStyle = "rgba(5, 8, 16, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#38bdf8";
             ctx.font = fontSize + "px monospace";
-
             for (let i = 0; i < drops.length; i++) {
                 const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -271,8 +268,6 @@
             }
         }
         setInterval(drawMatrix, 50);
-
-        // Initialize Lucide Icons
         lucide.createIcons();
     </script>
 </body>
