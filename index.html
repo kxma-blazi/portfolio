@@ -3,209 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAHARAT I. // CYBER OPS & AUTOMATION</title>
+    <title>SAHARAT I. // CYBER OPS</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
             --bg: #010204;
-            --surface: rgba(6, 12, 26, 0.8);
+            --surface: rgba(6, 12, 26, 0.95);
             --accent: #00f2ff;
             --accent-glow: rgba(0, 242, 255, 0.4);
             --text: #e2e8f0;
-            --muted: #64748b;
-            --border: rgba(56, 189, 248, 0.2);
+            --border: rgba(56, 189, 248, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
-            overflow-x: hidden;
-        }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif; }
 
-        #matrix-bg { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.1; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        /* Background Animation */
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 60px 24px; }
 
-        /* ─── HERO ─── */
-        .hero { padding: 120px 0 60px; text-align: center; }
-        .hero h1 { font-family: 'Syne'; font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 1.5rem; }
-        .glitch { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
-
-        /* ─── QR SECTION (อัปเกรดใหม่) ─── */
-        .cyber-contact {
+        /* 🤖 CYBER SCANNER UNIT 🤖 */
+        .scanner-section {
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 32px;
-            padding: 50px 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            margin-top: 40px;
-        }
-
-        .qr-terminal {
-            background: #000;
-            border: 1px solid var(--accent);
-            padding: 20px;
-            border-radius: 16px;
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            padding: 50px;
             text-align: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
             position: relative;
-            box-shadow: 0 0 30px var(--accent-glow);
+            overflow: hidden;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .qr-box {
+        .scanner-title {
+            font-family: 'IBM Plex Mono';
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        /* กล่อง QR พร้อมเส้นเลเซอร์ */
+        .qr-scanner-box {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 260px;
+            height: 260px;
             margin: 0 auto;
             background: #fff;
-            padding: 10px;
-            border-radius: 4px;
-            overflow: hidden;
+            padding: 15px;
+            border-radius: 12px;
+            border: 5px solid #111;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .qr-box img { width: 100%; height: 100%; }
+        .qr-scanner-box img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
 
-        /* เส้นเลเซอร์สแกน */
-        .scan-line {
+        /* เส้นเลเซอร์สแกนเนอร์ */
+        .laser-line {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
             background: var(--accent);
-            box-shadow: 0 0 15px var(--accent);
-            animation: scan 2.5s infinite linear;
-            z-index: 2;
+            box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
+            animation: scan-move 2.5s infinite ease-in-out;
+            z-index: 10;
         }
 
-        @keyframes scan {
-            0% { top: 0%; }
-            50% { top: 100%; }
-            100% { top: 0%; }
+        @keyframes scan-move {
+            0% { top: 5%; opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { top: 95%; opacity: 0; }
         }
 
-        /* ─── FORM ─── */
-        .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; font-family: 'IBM Plex Mono'; font-size: 0.75rem; color: var(--accent); margin-bottom: 8px; }
-        input, textarea {
-            width: 100%; padding: 12px; background: rgba(0,0,0,0.4);
-            border: 1px solid var(--border); border-radius: 8px; color: white;
+        /* ข้อมูลติดต่อ */
+        .contact-info { margin-top: 35px; }
+        .contact-info h2 { font-family: 'Syne'; font-size: 2rem; margin-bottom: 5px; }
+        .line-id {
+            display: inline-block;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-family: 'IBM Plex Mono';
+            font-weight: 700;
+            margin-top: 10px;
+            border: 1px solid var(--border);
         }
 
-        .btn {
-            background: var(--accent); color: #000; padding: 15px;
-            width: 100%; border: none; border-radius: 12px;
-            font-weight: 800; cursor: pointer; transition: 0.3s;
-            text-transform: uppercase;
-        }
-        .btn:hover { box-shadow: 0 0 20px var(--accent); transform: scale(1.02); }
-
-        @media (max-width: 768px) {
-            .cyber-contact { grid-template-columns: 1fr; }
+        .footer-text {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: var(--muted);
+            font-family: 'IBM Plex Mono';
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="matrix-bg"></canvas>
+<canvas id="bg-canvas"></canvas>
 
-    <div class="container">
-        <section class="hero">
-            <h1>Building <span class="glitch">Cyber</span><br>Systems.</h1>
-            <p style="color: var(--muted);">IT Operations & Automation Specialist</p>
-        </section>
-
-        <section class="cyber-contact">
-            <div class="qr-terminal">
-                <div style="margin-bottom: 15px; font-family: 'IBM Plex Mono'; font-size: 0.7rem; color: var(--accent);">
-                    [ IDENTITY_SCANNER_v3.0 ]
-                </div>
-                <div class="qr-box">
-                    <div class="scan-line"></div>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://line.me/ti/p/kingkumaallday" alt="Line QR">
-                </div>
-                <p style="margin-top: 15px; font-size: 0.8rem; font-family: 'IBM Plex Mono';">SCAN TO ADD LINE</p>
-                <p style="color: var(--accent); font-weight: bold;">ID: kingkumaallday</p>
-            </div>
-
-            <div class="contact-form">
-                <form id="secure-form">
-                    <div class="input-group">
-                        <label>SENDER_NAME</label>
-                        <input type="text" id="name" name="name" placeholder="ระบุชื่อของคุณ" required>
-                    </div>
-                    <div class="input-group">
-                        <label>SENDER_EMAIL</label>
-                        <input type="email" id="email" name="email" placeholder="email@example.com" required>
-                    </div>
-                    <div class="input-group">
-                        <label>MESSAGE_PAYLOAD</label>
-                        <textarea id="message" name="message" rows="4" placeholder="พิมพ์ข้อความที่ต้องการส่ง..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn" id="submit-btn">Execute Send</button>
-                </form>
-                <div id="status" style="margin-top: 15px; text-align: center; font-size: 0.9rem;"></div>
-            </div>
-        </section>
-
-        <footer style="padding: 60px 0; text-align: center; color: var(--muted); font-size: 0.7rem; font-family: 'IBM Plex Mono';">
-            © 2026 SAHARAT INTAVIRA // ENCRYPTED_ACCESS_ONLY
-        </footer>
-    </div>
-
-    <script>
-        // Matrix Background
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const drops = Array(Math.floor(canvas.width/16)).fill(1);
-        function draw() {
-            ctx.fillStyle = "rgba(1, 2, 4, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#00f2ff"; ctx.font = "16px monospace";
-            drops.forEach((y, i) => {
-                ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
-                if(y*16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            });
-        }
-        setInterval(draw, 50);
-
-        // Form Logic
-        const form = document.getElementById('secure-form');
-        const status = document.getElementById('status');
-        const btn = document.getElementById('submit-btn');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            btn.disabled = true; btn.textContent = 'SENDING...';
+<div class="container">
+    <div class="scanner-section">
+        <div class="scanner-title">[ Connection_Protocol: Activated ]</div>
+        
+        <div class="qr-scanner-box">
+            <div class="laser-line"></div>
             
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://line.me/ti/p/kingkumaallday" alt="Line QR Code">
+        </div>
 
-            // ส่งผ่าน Formspree (ใช้ ID ของคุณ หรือถ้าไม่มีจะเปิด Mailto)
-            const FORMSPREE_ID = "YOUR_ID_HERE"; 
+        <div class="contact-info">
+            <h2>SAHARAT INTAVIRA</h2>
+            <p style="color: #888;">Scan to add me on LINE or use ID below</p>
+            <div class="line-id">ID: kingkumaallday</div>
+        </div>
 
-            if (FORMSPREE_ID === "YOUR_ID_HERE") {
-                window.location.href = `mailto:okumakung2018@gmail.com?subject=Contact from ${data.name}&body=${data.message}`;
-                status.textContent = "✓ Opening Email Client..."; status.style.color = var(--accent);
-            } else {
-                try {
-                    const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-                        method: 'POST', body: JSON.stringify(data),
-                        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-                    });
-                    if (response.ok) {
-                        status.textContent = "✓ MESSAGE SENT SUCCESSFULLY"; status.style.color = "#34d399";
-                        form.reset();
-                    } else { status.textContent = "❌ SEND ERROR"; }
-                } catch { status.textContent = "❌ CONNECTION FAILED"; }
-            }
-            btn.disabled = false; btn.textContent = 'EXECUTE SEND';
-        });
-    </script>
+        <div style="margin-top: 30px;">
+            <a href="mailto:okumakung2018@gmail.com" style="color: var(--accent); text-decoration: none; font-family: 'IBM Plex Mono'; font-size: 0.8rem;">
+                > SEND_DIRECT_EMAIL
+            </a>
+        </div>
+
+        <div class="footer-text">SECURE_ACCESS_PORTAL_V5.0</div>
+    </div>
+</div>
+
+<script>
+    // Matrix Background Effect
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "01";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+        ctx.fillStyle = "rgba(1, 2, 4, 0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00f2ff";
+        ctx.font = fontSize + "px monospace";
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 50);
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+
 </body>
 </html>
