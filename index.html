@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAHARAT I.</title>
+    <title>SAHARAT I. // PORTFOLIO</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
@@ -14,69 +15,55 @@
             --accent: #00f2ff;
             --accent-glow: rgba(0, 242, 255, 0.4);
             --text: #e2e8f0;
+            --muted: #64748b;
             --border: rgba(56, 189, 248, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif; overflow-x: hidden; }
 
-        /* Background Animation */
         #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 24px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
 
-        /* 🤖 CYBER SCANNER UNIT 🤖 */
-        .scanner-section {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 30px;
-            padding: 50px;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            position: relative;
-            overflow: hidden;
-            max-width: 600px;
-            margin: 0 auto;
+        /* HERO SECTION */
+        .hero { padding: 120px 0 60px; }
+        .hero h1 { font-family: 'Syne'; font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 20px; }
+        .glitch { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
+
+        /* SECTION STYLE */
+        section { margin-bottom: 100px; }
+        .section-title { font-family: 'Syne'; font-size: 2rem; margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
+        .section-title::after { content: ''; height: 1px; flex: 1; background: var(--border); }
+
+        /* PROJECTS GRID */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .card { 
+            background: var(--surface); border: 1px solid var(--border); 
+            padding: 30px; border-radius: 20px; transition: 0.3s;
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+
+        /* 🤖 CYBER SCANNER UNIT (ส่วนที่คุณต้องการ) 🤖 */
+        .scanner-unit {
+            background: var(--surface); border: 2px solid var(--border);
+            border-radius: 32px; padding: 50px; text-align: center;
+            position: relative; overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            max-width: 700px; margin: 0 auto;
         }
 
-        .scanner-title {
-            font-family: 'IBM Plex Mono';
-            font-size: 0.8rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
+        .qr-box {
+            position: relative; width: 220px; height: 220px;
+            margin: 0 auto; background: #fff; padding: 10px;
+            border-radius: 12px; box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        /* กล่อง QR พร้อมเส้นเลเซอร์ */
-        .qr-scanner-box {
-            position: relative;
-            width: 260px;
-            height: 260px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 15px;
-            border-radius: 12px;
-            border: 5px solid #111;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
+        .qr-box img { width: 100%; height: 100%; display: block; }
 
-        .qr-scanner-box img {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* เส้นเลเซอร์สแกนเนอร์ */
         .laser-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
-            animation: scan-move 2.5s infinite ease-in-out;
-            z-index: 10;
+            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent); box-shadow: 0 0 15px var(--accent);
+            animation: scan-move 2.5s infinite ease-in-out; z-index: 10;
         }
 
         @keyframes scan-move {
@@ -86,28 +73,14 @@
             100% { top: 95%; opacity: 0; }
         }
 
-        /* ข้อมูลติดต่อ */
-        .contact-info { margin-top: 35px; }
-        .contact-info h2 { font-family: 'Syne'; font-size: 2rem; margin-bottom: 5px; }
-        .line-id {
-            display: inline-block;
-            background: rgba(0, 242, 255, 0.1);
-            color: var(--accent);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-family: 'IBM Plex Mono';
-            font-weight: 700;
-            margin-top: 10px;
-            border: 1px solid var(--border);
+        .btn {
+            background: var(--accent); color: #000; padding: 14px 28px;
+            border-radius: 12px; text-decoration: none; font-weight: 800;
+            display: inline-block; transition: 0.3s; margin-top: 20px;
         }
+        .btn:hover { box-shadow: 0 0 20px var(--accent); transform: scale(1.05); }
 
-        .footer-text {
-            margin-top: 40px;
-            font-size: 0.7rem;
-            color: var(--muted);
-            font-family: 'IBM Plex Mono';
-            opacity: 0.5;
-        }
+        @media (max-width: 768px) { .hero h1 { font-size: 3rem; } .scanner-unit { padding: 30px 20px; } }
     </style>
 </head>
 <body>
@@ -115,48 +88,71 @@
 <canvas id="bg-canvas"></canvas>
 
 <div class="container">
-    <div class="scanner-section">
-        <div class="scanner-title">[ Connection_Protocol: Activated ]</div>
-        
-        <div class="qr-scanner-box">
-            <div class="laser-line"></div>
+    <header class="hero">
+        <p style="font-family: 'IBM Plex Mono'; color: var(--accent); margin-bottom: 10px;">[ SYSTEM_READY ]</p>
+        <h1>SAHARAT<br><span class="glitch">INTAVIRA</span></h1>
+        <p style="color: var(--muted); max-width: 500px; font-size: 1.1rem;">
+            IT Operations & Automation Specialist. สนใจด้าน Data Engineering และ UX/UI Design.
+        </p>
+    </header>
+
+    <section>
+        <h2 class="section-title">Capabilities_</h2>
+        <div class="grid">
+            <div class="card">
+                <i data-lucide="cpu" style="color: var(--accent); margin-bottom: 15px;"></i>
+                <h3>Automation</h3>
+                <p style="color: var(--muted); font-size: 0.9rem; margin-top: 10px;">เชี่ยวชาญการใช้ n8n, Google Apps Script และการทำ Ticket Parsing Engine.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="layers" style="color: var(--accent); margin-bottom: 15px;"></i>
+                <h3>IT Operations</h3>
+                <p style="color: var(--muted); font-size: 0.9rem; margin-top: 10px;">ดูแลระบบ Windows/Linux, Docker และการทำ Self-hosted tools.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Establish Connection_</h2>
+        <div class="scanner-unit">
+            <div style="font-family: 'IBM Plex Mono'; font-size: 0.7rem; color: var(--accent); margin-bottom: 20px;">
+                [ IDENTITY_SCANNER_ACTIVE ]
+            </div>
             
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://line.me/ti/p/kingkumaallday" alt="Line QR Code">
-        </div>
+            <div class="qr-box">
+                <div class="laser-line"></div>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://line.me/ti/p/kingkumaallday" alt="Line QR">
+            </div>
 
-        <div class="contact-info">
-            <h2>SAHARAT INTAVIRA</h2>
-            <p style="color: #888;">Scan to add me on LINE or use ID below</p>
-            <div class="line-id">ID: kingkumaallday</div>
+            <div style="margin-top: 30px;">
+                <p style="font-size: 1.2rem; font-weight: 700;">ID: kingkumaallday</p>
+                <p style="color: var(--muted); font-size: 0.9rem;">สแกนเพื่อเพิ่มเพื่อนใน LINE ได้ทันที</p>
+                
+                <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                    <a href="mailto:okumakung2018@gmail.com" class="btn">SEND DIRECT EMAIL</a>
+                    <p style="font-family: 'IBM Plex Mono'; font-size: 0.6rem; color: var(--muted); margin-top: 10px;">
+                        PORTAL_VERSION: 5.0.4 // SECURE_ACCESS
+                    </p>
+                </div>
+            </div>
         </div>
-
-        <div style="margin-top: 30px;">
-            <a href="mailto:okumakung2018@gmail.com" style="color: var(--accent); text-decoration: none; font-family: 'IBM Plex Mono'; font-size: 0.8rem;">
-                > SEND_DIRECT_EMAIL
-            </a>
-        </div>
-
-        <div class="footer-text">SECURE_ACCESS_PORTAL_V5.0</div>
-    </div>
+    </section>
 </div>
 
 <script>
-    // Matrix Background Effect
+    // Lucide Icons
+    lucide.createIcons();
+
+    // Matrix Background
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const chars = "01";
-    const fontSize = 16;
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    const chars = "01"; const fontSize = 16;
     const columns = canvas.width / fontSize;
     const drops = Array(Math.floor(columns)).fill(1);
-
     function draw() {
-        ctx.fillStyle = "rgba(1, 2, 4, 0.1)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#00f2ff";
-        ctx.font = fontSize + "px monospace";
+        ctx.fillStyle = "rgba(1, 2, 4, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00f2ff"; ctx.font = fontSize + "px monospace";
         for (let i = 0; i < drops.length; i++) {
             const text = chars.charAt(Math.floor(Math.random() * chars.length));
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -165,12 +161,6 @@
         }
     }
     setInterval(draw, 50);
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
 </script>
-
 </body>
 </html>
