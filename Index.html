@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAHARAT INTAVIRA · Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: #0f172a;
+      --border: rgba(56, 189, 248, 0.15);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.4);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line-green: #06C755;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', 'Noto Sans Thai', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 1rem 0;
+    }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; font-size: 1.4rem; color: #fff; text-decoration: none; letter-spacing: -1px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; transition: 0.3s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero Section */
+    .hero { padding: 180px 0 100px; text-align: center; }
+    .profile-container { position: relative; width: 160px; height: 160px; margin: 0 auto 30px; }
+    .profile-img {
+      width: 100%; height: 100%; border-radius: 40px; object-fit: cover;
+      border: 2px solid var(--accent); padding: 6px; background: var(--bg);
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+    .hero-badge {
+      display: inline-block; padding: 6px 16px; background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--accent); border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { max-width: 600px; margin: 0 auto 40px; color: var(--muted); font-size: 1.1rem; }
+
+    /* Section Grid */
+    section { padding: 80px 0; border-top: 1px solid var(--border); }
+    .section-header { margin-bottom: 50px; }
+    .section-title { font-size: 2.2rem; font-weight: 700; display: flex; align-items: center; gap: 15px; }
+    .section-title::after { content: ''; height: 1px; flex-grow: 1; background: var(--border); }
+
+    /* Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+      padding: 32px; transition: 0.4s; position: relative; overflow: hidden;
+    }
+    .card:hover { transform: translateY(-8px); border-color: var(--accent); }
+    .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent); margin-bottom: 12px; display: block; }
+    .card h3 { font-size: 1.4rem; margin-bottom: 12px; color: #fff; }
+    .card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
+
+    /* Buttons */
+    .btn-link {
+      display: inline-flex; align-items: center; gap: 8px; color: #fff;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    }
+    .btn-link:hover { color: var(--accent); }
+
+    /* Tools/Skills */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .skill-tag { background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; border: 1px solid var(--border); }
+
+    /* Contact */
+    .contact-box {
+      background: linear-gradient(160deg, #0f172a 0%, #030712 100%);
+      border: 1px solid var(--border); border-radius: 32px; padding: 60px 24px; text-align: center;
+    }
+    .copy-id {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: rgba(56, 189, 248, 0.05); padding: 12px 24px; border-radius: 14px;
+      border: 1px solid var(--border); cursor: pointer; transition: 0.2s; margin: 20px 0;
+    }
+    .copy-id:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.1); }
+
+    footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 140px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">S.INTAVIRA</a>
+      <ul class="nav-links">
+        <li><a href="#experience">EXPERIENCE</a></li>
+        <li><a href="#projects">PROJECTS</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section class="hero">
+      <div class="profile-container">
+        <img src="https://lh3.googleusercontent.com/d/1_9v0F5fW0F1G2H3_4J5K6L7M8N9O0P1Q" alt="Saharat" class="profile-img">
+      </div>
+      <div class="hero-badge">IT OPERATIONS & AUTOMATION</div>
+      <h1>Building Digital <span>Solutions</span>.</h1>
+      <p>ผม สหรัถ อินต๊ะวิรา ผู้เชี่ยวชาญด้านการจัดการระบบ IT และการทำ Automation เพื่อเพิ่มประสิทธิภาพให้องค์กร</p>
+      <div class="skills-grid" style="justify-content: center;">
+        <span class="skill-tag">Google Apps Script</span>
+        <span class="skill-tag">n8n Automation</span>
+        <span class="skill-tag">IT Support L1/L2</span>
+        <span class="skill-tag">Docker</span>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-header">
+        <h2 class="section-title">Work <span>Experience</span></h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <span class="card-tag">INFIBIZ SOLUTION · PROJECT</span>
+          <h3>IT Deployment Specialist</h3>
+          <p>ร่วมทีมติดตั้งและวางระบบคอมพิวเตอร์ ณ อาคารรัฐสภาแห่งใหม่ จำนวน 1,060 เครื่อง จัดการงานเทคนิคและ QC ภายใต้เงื่อนไขเวลาที่จำกัด</p>
+        </div>
+        <div class="card">
+          <span class="card-tag">SYSTEM INNOVATION AND SUPPLY · INTERN</span>
+          <h3>IT Operations & Developer</h3>
+          <p>ดูแลระบบ IT ภายในบริษัท พร้อมพัฒนาเว็บแอปพลิเคชันด้วย Google Apps Script เพื่อจัดการข้อมูล QAC และ Dashboard ติดตามงานแบบ Real-time</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-header">
+        <h2 class="section-title">Featured <span>Work</span></h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>QAC & EHS Dashboard</h3>
+          <p>ระบบรวบรวมและวิเคราะห์ข้อมูลความปลอดภัยและคุณภาพแบบอัตโนมัติ ช่วยให้ผู้บริหารตัดสินใจได้แม่นยำขึ้น</p>
+          <a href="https://script.google.com/macros/s/AKfycbz5hh3Hs1cFCx8mGDAhoT9rg9UHJCeySe1GMOkniFOTLgSXXus2VgVUqTVpe3QnTINJtQ/exec" target="_blank" class="btn-link">View Project <span>→</span></a>
+        </div>
+        <div class="card">
+          <h3>Operations System</h3>
+          <p>เครื่องมือจัดการ Workflow และติดตามสถานะงานรายวันผ่าน Google Workspace ลดการใช้กระดาษลง 100%</p>
+          <a href="https://script.google.com/macros/s/AKfycby19LnPXUKBByJKxRCGGQ62j9ji0Zn_QNAOy0wTU0u2O_ejaqma4GMon8KWiXsI3EaB9g/exec" target="_blank" class="btn-link">View Project <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-box">
+        <h2 class="section-title" style="justify-content: center; border:none;">Get in <span>Touch</span></h2>
+        <p>ยินดีให้คำปรึกษาด้านการวางระบบและ Automation ครับ</p>
+        
+        <div class="copy-id" onclick="copyID()">
+          <span>LINE ID: <strong id="line-id">kingkumaallday</strong></span>
+          <small style="color: var(--accent); margin-left:10px;">[COPY]</small>
+        </div>
+        <br>
+        <a href="mailto:okumakung2018@gmail.com" class="btn-link" style="background: var(--accent); color: var(--bg); padding: 12px 30px; border-radius: 12px;">ส่งอีเมลหาผม</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 SAHARAT INTAVIRA. Built with Outfit & Cyber Theme.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Copy Line ID
+    function copyID() {
+      const id = 'kingkumaallday';
+      navigator.clipboard.writeText(id);
+      const el = document.getElementById('line-id');
+      const original = el.innerText;
+      el.innerText = 'COPIED!';
+      el.style.color = '#fff';
+      setTimeout(() => {
+        el.innerText = original;
+        el.style.color = '';
+      }, 2000);
+    }
+
+    // GitHub Fetch (Optional: ใส่ User ของคุณ)
+    const username = 'kxma-blazi';
+    async function getRepos() {
+      // คุณสามารถเพิ่มโค้ดดึง Repo มาโชว์ที่นี่ได้เหมือนเวอร์ชันก่อนหน้า
+    }
+  </script>
+</body>
+</html>
