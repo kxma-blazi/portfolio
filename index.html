@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAHARAT I. | IT Operations & Automation Specialist</title>
+    <title>SAHARAT I. // CYBER OPS & AUTOMATION MASTER</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            --bg: #030712;
-            --surface: rgba(15, 23, 42, 0.6);
-            --accent: #38bdf8;
-            --mint: #34d399;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-            --border: rgba(56, 189, 248, 0.15);
+            --bg: #010204; /* Deep cyber void */
+            --surface: rgba(6, 12, 26, 0.7);
+            --border: rgba(56, 189, 248, 0.2);
+            --accent: #00f2ff; /* Neon Cyan */
+            --accent-glow: rgba(0, 242, 255, 0.5);
+            --mint: #34d399; /* Futuristic Green */
+            --text: #e2e8f0;
+            --muted: #64748b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,178 +27,274 @@
             color: var(--text);
             font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+        /* ─── CYBER BACKGROUNDS ──────────────────────────── */
+        #matrix-bg { position: fixed; top: 0; left: 0; z-index: -2; opacity: 0.15; }
+        
+        /* Hex Grid Overlay */
+        body::before {
+            content: ''; position: fixed; inset: 0; z-index: -1;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            mask-image: radial-gradient(circle, #fff 30%, transparent 70%);
+        }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; }
 
-        /* Navigation */
+        /* ─── NAVIGATION ─────────────────────────────────── */
         nav {
-            position: sticky; top: 0; z-index: 100; padding: 1.5rem 0;
-            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 1000; padding: 1.5rem 0;
+            background: rgba(1, 2, 4, 0.85); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
         }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'IBM Plex Mono'; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+        .nav-logo {
+            font-family: 'IBM Plex Mono'; font-weight: 800; color: var(--accent);
+            letter-spacing: -2px; text-shadow: 0 0 10px var(--accent-glow);
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; font-family: 'IBM Plex Mono'; font-size: 0.8rem; }
+        .nav-links a { text-decoration: none; color: var(--text); transition: 0.3s; position: relative;}
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a::after {
+            content: ']'; position: absolute; right: -12px; opacity: 0; color: var(--accent); transition: 0.3s;
+        }
+        .nav-links a::before {
+            content: '['; position: absolute; left: -12px; opacity: 0; color: var(--accent); transition: 0.3s;
+        }
+        .nav-links a:hover::before, .nav-links a:hover::after { opacity: 1; }
 
-        /* Hero Section */
-        .hero { padding: 140px 0 100px; }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 6px 16px; border-radius: 100px; border: 1px solid var(--accent);
-            color: var(--accent); font-size: 0.8rem; font-family: 'IBM Plex Mono'; margin-bottom: 2rem;
+        /* ─── HERO (GLITCH & GRAND) ─────────────────────── */
+        .hero { padding: 160px 0 100px; text-align: center; position: relative; }
+        
+        /* Glitch Effect applied to Main Title */
+        .glitch {
+            font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 12vw, 7rem);
+            font-weight: 800; line-height: 0.85; letter-spacing: -6px; margin-bottom: 2rem;
+            position: relative; color: var(--text);
+            text-shadow: 0.5px 0 0 #fff, -0.5px 0 0 rgba(255,0,0,0.5);
+            animation: glitch 1.5s infinite;
         }
-        .hero h1 { 
-            font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 10vw, 6rem); 
-            line-height: 0.85; letter-spacing: -4px; margin-bottom: 2rem; 
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, var(--accent), var(--mint));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .glitch span { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
+
+        /* HUD decoration line */
+        .hero::before {
+            content: ''; position: absolute; top: 100px; left: 50%; transform: translateX(-50%);
+            width: 1px; height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
         }
 
-        /* Experience Section */
-        .section-header { margin-bottom: 4rem; }
+        .hero p { font-size: 1.3rem; color: var(--muted); max-width: 650px; margin: 0 auto 3rem; }
+
+        /* ─── EXPERIENCE (NEON CARDS) ───────────────────── */
+        section { padding: 100px 0; border-top: 1px solid var(--border); }
+        .section-num { font-family: 'IBM Plex Mono'; color: var(--accent); font-size: 1rem; margin-right: 15px; }
+        .section-title { font-family: 'Syne'; font-size: 2.8rem; margin-bottom: 4rem; display: flex; align-items: center;}
+        
         .exp-card {
             background: var(--surface); border: 1px solid var(--border);
-            padding: 2.5rem; border-radius: 32px; backdrop-filter: blur(10px);
-            margin-bottom: 2rem; transition: 0.3s;
+            padding: 3rem; border-radius: 20px; position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 3rem;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
-        .exp-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-        .job-title { font-size: 1.8rem; font-family: 'Syne'; }
-        .company-name { color: var(--accent); font-weight: 700; font-family: 'IBM Plex Mono'; }
-        .job-date { color: var(--muted); font-size: 0.85rem; font-family: 'IBM Plex Mono'; }
+        .exp-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        
+        /* Futuristic corner decoration */
+        .exp-card::after {
+            content: ''; position: absolute; bottom: 20px; right: 20px;
+            width: 40px; height: 40px;
+            border-right: 3px solid var(--accent); border-bottom: 3px solid var(--accent);
+            opacity: 0.1; transition: 0.3s;
+        }
+        .exp-card:hover::after { opacity: 0.8; }
+
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .job-title h3 { font-size: 1.8rem; font-family: 'Syne'; margin-bottom: 0.5rem; }
+        .company { color: var(--accent); font-family: 'IBM Plex Mono'; font-weight: 600; font-size: 1rem; }
+        .job-date { color: var(--muted); font-family: 'IBM Plex Mono'; font-size: 0.85rem; }
 
         .bullet-list { list-style: none; }
         .bullet-list li { 
-            position: relative; padding-left: 25px; margin-bottom: 1rem; 
+            position: relative; padding-left: 28px; margin-bottom: 1rem; 
             color: var(--muted); font-size: 1.05rem; 
         }
         .bullet-list li::before {
-            content: "→"; position: absolute; left: 0; color: var(--accent);
+            content: ""; position: absolute; left: 0; top: 10px;
+            width: 15px; height: 1px; background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        /* Skills Grid */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        /* ─── SKILLS (GLOWING CUBES) ─────────────────────── */
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .skill-box {
-            padding: 2rem; border-radius: 24px; background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border);
+            padding: 2.5rem; border-radius: 16px; background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border); transition: 0.3s; position: relative; overflow: hidden;
         }
-        .tag-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+        .skill-box:hover { border-color: var(--accent); background: rgba(0, 242, 255, 0.05); }
+        .skill-box::before {
+            content:''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(0,242,255,0.1) 0%, transparent 70%);
+            opacity: 0; transition: 0.4s; pointer-events: none;
+        }
+        .skill-box:hover::before { opacity: 1; }
+
+        .skill-box h4 { font-family: 'Syne'; font-size: 1.3rem; margin-top: 1rem; margin-bottom: 1rem; color: var(--text); }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
         .tag { 
-            font-size: 0.75rem; background: rgba(56, 189, 248, 0.1); 
-            color: var(--accent); padding: 4px 12px; border-radius: 6px;
-            font-family: 'IBM Plex Mono';
+            font-size: 0.75rem; background: rgba(0, 242, 255, 0.1); 
+            color: var(--accent); padding: 5px 12px; border-radius: 5px;
+            font-family: 'IBM Plex Mono'; border: 1px solid transparent;
         }
+        .skill-box:hover .tag { border-color: rgba(0,242,255,0.3); }
 
-        /* Contact Section */
+        /* ─── CONTACT (CYBER CTA) ───────────────────────── */
         .contact-box {
-            background: linear-gradient(135deg, #0f172a 0%, #030712 100%);
-            border: 1px solid var(--border); border-radius: 40px; padding: 60px 40px;
-            text-align: center; margin-top: 4rem;
+            background: linear-gradient(145deg, #060c1a 0%, #010204 100%);
+            border: 1px solid var(--accent); border-radius: 30px; padding: 70px 40px;
+            text-align: center; margin: 6rem 0; position: relative;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
+        .contact-box h2 { font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1; margin-bottom: 1rem; }
+        
         .btn {
-            background: var(--accent); color: var(--bg); padding: 1.2rem 3rem;
-            border-radius: 16px; text-decoration: none; font-weight: 800;
-            display: inline-block; transition: 0.3s; border: none; cursor: pointer;
+            background: linear-gradient(90deg, #00c3ff, var(--accent));
+            color: #010204; padding: 1.2rem 3.5rem;
+            border-radius: 12px; text-decoration: none; font-weight: 800;
+            display: inline-block; font-size: 1.1rem; transition: 0.3s;
+            border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); }
+        .btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 10px 25px var(--accent-glow);
+        }
 
-        footer { padding: 4rem 0; text-align: center; color: var(--muted); font-size: 0.8rem; font-family: 'IBM Plex Mono'; }
+        footer { padding: 50px 0; text-align: center; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.8rem; font-family: 'IBM Plex Mono'; }
+
+        /* ─── ANIMATIONS ─────────────────────────────────── */
+        @keyframes glitch {
+          0% { text-shadow: 0.5px 0 0 #fff, -0.5px 0 0 rgba(255,0,0,0.5); }
+          2% { text-shadow: 2px 0 0 #fff, -2px 0 0 rgba(255,0,0,0.5); }
+          4% { text-shadow: -2px 0 0 #fff, 2px 0 0 rgba(0,255,0,0.5); }
+          6% { text-shadow: 0.5px 0 0 #fff, -0.5px 0 0 rgba(255,0,0,0.5); }
+          100% { text-shadow: 0.5px 0 0 #fff, -0.5px 0 0 rgba(255,0,0,0.5); }
+        }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3.5rem; }
+            .hero { padding: 120px 0 60px; }
+            .hero-badge { margin-bottom: 1.5rem; }
+            .glitch { font-size: 4rem; letter-spacing: -2px; }
             .exp-card { padding: 1.5rem; }
+            .contact-box { padding: 40px 15px; }
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="matrix-bg"></canvas>
 
     <nav>
         <div class="container nav-content">
-            <div class="logo">SAHARAT.I_</div>
-            <div style="font-family: 'IBM Plex Mono'; font-size: 0.8rem;">
-                <a href="#experience" style="color: var(--text); text-decoration: none; margin-left: 20px;">EXPERIENCE</a>
-                <a href="#contact" style="color: var(--accent); text-decoration: none; margin-left: 20px;">CONTACT</a>
-            </div>
+            <div class="nav-logo">S.INTAVIRA<span style="animation: pulse 1s infinite;">_</span></div>
+            <ul class="nav-links">
+                <li><a href="#work">WORK</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#contact">HIRE</a></li>
+            </ul>
         </div>
     </nav>
 
     <div class="container">
         <section class="hero">
-            <div class="hero-badge">
-                <i data-lucide="cpu" size="14"></i> SOLUTIONS ARCHITECT & AUTOMATION
+            <div class="hero-badge mono">
+                <i data-lucide="shield-check" size="14" style="color:var(--mint);"></i> 
+                CORE_SYSTEMS_ACTIVE // Thai
             </div>
-            <h1>Building <span class="gradient-text">Scalable</span><br>Workflows.</h1>
-            <p>ผมออกแบบระบบอัตโนมัติและจัดการโครงสร้างพื้นฐานไอที เพื่อลดความยุ่งยากและเพิ่มประสิทธิภาพสูงสุดให้กับการทำงานของคุณ</p>
+            <h1 class="glitch">Building <span>Future</span><br>Workflows.</h1>
+            <p>ผมออกแบบระบบอัตโนมัติ (Automation) และจัดการโครงสร้างพื้นฐาน IT ระดับสูง เพื่อปลดล็อกศักยภาพสูงสุดขององค์กร</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a href="#contact" class="btn">Initiate Connection</a>
+            </div>
         </section>
 
-        <section id="experience">
+        <section id="work">
             <div class="section-header">
-                <h2 style="font-family: 'Syne'; font-size: 3rem; margin-bottom: 1rem;">Experience</h2>
-                <div style="height: 2px; width: 60px; background: var(--accent);"></div>
+                <h2 class="section-title"><span class="section-num">01.</span>Verified Experience</h2>
             </div>
 
-            <div class="exp-card">
-                <div class="exp-header">
-                    <div>
-                        <h3 class="job-title">IT Deployment Specialist</h3>
-                        <p class="company-name">INFIBIZ SOLUTION (Parliament Project)</p>
+            <div class="exp-item">
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="job-title">
+                            <h3>IT Deployment Specialist</h3>
+                            <div class="company">INFIBIZ SOLUTION (Parliament Project)</div>
+                        </div>
+                        <div class="job-date">FEB 2026 — PRESENT</div>
                     </div>
-                    <span class="job-date">FEB 2026 — PRESENT</span>
+                    <ul class="bullet-list">
+                        <li><strong>Scalable Infrastructure:</strong> จัดการติดตั้งและวางระบบคอมพิวเตอร์และเครือข่ายจำนวน **1,060 เครื่อง** ณ อาคารรัฐสภาแห่งใหม่</li>
+                        <li><strong>High Security Standards:</strong> ควบคุมคุณภาพการติดตั้ง (QC) ให้เป็นไปตามมาตรฐานความปลอดภัยระดับองค์กรของรัฐ</li>
+                        <li><strong>Team Coordination:</strong> ประสานงานร่วมกับทีมช่างและวิศวกรเพื่อส่งมอบงานให้ทันตาม Deadline ของโปรเจกต์</li>
+                    </ul>
                 </div>
-                <ul class="bullet-list">
-                    <li>บริหารจัดการและติดตั้งคอมพิวเตอร์และระบบเครือข่ายจำนวน <strong>1,060 เครื่อง</strong> ณ อาคารรัฐสภาแห่งใหม่</li>
-                    <li>ควบคุมคุณภาพ (Quality Control) และทดสอบระบบ (UAT) ให้เป็นไปตามมาตรฐานความปลอดภัยสูงระดับประเทศ</li>
-                    <li>แก้ไขปัญหา Hardware และ Network หน้างานเพื่อให้โปรเจกต์ดำเนินตามแผนที่วางไว้</li>
-                </ul>
             </div>
 
-            <div class="exp-card">
-                <div class="exp-header">
-                    <div>
-                        <h3 class="job-title">IT Operations & Developer (Intern)</h3>
-                        <p class="company-name">SYSTEM INNOVATION AND SUPPLY</p>
+            <div class="exp-item">
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="job-title">
+                            <h3>IT Operations & Developer (Intern)</h3>
+                            <div class="company">SYSTEM INNOVATION AND SUPPLY</div>
+                        </div>
+                        <div class="job-date">MAY 2025 — JAN 2026</div>
                     </div>
-                    <span class="job-date">MAY 2025 — JAN 2026</span>
+                    <ul class="bullet-list">
+                        <li><strong>QAC Automation:</strong> พัฒนา **QAC & EHS Dashboard** ด้วย Google Apps Script ช่วยลดขั้นตอน Manual ลง 100%</li>
+                        <li><strong>Real-time Monitoring:</strong> สร้างระบบติดตามข้อมูลความปลอดภัยและประมวลผลแบบ Real-time</li>
+                        <li><strong>L1/L2 Support:</strong> สนับสนุนทางเทคนิคและแก้ไขปัญหา IT เบื้องต้นให้แก่พนักงานในบริษัท</li>
+                    </ul>
                 </div>
-                <ul class="bullet-list">
-                    <li>พัฒนา <strong>QAC & EHS Dashboard</strong> ด้วย Google Apps Script ลดขั้นตอน Manual ลง 100%</li>
-                    <li>ดูแลระบบไอทีเบื้องต้น (L1/L2 Support) ให้แก่พนักงาน และจัดการ Asset ในบริษัท</li>
-                    <li>ออกแบบระบบติดตามงานอัตโนมัติ ช่วยลดเวลาการทำงานของแผนกได้มากกว่า 30 ชั่วโมงต่อเดือน</li>
-                </ul>
             </div>
         </section>
 
         <section id="skills">
-            <h2 style="font-family: 'Syne'; font-size: 2.5rem; margin-bottom: 3rem;">Technical Arsenal</h2>
-            <div class="skills-grid">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-num">02.</span>Core Competencies</h2>
+            </div>
+            <div class="skills-container">
                 <div class="skill-box">
-                    <i data-lucide="zap" style="color: var(--accent); margin-bottom: 1rem;"></i>
-                    <h4 style="font-family: 'Syne'; margin-bottom: 0.5rem;">Automation</h4>
-                    <div class="tag-group">
-                        <span class="tag">n8n</span><span class="tag">Docker</span>
-                        <span class="tag">Apps Script</span><span class="tag">Python</span>
+                    <i data-lucide="zap" size="24" style="color:var(--accent);"></i>
+                    <h4>Automation Engine</h4>
+                    <div class="skill-tags">
+                        <span class="tag">n8n</span><span class="tag">Apps Script</span>
+                        <span class="tag">Docker</span><span class="tag">Node.js</span>
                     </div>
                 </div>
                 <div class="skill-box">
-                    <i data-lucide="server" style="color: var(--mint); margin-bottom: 1rem;"></i>
-                    <h4 style="font-family: 'Syne'; margin-bottom: 0.5rem;">Infrastructure</h4>
-                    <div class="tag-group">
+                    <i data-lucide="database" size="24" style="color:var(--mint);"></i>
+                    <h4>Ops / Infra</h4>
+                    <div class="skill-tags">
                         <span class="tag">Linux</span><span class="tag">Deployment</span>
                         <span class="tag">Networking</span><span class="tag">QC</span>
                     </div>
                 </div>
                 <div class="skill-box">
-                    <i data-lucide="code-2" style="color: var(--accent); margin-bottom: 1rem;"></i>
-                    <h4 style="font-family: 'Syne'; margin-bottom: 0.5rem;">Frontend / AI</h4>
-                    <div class="tag-group">
-                        <span class="tag">JavaScript</span><span class="tag">Figma</span>
-                        <span class="tag">Local LLM</span><span class="tag">Ollama</span>
+                    <i data-lucide="code" size="24" style="color:var(--accent);"></i>
+                    <h4>Development</h4>
+                    <div class="skill-tags">
+                        <span class="tag">JavaScript</span><span class="tag">Firebase</span>
+                        <span class="tag">API Integration</span>
                     </div>
                 </div>
             </div>
@@ -205,40 +302,42 @@
 
         <section id="contact">
             <div class="contact-box">
-                <h2 style="font-family: 'Syne'; font-size: 3rem; margin-bottom: 1rem;">Let's Connect</h2>
-                <p style="color: var(--muted); margin-bottom: 3rem;">พร้อมที่จะอัปเกรดระบบของคุณแล้วหรือยัง? ติดต่อสอบถามได้เลยครับ</p>
+                <h2 style="font-family: 'Syne'; margin-bottom: 1.5rem;">Start a <span class="gradient-text">Project?</span></h2>
+                <p style="color: var(--muted); margin-bottom: 2.5rem; max-width:550px; margin-left:auto; margin-right:auto;">
+                    ผมพร้อมนำทักษะ IT และ Automation ระดับสูงไปช่วยขับเคลื่อนองค์กรของคุณ
+                </p>
                 
-                <a href="mailto:okumakung2018@gmail.com" class="btn">Say Hello</a>
+                <a href="mailto:okumakung2018@gmail.com" class="btn">Initiate Say Hello</a>
                 
-                <div style="margin-top: 3rem; font-family: 'IBM Plex Mono';">
-                    <p style="color: var(--accent);">LINE ID: kingkumaallday</p>
-                    <p style="font-size: 0.8rem; color: var(--muted); margin-top: 10px;">Based in Thailand · Available for Projects</p>
+                <div style="margin-top: 3rem; font-family: 'IBM Plex Mono'; color: var(--accent); font-size:0.9rem;">
+                    LINE_ID: kingkumaallday // okumakung2018@gmail.com
                 </div>
             </div>
         </section>
 
-        <footer>
-            © 2026 SAHARAT INTAVIRA. Powered by Passion & Code.
+        <footer class="mono">
+            © 2026 SAHARAT INTAVIRA // THAI_AUTO_BOT v3.0 // CYBER_READY
         </footer>
     </div>
 
     <script>
-        // Matrix Background
-        const canvas = document.getElementById('bg-canvas');
+        // Matrix Background Effect (optimized)
+        const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const alphabet = "01010101";
+        const alphabet = "010101";
         const fontSize = 16;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
 
-        function draw() {
-            ctx.fillStyle = "rgba(3, 7, 18, 0.05)";
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(1, 2, 4, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#38bdf8";
+            ctx.fillStyle = "#00f2ff"; // Neon Cyan
             ctx.font = fontSize + "px monospace";
+
             for (let i = 0; i < drops.length; i++) {
                 const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -246,8 +345,16 @@
                 drops[i]++;
             }
         }
-        setInterval(draw, 50);
+        setInterval(drawMatrix, 40);
+
+        // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Responsive canvas resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
