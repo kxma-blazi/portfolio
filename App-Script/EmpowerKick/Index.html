@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmpowerKick Tattoo Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #0a0a0a;
+      --surface:  #141414;
+      --card:     #1a1a1a;
+      --border:   #2a2a2a;
+      --accent:   #ff2d55;
+      --accent2:  #ff9f0a;
+      --text:     #f0f0f0;
+      --muted:    #888;
+      --green:    #30d158;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Kanit', sans-serif;
+      --radius:   10px;
+      --transition: 0.2s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+      background: linear-gradient(45deg, #fff, var(--muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button {
+      font-family: var(--font-body);
+      font-weight: 500;
+      border: none;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-admin { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-admin:hover { background: var(--border); }
+
+    /* ปุ่มแผนที่นำทางสีน้ำเงิน Cyan สุดเท่ */
+    .btn-map { background: #007aff; color: white; }
+    .btn-map:hover { background: #0062cc; transform: translateY(-2px); }
+
+    .btn-cart { background: var(--accent); color: white; position: relative; }
+    .btn-cart:hover { background: #e02447; transform: translateY(-2px); }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(255, 45, 85, 0.1);
+    }
+
+    .img-container {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: var(--surface);
+      border-radius: calc(var(--radius) - 2px);
+      overflow: hidden;
+      margin-bottom: 15px;
+      border: 1px solid var(--border);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-name { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; color: #fff; }
+    .product-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+    .product-price { font-size: 1.4rem; font-weight: 700; color: var(--accent2); margin-bottom: 8px; }
+    .product-stock { font-size: 0.85rem; margin-bottom: 15px; font-weight: 500; }
+
+    .btn-add {
+      width: 100%;
+      padding: 12px;
+      justify-content: center;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .btn-add:hover:not(:disabled) { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn-add:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Checkout Form */
+    .checkout-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+      display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 100;
+    }
+    .checkout-content {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 30px; border-radius: var(--radius); width: 100%; max-width: 500px;
+    }
+    .checkout-content h2 { margin-bottom: 20px; font-size: 1.5rem; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 0.9rem; color: var(--muted); margin-bottom: 5px; }
+    
+    input, select, textarea {
+      width: 100%; padding: 12px; background: var(--card); border: 1px solid var(--border);
+      color: var(--text); border-radius: var(--radius); font-family: var(--font-body); font-size: 0.95rem;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); outline: none; }
+
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: var(--card); border: 1px solid var(--border); padding: 12px 24px;
+      border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 200;
+      font-weight: 500; display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⚡ EMPOWERKICK TATTOO Online</h1>
+      <div class="nav-buttons">
+        <button class="btn-admin" onclick="goToAdmin()">⚙️ Admin</button>
+        <button class="btn-map" onclick="openStoreMap()">📍 Map/แผนที่ร้าน</button>
+        <button class="btn-cart" onclick="openCheckout()">🛒 Cart/ตะกร้าสินค้า (<span id="cartBadge">0</span>)</button>
+      </div>
+    </header>
+
+    <main id="productList" class="product-grid">
+      </main>
+  </div>
+
+  <div id="checkoutModal" class="checkout-overlay" style="display: none;">
+    <div class="checkout-content">
+      <h2>🛒 สรุปรายการสั่งซื้อ</h2>
+      <div id="cartSummary" style="margin-bottom: 20px; padding: 15px; background: var(--card); border-radius: 6px;"></div>
+      
+      <div class="form-group">
+        <label>เบอร์โทรศัพท์ติดต่อ</label>
+        <input type="tel" id="customerPhone" placeholder="ระบุเบอร์โทรศัพท์ที่ติดต่อได้ (เช่น 0812345678)" required>
+      </div>
+
+      <div class="form-group">
+        <label>ที่อยู่จัดส่งสินค้า</label>
+        <textarea id="shippingAddress" rows="3" placeholder="ระบุ ชื่อ-นามสกุล และที่อยู่จัดส่งให้ละเอียด..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>ช่องทางการชำระเงิน</label>
+        <select id="paymentMethod">
+          <option value="พร้อมเพย์">สแกนจ่ายผ่าน พร้อมเพย์</option>
+          <option value="โอนเงินผ่านธนาคาร">โอนเงินผ่านบัญชีธนาคาร</option>
+          <option value="เก็บเงินปลายทาง">เก็บเงินปลายทาง (COD)</option>
+        </select>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 25px;">
+        <button onclick="submitOrder()" style="flex: 2; background: var(--green); color: black; justify-content: center;">Confirm Order</button>
+        <button onclick="closeCheckout()" style="flex: 1; background: var(--card); color: var(--text); justify-content: center; border: 1px solid var(--border);">ปิด</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    let cart = [];
+    const CACHE_KEY = 'ek_products_cache';
+
+    // 📍 ฟังก์ชันเปิดแผนที่นำทางไปยังแหลมฉบัง ชลบุรี อัตโนมัติ
+    function openStoreMap() {
+      const mapUrl = "https://www.google.com/maps/search/?api=1&query=Laem+Chabang+Chon+Buri";
+      window.open(mapUrl, '_blank');
+    }
+
+    function goToAdmin() {
+  const password = prompt("🔒 กรุณากรอกรหัสผ่านสำหรับผู้ดูแลระบบ (Admin):");
+  if (password === null) return; 
+  
+  if (password === '252923') {
+    // 🔗 ใช้ลิงก์ Web App ของคุณตรงๆ เพื่อป้องกันปัญหาเรื่องสิทธิ์สคริปต์บล็อก
+    const webAppUrl = "https://script.google.com/macros/s/AKfycbyJNkRJzPcdD7GeH4HyNRei7_l1kTcsNGvfd_6wu6o6FqJxWv2iOMMJYkven1UpHI9roQ/exec";
+    window.open(webAppUrl + '?page=admin', '_top');
+  } else {
+    alert("❌ รหัสผ่านไม่ถูกต้อง!");
+  }
+}
+
+    function loadProducts(forceRefresh = false) {
+      if (!forceRefresh) {
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Date.now() - parsed.ts < 300000) { 
+              renderProducts(parsed.data);
+              return;
+            }
+          }
+        } catch(e) {}
+      }
+      google.script.run.withSuccessHandler(function(products) {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: products }));
+        } catch(e) {}
+        renderProducts(products);
+      }).getProducts();
+    }
+
+    function renderProducts(products) {
+      const container = document.getElementById('productList');
+      if (!products || products.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:var(--muted);">ไม่มีสินค้าในระบบ</p>';
+        return;
+      }
+
+      container.innerHTML = products.map(p => {
+        const isReady = p.status === 'ready' && Number(p.stock) > 0;
+        const imgUrl = p.image_url ? p.image_url : 'https://via.placeholder.com/300?text=No+Image';
+        return `
+          <div class="product-card">
+            <div class="img-container">
+              <img src="${imgUrl}" class="product-img" onerror="this.src='https://via.placeholder.com/300?text=Image+Error'">
+            </div>
+            <div class="product-name">${p.name}</div>
+            <div class="product-meta">หมวดหมู่: ${p.category} | ไซส์: ${p.size}</div>
+            <div class="product-price">${p.price} ฿</div>
+            <div class="product-stock" style="color: ${Number(p.stock) > 5 ? 'var(--green)' : 'var(--accent)'}">
+              ${Number(p.stock) > 0 ? `คงเหลือ ${p.stock} ชิ้น` : 'สินค้าหมด'}
+            </div>
+            <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})" ${!isReady ? 'disabled' : ''}>
+              ${isReady ? '🛒 หยิบใส่ตะกร้า' : '❌ สินค้าหมด'}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+// 🛒 1. แก้ไขฟังก์ชันเพิ่มสินค้า (ให้ใส่ id หรือปล่อยตามเดิม แต่เราจะจัดการด้วย Index)
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      document.getElementById('cartBadge').textContent = cart.length;
+      showToast(`🛒 เพิ่ม "${name}" ลงตะกร้าแล้ว`);
+      
+      // ถ้าเปิดหน้าต่างสรุปออเดอร์ค้างไว้ให้รีเฟรชรายการข้างในด้วย
+      if (document.getElementById('checkoutModal').style.display === 'flex') {
+        openCheckout();
+      }
+    }
+
+    // 🗑️ 2. เพิ่มฟังก์ชันสำหรับลบสินค้าออกจากตะกร้า (ชิ้นใดชิ้นหนึ่ง)
+    function removeFromCart(index) {
+      // ลบสินค้าในตำแหน่ง index ออก 1 ชิ้น
+      cart.splice(index, 1); 
+      
+      // อัปเดตตัวเลขแจ้งเตือนตรงปุ่มตะกร้าหน้าแรก
+      document.getElementById('cartBadge').textContent = cart.length;
+      
+      // ถ้าลบจนสินค้าหมดตะกร้า ให้ปิดหน้าต่างสรุปออเดอร์ทันที
+      if (cart.length === 0) {
+        closeCheckout();
+        showToast('⚠ ไม่มีสินค้าเหลือในตะกร้าแล้ว');
+      } else {
+        // ถ้ายังเหลือสินค้า ให้รีเฟรชหน้าต่างสรุปออเดอร์ใหม่เพื่ออัปเดตยอดเงิน
+        openCheckout();
+      }
+    }
+
+// 📋 3. แก้ไขฟังก์ชันเปิดหน้าต่างสรุปยอดให้มีปุ่มลบ
+    function openCheckout() {
+      if (cart.length === 0) { showToast('⚠ ตะกร้าสินค้ายังว่างเปล่า'); return; }
+      const total = cart.reduce((s, i) => s + i.price, 0);
+      
+      let html = '<ul style="list-style:none; max-height:200px; overflow-y:auto; margin-bottom:10px; padding:0;">';
+      
+      // ใช้ i (index) มาระบุตำแหน่งสินค้าแต่ละชิ้น เพื่อสร้างปุ่มลบ
+      cart.forEach((item, i) => { 
+        html += `
+          <li style="display:flex; justify-content:between; align-items:center; font-size:0.95rem; margin-bottom:8px; background:var(--surface); padding:8px; border-radius:6px; border:1px solid var(--border);">
+            <span style="flex:1; text-align:left;">• ${item.name}</span>
+            <span style="margin-right:15px; color:var(--accent2); font-weight:500;">${item.price} ฿</span>
+            <button onclick="removeFromCart(${i})" style="padding:4px 8px; background:#ff3b30; color:white; font-size:0.8rem; border-radius:4px; font-weight:bold; line-height:1;">
+              ลบ
+            </button>
+          </li>`; 
+      });
+      
+      html += '</ul>';
+      html += `<div style="border-top:1px solid var(--border); padding-top:10px; text-align:right; font-weight:bold; font-size:1.1rem; color:var(--accent2)">ยอดรวมทั้งสิ้น: ${total} ฿</div>`;
+      
+      document.getElementById('cartSummary').innerHTML = html;
+      document.getElementById('checkoutModal').style.display = 'flex';
+    }
+
+    function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
+
+    function submitOrder() {
+      const phone = document.getElementById('customerPhone').value.trim();
+      const address = document.getElementById('shippingAddress').value.trim();
+      
+      if (!phone) { showToast('⚠ กรุณากรอกเบอร์โทรศัพท์ติดต่อ'); return; }
+      if (!address) { showToast('⚠ กรุณากรอกที่อยู่จัดส่ง'); return; }
+
+      const orderData = {
+        items: JSON.stringify(cart),
+        total: cart.reduce((s, i) => s + i.price, 0),
+        customerPhone: phone, // 📞 ส่งเบอร์โทรไปด้วย
+        shippingAddress: address,
+        paymentMethod: document.getElementById('paymentMethod').value
+      };
+
+      closeCheckout();
+      showToast('⏳ กำลังบันทึกออเดอร์ กรุณารอสักครู่...');
+
+      google.script.run
+        .withSuccessHandler(function(msg) {
+          alert('🎉 ' + msg);
+          cart = [];
+          document.getElementById('cartBadge').textContent = '0';
+          document.getElementById('customerPhone').value = ''; // เคลียร์ช่องโทรศัพท์
+          document.getElementById('shippingAddress').value = '';
+          try { localStorage.removeItem(CACHE_KEY); } catch(e) {}
+          loadProducts(true);
+        })
+        .withFailureHandler(function() {
+          showToast('❌ บันทึกออเดอร์ล้มเหลว กรุณาลองใหม่');
+        })
+        .saveOrder(orderData);
+    }
+
+    function showToast(msg, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, duration);
+    }
+
+    function setStatus(msg, show) {
+      if(show) showToast(msg, 5000);
+    }
+
+    // Run
+    loadProducts();
+  </script>
+</body>
+</html>
